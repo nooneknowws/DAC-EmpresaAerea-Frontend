@@ -21,6 +21,9 @@ input {
     font-size: large;
     font-weight: bold;
 }
+.aviao {
+    background-image: url("../../assets/airplane.png");
+}
 /*.ng-invalid.ng-touched:not(form) {
     border: 1px solid red;
 } */
