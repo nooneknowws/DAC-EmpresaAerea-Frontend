@@ -1,0 +1,26 @@
+.btn-cadastro {
+    color: white !important;
+    background-color: #857DC4 !important;
+    border: #91C2D8 !important;
+}
+
+a {
+    color:#91C2D8 !important;
+}
+
+.sub-titulo {
+    color: #857DC4;
+}
+
+input {
+    margin-bottom: 5% !important;
+}
+
+.inf {
+    color: #CF8DA7;
+    font-size: large;
+    font-weight: bold;
+}
+/*.ng-invalid.ng-touched:not(form) {
+    border: 1px solid red;
+} */
