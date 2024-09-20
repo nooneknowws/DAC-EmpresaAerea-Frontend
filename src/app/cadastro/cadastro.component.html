@@ -8,7 +8,7 @@
   <body>
     <div class="row justify-content-evenly m-5 p-5">
       <div class="col-6">
-        <img class="img-fluid" src="../../assets/airplane.jpg" alt="img-logo"/>
+        <img class="img-fluid" src="airplane.jpg" alt="img-logo"/>
       </div>
 
       <div class="col-6">
@@ -40,7 +40,7 @@
               placeholder="Nome"
               required
               pattern="[a-zA-Z\s]*"
-              
+
               />
           </div>
           <div class="form-group col-md-4" >
@@ -52,9 +52,9 @@
               placeholder="XXX.XXX.XXX-XX"
               appCpfMask
               required
-            
+
             />
-           
+
           </div>
 
           <div class="form-group col-md-6" >
@@ -67,17 +67,16 @@
               placeholder="exemplo@mail.com"
               required email
               />
-              
           </div>
 
-          
+
         <form  class="row">
           <label class="inf mb-2">Informações do Endereço:</label>
             <div class="form-label col-md-2">
               <label>CEP</label>
               <input
                 type="text"
-                
+
                 ngModel
                 class="form-control"
                 id="cep"
@@ -85,22 +84,22 @@
                 placeholder="00000-000"
                 required
                 />
-                
+
             </div>
             <div class="form-label col-md-4" >
               <label>Rua:</label>
                   <input
                     class="form-control"
                     name="rua"
-                   
+
                     ngModel
                     type="text"
                     id="rua"
-                    placeholder="Ex: Rua XV de Novembro" 
+                    placeholder="Ex: Rua XV de Novembro"
                     required
                     />
-                    
-                   
+
+
             </div>
             <div class="form-label col-md-4" >
               <label>Complemento:</label>
@@ -111,7 +110,7 @@
                   type="text"
                   id="complemento"
                   placeholder="Ex: Casa" />
-                  
+
             </div>
             <div class="form-label col-md-5" >
               <label>Cidade:</label>
@@ -123,7 +122,7 @@
                 id="cidade"
                 placeholder="Ex: Curitiba"
                 />
-                
+
             </div>
             <div class="form-label col-md-5" >
               <label>Estado:</label>
@@ -135,7 +134,7 @@
                   id="uf"
                   placeholder="Ex: PR"
                   />
-                 
+
             </div>
             </form>
           <button type="submit" class="btn btn-cadastro d-grid col-4"
