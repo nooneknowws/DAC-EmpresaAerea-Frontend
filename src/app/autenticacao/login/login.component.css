@@ -1,0 +1,22 @@
+.btn-cadastro {
+  color: white !important;
+  background-color: #857DC4 !important;
+  border: #91C2D8 !important;
+}
+
+a {
+  color:#91C2D8 !important;
+}
+
+.sub-titulo {
+  color: #857DC4;
+}
+
+.recuperar-senha {
+  font-size: 12.5px;
+}
+
+input {
+  /* ironicamente isso aqui é melhor do que colocar mb-3 em todos os campos do form */
+  margin-bottom: 5% !important;
+}

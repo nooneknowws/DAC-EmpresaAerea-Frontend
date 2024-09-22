@@ -1,1 +1,77 @@
-<p>login works!</p>
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="row justify-content-evenly m-5 p-5">
+      <div class="col-8">
+        <img class="img-fluid" src="../../../assets/maquina_grande.png" />
+      </div>
+
+      <div class="col-4">
+
+        <h2 class="sub-titulo pb-3">Login</h2>
+
+        <form #formLogin="ngForm" class="login mx-3 w-50">
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="usuario"
+              name="usuario"
+              [(ngModel)]="login.email"
+              #usuario="ngModel"
+              placeholder="Login"
+              required
+            />
+            <div
+              *ngIf="usuario.errors && (usuario.dirty || usuario.touched)"
+              class="alert alert-danger"
+            >
+              <div [hidden]="!usuario.errors?.['required']">
+                Digite o usuário
+              </div>
+            </div>
+            <label>Senha</label>
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Senha"
+              id="senha"
+              name="senha"
+              [(ngModel)]="login.senha"
+              #senha="ngModel"
+              required
+            />
+            <div
+              *ngIf="senha.errors && (senha.dirty || senha.touched)"
+              class="alert alert-danger"
+            >
+              <div [hidden]="!senha.errors?.['required']">Digite a senha.</div>
+            </div>
+          </div>
+
+          <button
+          (click)="logar()"
+          [disabled]="!formLogin.form.valid"
+            routerLink="/funcionario/inicialFuncionario"
+            type="submit"
+            class="btn btn-cadastro col-12"
+          >
+            Login
+          </button>
+          <div *ngIf="message" class="error-message text-center">{{ message }}</div>
+
+
+          <div class="mt-2 btn-login text-center">
+            <a routerLink="/autenticacao/cadastro">Cadastre-se</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

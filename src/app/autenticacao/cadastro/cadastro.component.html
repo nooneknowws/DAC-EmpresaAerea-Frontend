@@ -1,1 +1,263 @@
-<p>cadastro works!</p>
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro</title>
+  </head>
+  <body>
+    <div class="row justify-content-evenly m-5 p-5">
+      <div class="col-6">
+        <img class="img-fluid" src="../../../assets/maquina_grande.png" alt="img-logo"/>
+      </div>
+
+      <div class="col-6">
+        <p class="voltar mb-5 fs-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            fill="#91C2D8"
+            class="bi bi-arrow-left-circle-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"
+            />
+          </svg>
+          <a routerLink="/autenticacao/login">Voltar</a>
+        </p>
+        <h2 class="sub-titulo pb-3">Cadastre-se!</h2>
+        <form #formCadastro="ngForm"  class="login mx-3 row">
+          <label class="inf mb-2">Informações do Usuário:</label>
+          <div class="form-group col-md-6" [ngClass]="aplicaCssErro(nome)">
+            <label>Nome</label>
+            <input
+              name="nome"
+              [(ngModel)]="cliente.nome"
+              type="text"
+              id="nome"
+              class="form-control"
+              placeholder="Nome"
+              required
+              pattern="[a-zA-Z\s]*"
+              #nome="ngModel"
+              />
+              <div *ngIf="!nome.valid && nome.touched"
+              class="alert alert-danger" role="alert">
+              Nome é Obrigatório e não deve conter caracteres especiais.
+              </div>
+          </div>
+          <div class="form-group col-md-4" [ngClass]="aplicaCssErrocpf(cliente.cpf)">
+            <label>CPF</label>
+            <input
+              name="cpf"
+              [(ngModel)]="cliente.cpf"
+              type="text"
+              class="form-control"
+              placeholder="XXX.XXX.XXX-XX"
+              appCpfMask
+              required
+              (blur)="validarCPF($any($event.target).value)"
+              #cpf="ngModel"
+            />
+            <div *ngIf="!cpf.valid && cpf.touched" class="alert alert-danger" role="alert">
+              CPF é Obrigatório.
+            </div>
+            <div *ngIf="aplicaCssErrocpf(cliente.cpf) === 'is-invalid'" class="alert alert-danger" role="alert">
+              CPF inválido.
+            </div>
+          </div>
+
+          <div class="form-group col-md-6" [ngClass]="aplicaCssErro(email)">
+            <label>Email</label>
+            <input
+              name="email"
+              [(ngModel)]="cliente.email"
+              type="text"
+              id="email"
+              class="form-control"
+              placeholder="exemplo@mail.com"
+              required email
+              #email="ngModel"
+              />
+              <div *ngIf="!email.valid && email.touched"
+              class="alert alert-danger" role="alert">
+                E-mail é Obrigatório.
+              </div>
+          </div>
+          <div class="form-group col-md-4" [ngClass]="aplicaCssErro(telefone)">
+            <label>Telefone</label>
+              <input
+                type="text"
+                [(ngModel)]="cliente.telefone"
+                ngModel
+                id="telefone"
+                name="telefone"
+                #telefone="ngModel"
+                class="form-control"
+                placeholder="+55 (xx) xxxxx-xxxx"
+                appPhoneMask
+              />
+              <div *ngIf="!telefone.valid && telefone.touched"
+              class="alert alert-danger" role="alert">
+                Telefone é Obrigatório.
+              </div>
+          </div>
+          <div class="form-group col-md-6" [ngClass]="aplicaCssErro(senha)">
+            <label>Senha</label>
+              <input
+                id="senha"
+                type="password"
+                name="senha"
+                [(ngModel)]="cliente.senha"
+                class="form-control"
+                placeholder="Ex: senha123"
+                required
+                #senha="ngModel"
+                />
+                <div *ngIf="!senha.valid && senha.touched"
+              class="alert alert-danger" role="alert">
+                A senha é Obrigatória.
+              </div>
+          </div>
+          <div class="form-group col-md-4"
+          [ngClass]="aplicaCssErro(confirmacao)">
+            <label>Confirmação da Senha</label>
+              <input
+                type="password"
+                id="confirmacao"
+                name="confirmacao"
+                [(ngModel)]="cliente.confirmacao"
+                class="form-control"
+                placeholder="Ex: senha123"
+                required
+                #confirmacao="ngModel"
+                />
+                <div *ngIf="!confirmacao.valid && confirmacao.touched"
+              class="alert alert-danger" role="alert">
+                A Confirmação da senha é Obrigatória.
+              </div>
+              <div *ngIf="!verificarSenhasIguais()" class="alert alert-danger" role="alert">
+                Senhas não coincidem.
+              </div>
+
+          </div>
+          <div class="form-group mb-3 col-md-6" [ngClass]="aplicaCssErro(dataDeNasc)">
+            <label for="dataDeNasc">Data de nascimento:</label>
+            <input type="date" class="form-control" id="dataDeNasc" name="dataDeNasc"
+            [(ngModel)]="cliente.dataDeNasc" #dataDeNasc="ngModel" required>
+            <div *ngIf="!dataDeNasc.valid && dataDeNasc.touched"
+              class="alert alert-danger col-8" role="alert">
+                A data de nascimento é obrigatória.
+          </div>
+          </div>
+
+        <form #enderecoForm="ngForm" class="row">
+          <label class="inf mb-2">Informações do Endereço:</label>
+            <div class="form-label col-md-2">
+              <label>CEP</label>
+              <input
+                type="text"
+                [(ngModel)]="cliente?.endereco.cep"
+                ngModel
+                class="form-control"
+                id="cep"
+                name="cep"
+                placeholder="00000-000"
+                required
+                #cepInput="ngModel"
+                (blur)="consultaCEP($any($event.target).value, enderecoForm)"
+                />
+                <div *ngIf="!cepInput.valid && cepInput.touched"
+                class="alert alert-danger" role="alert">
+                  CEP é Obrigatório.
+                </div>
+            </div>
+            <div class="form-label col-md-4" [ngClass]="aplicaCssErro(rua)">
+              <label>Rua:</label>
+                  <input
+                    class="form-control"
+                    name="rua"
+                    [(ngModel)]="cliente?.endereco.rua"
+                    ngModel
+                    type="text"
+                    id="rua"
+                    #rua="ngModel"
+                    placeholder="Ex: Rua XV de Novembro"
+                    required
+                    />
+                    <div *ngIf="!rua.valid && rua.touched"
+                    class="alert alert-danger" role="alert">
+                      Rua é Obrigatório.
+                    </div>
+            </div>
+            <div class="form-label col-md-4" [ngClass]="aplicaCssErro(bairro)">
+              <label>Bairro:</label>
+                <input
+                  name="bairro"
+                  [(ngModel)]="cliente?.endereco.bairro"
+                  ngModel
+                  class="form-control"
+                  type="text"
+                  id="bairro"
+                  #bairro="ngModel"
+                  placeholder="Ex: Boqueirão" />
+                  <div *ngIf="!bairro.valid && bairro.touched"
+                    class="alert alert-danger" role="alert">
+                      Bairro é Obrigatório.
+                  </div>
+            </div>
+            <div class="form-label col-md-5" [ngClass]="aplicaCssErro(cidade)">
+              <label>Cidade:</label>
+              <input
+                name="cidade"
+                [(ngModel)]="cliente?.endereco.cidade"
+                ngModel
+                class="form-control"
+                type="text"
+                id="cidade"
+                #cidade="ngModel"
+                placeholder="Ex: Curitiba"
+                />
+                <div *ngIf="!cidade.valid && cidade.touched"
+                    class="alert alert-danger" role="alert">
+                      Cidade é Obrigatório.
+                  </div>
+            </div>
+            <div class="form-label col-md-5" [ngClass]="aplicaCssErro(estado)">
+              <label>Estado:</label>
+                <input
+                  name="uf"
+                  [(ngModel)]="cliente?.endereco.estado"
+                  ngModel
+                  class="form-control"
+                  type="text"
+                  id="uf"
+                  #estado="ngModel"
+                  placeholder="Ex: PR"
+                  />
+                  <div *ngIf="!estado.valid && estado.touched"
+                    class="alert alert-danger" role="alert">
+                      Estado é Obrigatório.
+                  </div>
+            </div>
+            </form>
+          <button type="submit" class="btn btn-cadastro d-grid col-4"
+          [disabled]="!formCadastro.valid"
+          (click)="cadastrarCliente()"> Cadastro
+          </button>
+          <div *ngIf="sucessoCadastro" class="alert alert-success text-center mt-2">
+            Conta criada com sucesso!
+          </div>
+          <div *ngIf="erroCadastro" class="alert alert-danger text-center mt-2">
+            Ocorreu um erro ao cadastrar a conta. Por favor, tente novamente.
+          </div>
+        </form>
+        <div class="mt-2 btn-login text-center col-md-4 row justify-content-center">
+          <a routerLink="/autenticacao/login">Já é cadastrado? Login</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
