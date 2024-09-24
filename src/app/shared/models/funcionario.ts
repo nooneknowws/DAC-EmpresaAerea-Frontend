@@ -1,9 +1,9 @@
-export class Funcionario {
+import { Usuario } from "./usuario.model";
+
+export class Funcionario extends Usuario {
   constructor(
-      public id?: number,
-      public nome?: string,
-      public cpf?: string,
-      public email?: string,
-      public telefone?: string
-  ) {}
+    public cpf?: string,
+    public telefone?: string,
+    public matricula?: string
+  ) { super(); }
 }

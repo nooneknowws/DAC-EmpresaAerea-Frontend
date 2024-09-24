@@ -1,17 +1,8 @@
-import { Endereco } from "./endereco";
+import { Usuario } from "./usuario.model";
 
-export class Cliente {
-
+export class Cliente extends Usuario {
   constructor(
-    public id?: number,
-    public nome?: string,
-    public login?: string,
-    public senha?: string,
-    public perfil?: string,
-    public cpf?: string,
-    public email?: string,
-    public endereco?: Endereco,
-
-  ){}
+    public telefone?: string,
+    public milhas?: number
+  ) { super(); }
 }
-

@@ -1,0 +1,31 @@
+<div class="container mt-5">
+    <div class="d-flex justify-content-around mb-3">
+        <h2 class="">Bem-vindo, {{ user?.nome }}</h2>
+        <button class="btn btn-sm btn-danger" (click)="logout()">Logout</button>    
+    </div>
+    <div class="card">
+        <div class="card-header">
+        <h5 class="mb-0">Informações do Usuário</h5>
+        </div>
+        <div class="card-body">
+        <p><strong>ID:</strong> {{ user?.id }}</p>
+        <p><strong>CPF:</strong> {{ user?.cpf }}</p> <!-- Aplicar formatação de CPF -->
+        <p><strong>Email:</strong> {{ user?.email }}</p>
+        </div>
+    </div>
+
+    <div *ngIf="user?.endereco" class="card mt-4">
+        <div class="card-header">
+        <h5 class="mb-0">Endereço</h5>
+        </div>
+        <div class="card-body">
+        <p><strong>CEP:</strong> {{ user!.endereco?.cep }}</p> <!-- Formatação de CEP -->
+        <p><strong>Logradouro:</strong> {{ user!.endereco?.logradouro }}</p>
+        <p><strong>Número:</strong> {{ user!.endereco?.numero }}</p>
+        <p><strong>Complemento:</strong> {{ user!.endereco?.complemento }}</p>
+        <p><strong>Bairro:</strong> {{ user!.endereco?.bairro }}</p>
+        <p><strong>Cidade:</strong> {{ user!.endereco?.cidade }}</p>
+        <p><strong>Estado:</strong> {{ user!.endereco?.estado }}</p>
+        </div>
+    </div>
+</div>

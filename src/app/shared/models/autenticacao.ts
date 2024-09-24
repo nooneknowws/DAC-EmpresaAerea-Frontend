@@ -1,8 +1,8 @@
+import { Usuario } from "./usuario.model";
+
 export class Autenticacao {
   constructor(
-      public id?: number,
-      public login?: string,
-      public senha?: string,
-      public tipo?: string
+    public token?: string,
+    public user?: Usuario
   ) {}
 }

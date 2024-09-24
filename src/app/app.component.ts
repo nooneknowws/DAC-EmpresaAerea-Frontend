@@ -8,6 +8,8 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'DAC-EmpresaAerea-Frontend';
+  public static PUBLIC_BACKEND_URL = 'http://localhost:8080/auth';  
+
   componenteAtivo: string;
   constructor(private router:Router){
     this.componenteAtivo = ''
