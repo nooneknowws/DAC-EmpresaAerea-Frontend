@@ -8,7 +8,7 @@ import { LoginComponent } from './autenticacao/login/login.component';
 import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
 import { HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { InicioComponent } from './inicio/inicio.component'; // Importe o HttpClientModule
+import { InicioComponent } from './inicio/inicio.component';
 
 @NgModule({
   declarations: [AppComponent, CadastroComponent, LoginComponent, InicioComponent],
