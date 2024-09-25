@@ -9,12 +9,14 @@ import { NavigationEnd, Router } from '@angular/router';
 export class AppComponent {
   title = 'DAC-EmpresaAerea-Frontend';
   public static PUBLIC_BACKEND_URL = 'http://localhost:8080/auth';  
+  isAuthRoute: boolean = false;
 
   componenteAtivo: string;
   constructor(private router:Router){
     this.componenteAtivo = ''
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+        this.isAuthRoute = ['/login', '/cadastro'].includes(event.url);
         const routeSegments = event.url.split('/');
         this.componenteAtivo = routeSegments[routeSegments.length - 1];
       }
