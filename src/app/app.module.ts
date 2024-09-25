@@ -9,6 +9,7 @@ import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
 import { HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InicioComponent } from './inicio/inicio.component';
+import { ClienteModule } from './cliente/cliente.module';
 
 @NgModule({
   declarations: [AppComponent, CadastroComponent, LoginComponent, InicioComponent],
@@ -18,6 +19,7 @@ import { InicioComponent } from './inicio/inicio.component';
     FormsModule,
     AppRoutingModule,
     NgbModule,
+    ClienteModule,
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent],
