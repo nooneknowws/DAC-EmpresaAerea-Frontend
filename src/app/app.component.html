@@ -1,35 +1,48 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="!isAuthRoute">
-  <a class="navbar-brand ms-3" href="#">Empresa Aérea</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/inicio">Início</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/cadastro">Cadastro</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/login">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/funcionario/voos-list">Lista de Voos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/funcionario/confirmacao-embarque">Confirmação de Embarque</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/funcionario/cancelar-voo">Cancelar Voo</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/funcionario/realizar-voo">Realizar Voo</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<!-- Adicione o link do Font Awesome no head do seu HTML -->
+<head>
+  <a class="navbar-brand ms-3" href="#">
+    <img src="../../public/aviao.png" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+    Empresa Aérea
+  </a>
+</head>
 
-<div class="container mt-3">
-  <router-outlet></router-outlet>
-</div>
+<body>
+  <nav class="navbar navbar-expand-lg" *ngIf="!isAuthRoute">
+    <a class="navbar-brand ms-3" href="#">
+      <i class="fas fa-plane"></i> <!-- Ícone de avião do Font Awesome -->
+      Empresa Aérea
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/inicio">Início</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cadastro">Cadastro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/funcionario/voos-list">Lista de Voos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/funcionario/confirmacao-embarque">Confirmação de Embarque</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/funcionario/cancelar-voo">Cancelar Voo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/funcionario/realizar-voo">Realizar Voo</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-3">
+    <router-outlet></router-outlet>
+  </div>
+
