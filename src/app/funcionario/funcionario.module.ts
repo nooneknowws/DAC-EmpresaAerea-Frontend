@@ -5,13 +5,19 @@ import { VoosListComponent } from './voos-list/voos-list.component';
 import { ConfirmacaoEmbarqueComponent } from './confirmacao-embarque/confirmacao-embarque.component';
 import { CancelarVooComponent } from './cancelar-voo/cancelar-voo.component';
 import { RealizarVooComponent } from './realizar-voo/realizar-voo.component';
+import { ListarFuncionarioComponent } from './CRUD/listar-funcionario/listar-funcionario.component';
+import { InserirFuncionarioComponent } from './CRUD/inserir-funcionario/inserir-funcionario.component';
+import { EditarFuncionarioComponent } from './CRUD/editar-funcionario/editar-funcionario.component';
 
 @NgModule({
   declarations: [
     VoosListComponent,
     ConfirmacaoEmbarqueComponent,
     CancelarVooComponent,
-    RealizarVooComponent
+    RealizarVooComponent,
+    ListarFuncionarioComponent,
+    InserirFuncionarioComponent,
+    EditarFuncionarioComponent
   ],
   imports: [
     CommonModule,

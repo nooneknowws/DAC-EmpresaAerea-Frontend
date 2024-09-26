@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; // Import necessário para ngModel
+import { RouterModule } from '@angular/router'; // Import necessário para routerLink
+import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './autenticacao/login/login.component';
 import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InicioComponent } from './inicio/inicio.component';
+import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funcionario/inserir-funcionario.component';
+import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
+import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionario/listar-funcionario.component';
 
 @NgModule({
   declarations: [
@@ -16,16 +20,19 @@ import { InicioComponent } from './inicio/inicio.component';
     CadastroComponent,
     LoginComponent,
     InicioComponent,
+    InserirFuncionarioComponent,
+    EditarFuncionarioComponent,
+    ListarFuncionarioComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    FormsModule, // Necessário para ngModel
+    RouterModule, // Necessário para routerLink
     AppRoutingModule,
     NgbModule,
-    RouterModule,
     HttpClientModule
   ],
-  providers: [provideHttpClient()],
-  bootstrap: [AppComponent],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
