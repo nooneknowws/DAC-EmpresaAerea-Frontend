@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class MenuComponent {
 
+  user = {
+    nome: 'Jhonny Joestar',
+    milhas: 46500,
+  }
+
+  aeroportos = [
+    'FLN',
+    'MCP',
+    'CWB'
+  ]
+
+
 }

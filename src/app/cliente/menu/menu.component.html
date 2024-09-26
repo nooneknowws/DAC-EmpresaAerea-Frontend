@@ -1,1 +1,61 @@
-<p>menu works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1> Olá {{user.nome}}!</h1>
+    </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3">
+      <h2>Milhas acumuladas: {{user.milhas}}</h2>
+    </div>
+  </div>
+  <!-- ações cliente -->
+  <div class="row">
+    <div class="col-md-3">
+      <button class="btn btn-success">Comprar Milhas</button>
+    </div>
+    <!-- <div>
+      <button>Extrato de milhas</button>
+    </div>
+    <div>
+      <button>Reservas</button>
+    </div> -->
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nº Vôo</th>
+        <th scope="col">Status</th>
+        <th scope="col">Data e Hora do vôo</th>
+        <th scope="col">Origem</th>
+        <th scope="col">Destino</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Feito</td>
+        <td>12/02/2023 23:59</td>
+        <td>FLN</td>
+        <td>CWB</td>
+        <td><button class="btn btn-primary">Ver reserva</button></td>
+        <td><button class="btn btn-danger">Cancelar reserva</button></td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Cancelado</td>
+        <td>20/02/2023 23:59</td>
+        <td>CWB</td>
+        <td>FLN</td>
+        <td><button class="btn btn-primary">Ver reserva</button></td>
+        <td><button class="btn btn-danger">Cancelar reserva</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
