@@ -17,6 +17,14 @@ Após isso você deve conferir se estão adicionadas ao PATH nas variaveis de am
 2. Depois adicione à Path o bin do seu java **%JAVA_HOME%\bin**.
 3. Demais configurações....
 
+## Instalando o ambiente
+### json-server 
+É necessário instalar porque não vai pro package.json
+> npm install -g json-server
+
+**Rodar:**
+> json-server --watch db.json --port 3000
+
 ## Após clonar e configurar tudo você irá installar as libs utilizando o comando:
 
 1. `npm install`
