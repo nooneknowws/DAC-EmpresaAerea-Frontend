@@ -13,6 +13,8 @@ import { InicioComponent } from './inicio/inicio.component';
 import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funcionario/inserir-funcionario.component';
 import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
 import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionario/listar-funcionario.component';
+import { ClienteModule } from './cliente/cliente.module';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionari
     RouterModule, // Necessário para routerLink
     AppRoutingModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    ClienteModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
