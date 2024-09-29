@@ -10,10 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './autenticacao/login/login.component';
 import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
 import { InicioComponent } from './inicio/inicio.component';
+import { MenuClienteComponent } from './cliente/menu/menu.component';
 import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funcionario/inserir-funcionario.component';
 import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
 import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionario/listar-funcionario.component';
-import { ClienteModule } from './cliente/cliente.module';
 
 
 @NgModule({
@@ -22,6 +22,7 @@ import { ClienteModule } from './cliente/cliente.module';
     CadastroComponent,
     LoginComponent,
     InicioComponent,
+    MenuClienteComponent,
     InserirFuncionarioComponent,
     EditarFuncionarioComponent,
     ListarFuncionarioComponent
@@ -33,7 +34,6 @@ import { ClienteModule } from './cliente/cliente.module';
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    ClienteModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
