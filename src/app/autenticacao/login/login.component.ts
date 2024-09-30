@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
-import { Usuario } from '../../shared/models/usuario.model';
+import { Usuario } from '../../shared/models/usuario/usuario.model';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +14,13 @@ export class LoginComponent implements OnInit {
     email: null,
     senha: null
   };
-  
+
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
   user: Usuario = {};
 
-  constructor(private router: Router, 
+  constructor(private router: Router,
               private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     if (user) {
       this.isLoggedIn = true;
       this.user = user;
-      this.router.navigate(['/']); 
+      this.router.navigate(['/']);
     }
   }
 
@@ -40,8 +40,8 @@ export class LoginComponent implements OnInit {
         next: data => {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.user = data.user!; 
-          this.router.navigate(['/']); 
+          this.user = data.user!;
+          this.router.navigate(['/']);
         },
         error: err => {
           this.errorMessage = err.error.message || 'Erro ao realizar o login';

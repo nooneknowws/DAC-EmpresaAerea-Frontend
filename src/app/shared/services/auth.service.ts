@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AppComponent } from '../../app.component';
-import { Usuario } from '../models/usuario.model';
-import { Autenticacao } from '../models/autenticacao';
-import { Endereco } from '../models/endereco.model';
+import { Usuario } from '../models/usuario/usuario.model';
+import { Autenticacao } from '../models/autenticacao/autenticacao';
+import { Endereco } from '../models/usuario/endereco.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -24,8 +24,8 @@ export class AuthService {
     return this.http.post<Autenticacao>(`${this.apiUrl}/login`, { email, senha }, httpOptions).pipe(
       tap(response => {
         this.token = response.token;
-        window.sessionStorage.setItem('auth-token', this.token!); 
-        window.sessionStorage.setItem('user', JSON.stringify(response.user)); 
+        window.sessionStorage.setItem('auth-token', this.token!);
+        window.sessionStorage.setItem('user', JSON.stringify(response.user));
       })
     );
   }
@@ -34,14 +34,14 @@ export class AuthService {
     return this.http.post<Autenticacao>(`${this.apiUrl}/register`, { nome, cpf, email, senha, endereco }, httpOptions).pipe(
       tap(response => {
         this.token = response.token;
-        window.sessionStorage.setItem('auth-token', this.token!); 
-        window.sessionStorage.setItem('user', JSON.stringify(response.user)); 
+        window.sessionStorage.setItem('auth-token', this.token!);
+        window.sessionStorage.setItem('user', JSON.stringify(response.user));
       })
     );
   }
 
   logout(): void {
-    window.sessionStorage.clear(); 
+    window.sessionStorage.clear();
     this.token = undefined;
   }
 

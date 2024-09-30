@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuncionarioService } from '../../../shared/services/funcionario.service';
-import { Funcionario } from '../../../shared/models/funcionario';
+import { Funcionario } from '../../../shared/models/funcionario/funcionario';
 
 @Component({
   selector: 'app-editar-funcionario',
