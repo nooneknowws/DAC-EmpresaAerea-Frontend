@@ -19,10 +19,11 @@ const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
   { path: 'cliente',
     children: [
-      { path: 'menu', component: MenuClienteComponent }
+      { path: 'menu', component: MenuClienteComponent },
+      { path: 'reserva', component: DetalheReservaComponent},
+      {  path: 'reserva/:id', component: DetalheReservaComponent}
     ]
   },
-  { path: 'reserva/:id', component: DetalheReservaComponent },
   {
     path: 'funcionario',
     children: [
