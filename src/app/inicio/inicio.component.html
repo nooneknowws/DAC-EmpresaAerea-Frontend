@@ -5,27 +5,65 @@
     </div>
     <div class="card">
         <div class="card-header">
-        <h5 class="mb-0">Informações do Usuário</h5>
+            <h5 class="mb-0">Informações do Usuário</h5>
         </div>
         <div class="card-body">
-        <p><strong>ID:</strong> {{ user?.id }}</p>
-        <p><strong>CPF:</strong> {{ user?.cpf }}</p> <!-- Aplicar formatação de CPF -->
-        <p><strong>Email:</strong> {{ user?.email }}</p>
+            <div class="col-md-6">
+                <p><strong>ID:</strong> {{ user?.id }}</p>
+                <p><strong>CPF:</strong> {{ user?.cpf }}</p>
+                <p><strong>Email:</strong> {{ user?.email }}</p>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    {{ user!.endereco?.logradouro }}, {{ user!.endereco?.numero }} 
+                    {{ user!.endereco?.complemento ? '(' + user!.endereco?.complemento + ')' : '' }}<br>
+                    {{ user!.endereco?.bairro }} - {{ user!.endereco?.cidade }}/{{ user!.endereco?.estado }}, {{ user!.endereco?.cep }}
+                </p>
+            </div>
         </div>
     </div>
 
-    <div *ngIf="user?.endereco" class="card mt-4">
+    <div *ngIf="reservas.length > 0" class="card shadow-sm mt-4">
         <div class="card-header">
-        <h5 class="mb-0">Endereço</h5>
+            <h5 class="mb-0">Reservas</h5>
         </div>
         <div class="card-body">
-        <p><strong>CEP:</strong> {{ user!.endereco?.cep }}</p> <!-- Formatação de CEP -->
-        <p><strong>Logradouro:</strong> {{ user!.endereco?.logradouro }}</p>
-        <p><strong>Número:</strong> {{ user!.endereco?.numero }}</p>
-        <p><strong>Complemento:</strong> {{ user!.endereco?.complemento }}</p>
-        <p><strong>Bairro:</strong> {{ user!.endereco?.bairro }}</p>
-        <p><strong>Cidade:</strong> {{ user!.endereco?.cidade }}</p>
-        <p><strong>Estado:</strong> {{ user!.endereco?.estado }}</p>
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                <tr>
+                <th>Data/Hora</th>
+                <th>Origem</th>
+                <th>Destino</th>
+                <th>Status</th>
+                <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let reserva of reservas">
+                        <td>{{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</td>
+                        <td>
+                            <span class="badge bg-secondary">{{ reserva.origem.codigo }}</span> 
+                            {{ reserva.origem.nome }}
+                            </td>
+                            <td>
+                            <span class="badge bg-primary">{{ reserva.destino.codigo }}</span> 
+                            {{ reserva.destino.nome }}
+                        </td>
+                        <td>
+                            <span class="badge" 
+                            [ngClass]="{'bg-secondary': reserva.status === 'Pendente', 
+                            'bg-success': reserva.status === 'Finalizada', 
+                            'bg-danger': reserva.status === 'Cancelada'}">
+                            {{ reserva.status }}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary me-2" (click)="mostrarReserva(reserva.id)">Detalhes</button>
+                            <button *ngIf="reserva.status === 'Pendente'" class="btn btn-sm btn-danger" (click)="cancelarReserva(reserva.id)">Cancelar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
