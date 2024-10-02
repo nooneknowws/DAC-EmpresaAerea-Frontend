@@ -27,23 +27,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">157</th>
-          <td>Feito</td>
-          <td>12/02/2023 23:59</td>
-          <td>FLN</td>
-          <td>CWB</td>
-          <td><button class="btn btn-primary">Ver reserva</button></td>
-          <td><button class="btn btn-danger">Cancelar reserva</button></td>
-        </tr>
-        <tr>
-          <th scope="row">322</th>
-          <td>Cancelado</td>
-          <td>20/02/2023 23:59</td>
-          <td>CWB</td>
-          <td>FLN</td>
-          <td><button class="btn btn-primary">Ver reserva</button></td>
-          <td><button class="btn btn-danger">Cancelar reserva</button></td>
+        <tr *ngFor="let reserva of reservas">
+          <th scope="row">{{reserva.id}}</th>
+          <td>{{reserva.status}}</td>
+          <td>{{reserva.dataHora | date:'dd/MM/yyyy hh:mm'}}</td>
+          <td>{{reserva.origem.codigo}}</td>
+          <td>{{reserva.destino.codigo}}</td>
+          <td><button class="btn btn-primary" [routerLink]="['/cliente/reserva', reserva.id]">Ver reserva</button></td>
+          <td><button class="btn btn-danger" (click)="cancelarReserva(reserva)">Cancelar reserva</button></td>
         </tr>
       </tbody>
     </table>
