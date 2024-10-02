@@ -12,11 +12,4 @@ export class MenuClienteComponent {
     milhas: 46500,
   }
 
-  aeroportos = [
-    'FLN',
-    'MCP',
-    'CWB'
-  ]
-
-
 }

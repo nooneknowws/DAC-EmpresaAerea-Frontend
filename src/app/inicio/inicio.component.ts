@@ -3,7 +3,7 @@ import { Usuario } from '../shared/models/usuario/usuario.model';
 import { AuthService } from '../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { ReservaService } from '../shared/services/reserva.service'; // Importação do serviço
-import { Reserva } from '../shared/models/reserva.model';
+import { Reserva } from '../shared/models/reserva/reserva.model';
 
 @Component({
   selector: 'app-inicio',

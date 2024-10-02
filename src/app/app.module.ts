@@ -15,8 +15,7 @@ import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funciona
 import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
 import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionario/listar-funcionario.component';
 import { ClienteModule } from './cliente/cliente.module';
-import { DetalheReservaComponent } from './reserva/detalhe-reserva/detalhe-reserva.component';
-
+import { DetalheReservaComponent } from './cliente/reserva/detalhe-reserva/detalhe-reserva.component';
 
 @NgModule({
   declarations: [
