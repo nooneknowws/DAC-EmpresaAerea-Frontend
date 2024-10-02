@@ -1,3 +1,41 @@
 {
-  "funcionarios": []
+	"funcionarios": [],
+	"login": {
+		"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZXNncmFjYUBtYWlsLmNvbSIsImlhdCI6MTcyNzg2NjY2NCwiZXhwIjoxNzI3OTUzMDY0fQ.5baNrYcBZMlsHGipg94_Br-E4zvnCsmGtbKH14Q2FhU",
+		"user": {
+			"id": 1,
+			"cpf": 12345678900,
+			"nome": "ze",
+			"email": "teste@mail.com",
+			"endereco": {
+				"id": 1,
+				"cep": "83540100",
+				"logradouro": "Rua Flávio Johnsson",
+				"numero": "90",
+				"complemento": "Casa",
+				"bairro": "Centro",
+				"cidade": "Rio Branco do Sul",
+				"estado": "PR"
+			}
+		}
+	},
+	"register": {
+		"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZXNncmFjYUBtYWlsLmNvbSIsImlhdCI6MTcyNzg2NjY2NCwiZXhwIjoxNzI3OTUzMDY0fQ.5baNrYcBZMlsHGipg94_Br-E4zvnCsmGtbKH14Q2FhU",
+		"user": {
+			"id": 1,
+			"cpf": 12345678900,
+			"nome": "ze",
+			"email": "teste@mail.com",
+			"endereco": {
+				"id": 1,
+				"cep": "83540100",
+				"logradouro": "Rua Flávio Johnsson",
+				"numero": "90",
+				"complemento": "Casa",
+				"bairro": "Centro",
+				"cidade": "Rio Branco do Sul",
+				"estado": "PR"
+			}
+		}
+	}
 }
