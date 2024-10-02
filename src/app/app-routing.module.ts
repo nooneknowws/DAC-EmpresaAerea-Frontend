@@ -10,11 +10,13 @@ import { RealizarVooComponent } from './funcionario/realizar-voo/realizar-voo.co
 import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionario/listar-funcionario.component';
 import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
 import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funcionario/inserir-funcionario.component';
+import { DetalheReservaComponent } from './reserva/detalhe-reserva/detalhe-reserva.component';
 
 const routes: Routes = [
   { path: 'cadastro', component: CadastroComponent },
   { path: 'login', component: LoginComponent },
   { path: 'inicio', component: InicioComponent },
+  { path: 'reserva/:id', component: DetalheReservaComponent },
   {
     path: 'funcionario',
     children: [
