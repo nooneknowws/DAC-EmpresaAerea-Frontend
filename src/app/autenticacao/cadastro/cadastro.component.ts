@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { NgForm } from '@angular/forms';
-import { Autenticacao } from '../../shared/models/autenticacao';
-import { Endereco } from '../../shared/models/endereco.model';
+import { Autenticacao } from '../../shared/models/autenticacao/autenticacao';
+import { Endereco } from '../../shared/models/usuario/endereco.model';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

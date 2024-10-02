@@ -1,4 +1,4 @@
-import { Usuario } from "./usuario.model";
+import { Usuario } from '../usuario/usuario.model';
 
 export class Funcionario extends Usuario {
   constructor(

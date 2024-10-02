@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Reserva } from '../models/reserva.model';
+import { Reserva } from '../models/reserva/reserva.model';
 import { Observable } from 'rxjs';
 import { AppComponent } from '../../app.component';
 

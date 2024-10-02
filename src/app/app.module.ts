@@ -10,12 +10,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './autenticacao/login/login.component';
 import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
 import { InicioComponent } from './inicio/inicio.component';
+import { MenuClienteComponent } from './cliente/menu/menu.component';
 import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funcionario/inserir-funcionario.component';
 import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
 import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionario/listar-funcionario.component';
 import { ClienteModule } from './cliente/cliente.module';
-import { DetalheReservaComponent } from './reserva/detalhe-reserva/detalhe-reserva.component';
-
+import { DetalheReservaComponent } from './cliente/reserva/detalhe-reserva/detalhe-reserva.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { DetalheReservaComponent } from './reserva/detalhe-reserva/detalhe-reser
     CadastroComponent,
     LoginComponent,
     InicioComponent,
+    MenuClienteComponent,
     InserirFuncionarioComponent,
     EditarFuncionarioComponent,
     ListarFuncionarioComponent,
@@ -35,7 +36,6 @@ import { DetalheReservaComponent } from './reserva/detalhe-reserva/detalhe-reser
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    ClienteModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

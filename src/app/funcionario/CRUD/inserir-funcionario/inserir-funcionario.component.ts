@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FuncionarioService } from '../../../shared/services/funcionario.service';
-import { Funcionario } from '../../../shared/models/funcionario';
+import { Funcionario } from '../../../shared/models/funcionario/funcionario';
 
 @Component({
   selector: 'app-inserir-funcionario',

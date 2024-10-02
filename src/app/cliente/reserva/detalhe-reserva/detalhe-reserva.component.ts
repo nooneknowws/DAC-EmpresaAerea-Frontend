@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Reserva } from '../../shared/models/reserva.model';
 import { ActivatedRoute } from '@angular/router';
-import { ReservaService } from '../../shared/services/reserva.service';
+import { Reserva } from '../../../shared/models/reserva/reserva.model';
+import { ReservaService } from '../../../shared/services/reserva.service';
 
 @Component({
   selector: 'app-detalhe-reserva',

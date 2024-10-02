@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FuncionarioService } from '../../../shared/services/funcionario.service';
-import { Funcionario } from '../../../shared/models/funcionario';
+import { Funcionario } from '../../../shared/models/funcionario/funcionario';
 
 @Component({
   selector: 'app-listar-funcionario',
@@ -27,4 +27,4 @@ export class ListarFuncionarioComponent implements OnInit {
     }
   }
 }
-  
+
