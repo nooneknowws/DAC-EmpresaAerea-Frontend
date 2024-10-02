@@ -58,7 +58,7 @@
                             </span>
                         </td>
                         <td>
-                            <button class="btn btn-sm btn-outline-primary me-2" (click)="mostrarReserva(reserva.id)">Detalhes</button>
+                            <a [routerLink]="['/reserva', reserva.id]" class="btn btn-sm btn-outline-secondary mb-2">Detalhes</a>
                             <button *ngIf="reserva.status === 'Pendente'" class="btn btn-sm btn-danger" (click)="cancelarReserva(reserva.id)">Cancelar</button>
                         </td>
                     </tr>

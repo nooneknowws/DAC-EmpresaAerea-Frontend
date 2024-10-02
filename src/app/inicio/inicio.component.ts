@@ -32,10 +32,6 @@ export class InicioComponent implements OnInit {
     });
   }
 
-  mostrarReserva(arg0: any) {
-    throw new Error('Method not implemented.');
-  }
-
   cancelarReserva(arg0: any) {
     throw new Error('Method not implemented.');
   }

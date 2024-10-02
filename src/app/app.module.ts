@@ -14,6 +14,7 @@ import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funciona
 import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
 import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionario/listar-funcionario.component';
 import { ClienteModule } from './cliente/cliente.module';
+import { DetalheReservaComponent } from './reserva/detalhe-reserva/detalhe-reserva.component';
 
 
 @NgModule({
@@ -24,12 +25,13 @@ import { ClienteModule } from './cliente/cliente.module';
     InicioComponent,
     InserirFuncionarioComponent,
     EditarFuncionarioComponent,
-    ListarFuncionarioComponent
+    ListarFuncionarioComponent,
+    DetalheReservaComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule, // Necessário para ngModel
-    RouterModule, // Necessário para routerLink
+    FormsModule,
+    RouterModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
