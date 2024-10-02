@@ -8,6 +8,7 @@ import { RealizarVooComponent } from './realizar-voo/realizar-voo.component';
 import { ListarFuncionarioComponent } from './CRUD/listar-funcionario/listar-funcionario.component';
 import { InserirFuncionarioComponent } from './CRUD/inserir-funcionario/inserir-funcionario.component';
 import { EditarFuncionarioComponent } from './CRUD/editar-funcionario/editar-funcionario.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { EditarFuncionarioComponent } from './CRUD/editar-funcionario/editar-fun
   ],
   imports: [
     CommonModule,
-    FuncionarioRoutingModule
-  ]
+    FuncionarioRoutingModule,
+    FormsModule  ]
 })
 export class FuncionarioModule { }
