@@ -14,6 +14,8 @@ import { MenuClienteComponent } from './cliente/menu/menu.component';
 import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funcionario/inserir-funcionario.component';
 import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
 import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionario/listar-funcionario.component';
+import { ClienteModule } from './cliente/cliente.module';
+import { DetalheReservaComponent } from './reserva/detalhe-reserva/detalhe-reserva.component';
 
 
 @NgModule({
@@ -25,12 +27,13 @@ import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionari
     MenuClienteComponent,
     InserirFuncionarioComponent,
     EditarFuncionarioComponent,
-    ListarFuncionarioComponent
+    ListarFuncionarioComponent,
+    DetalheReservaComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule, // Necessário para ngModel
-    RouterModule, // Necessário para routerLink
+    FormsModule,
+    RouterModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,

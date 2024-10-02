@@ -9,7 +9,7 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'DAC-EmpresaAerea-Frontend';
-  public static PUBLIC_BACKEND_URL = 'http://localhost:8080/auth';  
+  public static PUBLIC_BACKEND_URL = 'http://localhost:3000';  
   isAuthRoute: boolean = false;
 
   componenteAtivo: string;

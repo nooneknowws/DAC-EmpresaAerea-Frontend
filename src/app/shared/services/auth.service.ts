@@ -21,7 +21,11 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(email: string, senha: string): Observable<Autenticacao> {
-    return this.http.post<Autenticacao>(`${this.apiUrl}/login`, { email, senha }, httpOptions).pipe(
+
+    //Alterar pra POST depois
+    //return this.http.post<Autenticacao>(`${this.apiUrl}/login`, { email, senha }, httpOptions).pipe(
+
+    return this.http.get<Autenticacao>(`${this.apiUrl}/login`).pipe(
       tap(response => {
         this.token = response.token;
         window.sessionStorage.setItem('auth-token', this.token!);
@@ -31,7 +35,11 @@ export class AuthService {
   }
 
   register(nome: string, cpf: string, email: string, senha: string, endereco: Endereco): Observable<Autenticacao> {
-    return this.http.post<Autenticacao>(`${this.apiUrl}/register`, { nome, cpf, email, senha, endereco }, httpOptions).pipe(
+
+    //Alterar pra POST depois
+    //return this.http.post<Autenticacao>(`${this.apiUrl}/register`, { nome, cpf, email, senha, endereco }, httpOptions).pipe(
+
+    return this.http.get<Autenticacao>(`${this.apiUrl}/register`).pipe(
       tap(response => {
         this.token = response.token;
         window.sessionStorage.setItem('auth-token', this.token!);

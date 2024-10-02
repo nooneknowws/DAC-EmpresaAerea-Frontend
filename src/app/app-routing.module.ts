@@ -11,6 +11,7 @@ import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionari
 import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
 import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funcionario/inserir-funcionario.component';
 import { MenuClienteComponent } from './cliente/menu/menu.component';
+import { DetalheReservaComponent } from './reserva/detalhe-reserva/detalhe-reserva.component';
 
 const routes: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'menu', component: MenuClienteComponent }
     ]
   },
+  { path: 'reserva/:id', component: DetalheReservaComponent },
   {
     path: 'funcionario',
     children: [
