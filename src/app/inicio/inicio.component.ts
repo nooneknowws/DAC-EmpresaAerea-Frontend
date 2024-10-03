@@ -4,6 +4,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { ReservaService } from '../shared/services/reserva.service'; // Importação do serviço
 import { Reserva } from '../shared/models/reserva/reserva.model';
+import { Cliente } from '../shared/models/cliente/cliente';
 
 @Component({
   selector: 'app-inicio',
@@ -12,7 +13,7 @@ import { Reserva } from '../shared/models/reserva/reserva.model';
 })
 export class InicioComponent implements OnInit {
 
-  user: Usuario | null = null;
+  user: Cliente | null = null;
   reservas: Reserva[] = [];
 
   constructor(

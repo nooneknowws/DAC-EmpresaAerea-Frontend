@@ -19,4 +19,9 @@ export class ReservaService {
   getReservaById(id: number): Observable<Reserva> {
     return this.http.get<Reserva>(`${this.apiUrl}/reservas/` + id);
   }
+
+  cancelar(reserva: Reserva): Observable<void> {
+    reserva.status = 'Cancelado'
+    return this.http.put<void>(`${this.apiUrl}/${reserva.id}`, reserva);
+  }
 }

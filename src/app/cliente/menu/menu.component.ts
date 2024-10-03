@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Reserva } from '../../shared/models/reserva/reserva.model';
-import { ClienteService } from '../../shared/services/cliente.service';
+import { ReservaService } from '../../shared/services/reserva.service';
 
 
 @Component({
@@ -15,16 +15,16 @@ export class MenuClienteComponent implements OnInit{
     milhas: 46500,
   }
 
-  constructor(private clienteService: ClienteService) {}
+  constructor(private reservaService: ReservaService) {}
 
   ngOnInit(): void {
-    this.clienteService.listarTodos().subscribe(reservas => this.reservas = reservas);
+    this.reservaService.getReservas().subscribe(reservas => this.reservas = reservas);
   }
 
   cancelarReserva(reserva: Reserva): void{
     if (reserva.id !== undefined) {
       if (confirm('Deseja realmente cancelar essa reserva?')) {
-        this.clienteService.cancelar(reserva)
+        this.reservaService.cancelar(reserva)
     } else {
       console.error('ID da reserva não existe')
     }

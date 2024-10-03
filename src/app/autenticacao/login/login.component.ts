@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         next: data => {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.user = data.user!;
+          this.user = data!;
           this.router.navigate(['/']);
         },
         error: err => {
