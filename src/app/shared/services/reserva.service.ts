@@ -20,8 +20,8 @@ export class ReservaService {
     return this.http.get<Reserva>(`${this.apiUrl}/reservas/` + id);
   }
 
-  cancelar(reserva: Reserva): Observable<void> {
+  cancelar(reserva: Reserva): Observable<Reserva> {
     reserva.status = 'Cancelado'
-    return this.http.put<void>(`${this.apiUrl}/${reserva.id}`, reserva);
+    return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva);
   }
 }

@@ -21,13 +21,27 @@ export class MenuClienteComponent implements OnInit{
     this.reservaService.getReservas().subscribe(reservas => this.reservas = reservas);
   }
 
-  cancelarReserva(reserva: Reserva): void{
-    if (reserva.id !== undefined) {
+  cancelarReserva(reserva: Reserva): void {
+    if (reserva.id !== undefined && reserva.id !== null) {
       if (confirm('Deseja realmente cancelar essa reserva?')) {
-        this.reservaService.cancelar(reserva)
+        this.reservaService.cancelar(reserva).subscribe(
+          () => {
+            // Atualiza o status da reserva localmente
+            const reservaAtualizada = this.reservas.find(r => r.id === reserva.id);
+            if (reservaAtualizada) {
+              reservaAtualizada.status = 'Cancelada';
+              console.log(`Reserva ${reserva.id} cancelada com sucesso.`);
+            } else {
+              console.error('Reserva não encontrada na lista.');
+            }
+          },
+          error => {
+            console.error('Erro ao cancelar a reserva:', error);
+          }
+        );
+      }
     } else {
-      console.error('ID da reserva não existe')
+      console.error('ID da reserva inválido');
     }
   }
-}
 }
