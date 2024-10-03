@@ -1,94 +1,70 @@
 {
   "funcionarios": [],
-  "login": {
-    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZXNncmFjYUBtYWlsLmNvbSIsImlhdCI6MTcyNzg2NjY2NCwiZXhwIjoxNzI3OTUzMDY0fQ.5baNrYcBZMlsHGipg94_Br-E4zvnCsmGtbKH14Q2FhU",
-    "user": {
-      "id": 1,
-      "cpf": 12345678900,
-      "nome": "ze",
+  "clientes": [
+    {
+      "id": "f4ea",
+      "cpf": "12345678910",
+      "nome": "",
       "email": "teste@mail.com",
+      "senha": "password",
       "endereco": {
-        "id": 1,
-        "cep": "83540100",
-        "logradouro": "Rua Flávio Johnsson",
-        "numero": "90",
-        "complemento": "Casa",
-        "bairro": "Centro",
-        "cidade": "Rio Branco do Sul",
+        "cep": 83562006,
+        "logradouro": "Rua Alcides Gomes da Silva",
+        "numero": 123,
+        "complemento": "123",
+        "bairro": "Santa Maria",
+        "cidade": "Itaperuçu",
         "estado": "PR"
       },
-      "saldoMilhas": 5000
+      "telefone": "123456789",
+      "milhas": {
+        "quantidade": 0
+      }
     }
-  },
-  "reservas": [
+  ],
+  "milhas": [],
+  "aeroportos": [
     {
       "id": 1,
-      "dataHora": "2024-10-10T14:30:00",
-      "origem": {
-        "id": 1,
-        "codigo": "GRU",
-        "nome": "Aeroporto Internacional de São Paulo-Guarulhos",
-        "cidade": "São Paulo",
-        "estado": "SP",
-        "pais": "Brasil"
-      },
-      "destino": {
-        "id": 2,
-        "codigo": "JFK",
-        "nome": "Aeroporto Internacional John F. Kennedy",
-        "cidade": "Nova York",
-        "estado": "NY",
-        "pais": "Estados Unidos"
-      },
-      "valor": 1500.00,
-      "milhas": 2000,
-      "status": "Pendente"
+      "codigo": "GRU",
+      "nome": "Aeroporto Internacional de Guarulhos",
+      "cidade": "São Paulo",
+      "estado": "SP",
+      "pais": "Brasil"
     },
     {
       "id": 2,
-      "dataHora": "2024-09-05T09:00:00",
-      "origem": {
-        "id": 3,
-        "codigo": "CGH",
-        "nome": "Aeroporto de Congonhas",
-        "cidade": "São Paulo",
-        "estado": "SP",
-        "pais": "Brasil"
-      },
-      "destino": {
-        "id": 4,
-        "codigo": "SDU",
-        "nome": "Aeroporto Santos Dumont",
-        "cidade": "Rio de Janeiro",
-        "estado": "RJ",
-        "pais": "Brasil"
-      },
-      "valor": 400.00,
-      "milhas": 500,
-      "status": "Finalizada"
+      "codigo": "GIG",
+      "nome": "Aeroporto Internacional do Galeão",
+      "cidade": "Rio de Janeiro",
+      "estado": "RJ",
+      "pais": "Brasil"
     },
     {
       "id": 3,
-      "dataHora": "2024-08-20T16:45:00",
-      "origem": {
-        "id": 5,
-        "codigo": "BSB",
-        "nome": "Aeroporto Internacional de Brasília",
-        "cidade": "Brasília",
-        "estado": "DF",
-        "pais": "Brasil"
-      },
-      "destino": {
-        "id": 6,
-        "codigo": "CWB",
-        "nome": "Aeroporto Internacional Afonso Pena",
-        "cidade": "São José dos Pinhais",
-        "estado": "PR",
-        "pais": "Brasil"
-      },
-      "valor": 700.00,
-      "milhas": 1000,
-      "status": "Cancelada"
+      "codigo": "BSB",
+      "nome": "Aeroporto Internacional de Brasília",
+      "cidade": "Brasília",
+      "estado": "DF",
+      "pais": "Brasil"
+    },
+    {
+      "id": 4,
+      "codigo": "POA",
+      "nome": "Aeroporto Internacional Salgado Filho",
+      "cidade": "Porto Alegre",
+      "estado": "RS",
+      "pais": "Brasil"
+    },
+    {
+      "id": 5,
+      "codigo": "SSA",
+      "nome": "Aeroporto Internacional de Salvador",
+      "cidade": "Salvador",
+      "estado": "BA",
+      "pais": "Brasil"
     }
   ]
+  "voos": [],
+  "reservas": []
 }

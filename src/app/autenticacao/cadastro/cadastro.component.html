@@ -32,6 +32,15 @@
                 </div>
             </div>
 
+            <!-- Campo de Telefone -->
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="floatingTelefone" placeholder="Telefone" name="telefone" [(ngModel)]="form.telefone" required #telefone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && telefone.errors }">
+                <label for="floatingTelefone">Telefone</label>
+                <div *ngIf="telefone.errors && f.submitted" class="invalid-feedback">
+                    O telefone é obrigatório!
+                </div>
+            </div>
+
             <div class="form-floating mb-2">
                 <input type="password" class="form-control" id="floatingSenha" placeholder="Senha" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }">
                 <label for="floatingSenha">Senha</label>
@@ -94,10 +103,7 @@
                 <div class="form-floating w-25">
                     <select class="form-select" id="floatingEstado" name="estado" [(ngModel)]="form.endereco.estado" required #estado="ngModel" [ngClass]="{ 'is-invalid': f.submitted && estado.errors }">
                         <option value="" selected>Selecione</option>
-                        <option value="AC">AC</option>
-                        <option value="AL">AL</option>
-                        <!-- Outros estados omitidos para brevidade -->
-                        <option value="TO">TO</option>
+                        <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
                     </select>
                     <label for="floatingEstado">Estado</label>
                     <div *ngIf="estado.errors && f.submitted" class="invalid-feedback">

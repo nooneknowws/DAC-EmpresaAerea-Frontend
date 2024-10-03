@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { AppComponent } from '../../app.component';
-import { Usuario } from '../models/usuario/usuario.model';
 import { Autenticacao } from '../models/autenticacao/autenticacao';
-import { Endereco } from '../models/usuario/endereco.model';
+import { Cliente } from '../models/cliente/cliente';
+import { Usuario } from '../models/usuario/usuario.model';
+import { Funcionario } from '../models/funcionario/funcionario';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,12 +21,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, senha: string): Observable<Autenticacao> {
-
-    //Alterar pra POST depois
-    //return this.http.post<Autenticacao>(`${this.apiUrl}/login`, { email, senha }, httpOptions).pipe(
-
-    return this.http.get<Autenticacao>(`${this.apiUrl}/login`).pipe(
+  /* Login de verdade
+  login(usuario: Usuario): Observable<Autenticacao> {
+    return this.http.post<Autenticacao>(`${this.apiUrl}/login`, Usuario, httpOptions).pipe(
       tap(response => {
         this.token = response.token;
         window.sessionStorage.setItem('auth-token', this.token!);
@@ -33,13 +31,27 @@ export class AuthService {
       })
     );
   }
+  */
 
-  register(nome: string, cpf: string, email: string, senha: string, endereco: Endereco): Observable<Autenticacao> {
+  //Login de mentira
+  login(email: string, senha: string): Observable<Cliente | Funcionario | null> {
+    const buscarUsuarios = (url: string) => this.http.get<any[]>(url, httpOptions).pipe(
+      map(usuarios => usuarios.find(usuario => usuario.email === email)),
+      tap(usuario => usuario && this.simularLogin(`fake-token-${url.split('/').pop()}`, usuario))
+    );
+  
+    return buscarUsuarios(`${this.apiUrl}/clientes`).pipe(
+      catchError(() => buscarUsuarios(`${this.apiUrl}/funcionarios`))
+    );
+  }
+  
+  private simularLogin(token: string, user: Cliente | Funcionario): void {
+    window.sessionStorage.setItem('auth-token', token);
+    window.sessionStorage.setItem('user', JSON.stringify(user));
+  }
 
-    //Alterar pra POST depois
-    //return this.http.post<Autenticacao>(`${this.apiUrl}/register`, { nome, cpf, email, senha, endereco }, httpOptions).pipe(
-
-    return this.http.get<Autenticacao>(`${this.apiUrl}/register`).pipe(
+  register(cliente: Cliente): Observable<Autenticacao> {
+    return this.http.post<Autenticacao>(`${this.apiUrl}/clientes`, cliente, httpOptions).pipe(
       tap(response => {
         this.token = response.token;
         window.sessionStorage.setItem('auth-token', this.token!);
@@ -60,7 +72,7 @@ export class AuthService {
     return this.token;
   }
 
-  getUser(): Usuario | null {
+  getUser(): Cliente | Funcionario | null {
     const user = window.sessionStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }

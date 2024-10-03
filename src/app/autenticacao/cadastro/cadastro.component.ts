@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { Autenticacao } from '../../shared/models/autenticacao/autenticacao';
 import { Endereco } from '../../shared/models/usuario/endereco.model';
 import { HttpClient } from '@angular/common/http';
+import { Cliente } from '../../shared/models/cliente/cliente';
+import { EstadosBrasilEnum } from '../../shared/enums/estados-brasil.enum';
 
 @Component({
   selector: 'app-cadastro',
@@ -16,12 +18,14 @@ export class CadastroComponent {
     cpf: null,
     email: null,
     password: null,
+    telefone: null, 
     endereco: new Endereco('', '', '', '', '', '', '')
   };
 
   isRegistered = false;
   isRegistrationFailed = false;
   errorMessage = '';
+  estados = Object.values(EstadosBrasilEnum);
 
   constructor(private authService: AuthService, private http: HttpClient) { }
 
@@ -50,8 +54,16 @@ export class CadastroComponent {
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
-      const { nome, cpf, email, password, endereco } = this.form;
-      this.authService.register(nome, cpf, email, password, endereco).subscribe({
+      const { nome, cpf, email, password, telefone, endereco } = this.form;
+
+      const cliente = new Cliente(telefone, { quantidade: 0 });
+      cliente.nome = nome;
+      cliente.cpf = cpf.toString();
+      cliente.email = email;
+      cliente.senha = password;
+      cliente.endereco = endereco;
+
+      this.authService.register(cliente).subscribe({
         next: (data: Autenticacao) => {
           this.isRegistered = true;
           this.isRegistrationFailed = false;
