@@ -10,7 +10,6 @@ import { RealizarVooComponent } from './funcionario/realizar-voo/realizar-voo.co
 import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionario/listar-funcionario.component';
 import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
 import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funcionario/inserir-funcionario.component';
-import { MenuClienteComponent } from './cliente/menu/menu.component';
 import { DetalheReservaComponent } from './cliente/reserva/detalhe-reserva/detalhe-reserva.component';
 
 const routes: Routes = [
@@ -19,7 +18,6 @@ const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
   { path: 'cliente',
     children: [
-      { path: 'menu', component: MenuClienteComponent },
       { path: 'reserva', component: DetalheReservaComponent},
       {  path: 'reserva/:id', component: DetalheReservaComponent}
     ]
