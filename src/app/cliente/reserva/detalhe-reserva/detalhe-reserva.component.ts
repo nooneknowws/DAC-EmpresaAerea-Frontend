@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Reserva } from '../../../shared/models/reserva/reserva.model';
 import { ReservaService } from '../../../shared/services/reserva.service';
 import { Cliente } from '../../../shared/models/cliente/cliente';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-detalhe-reserva',
@@ -17,10 +18,12 @@ export class DetalheReservaComponent {
 
   constructor(
     private reservaService: ReservaService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
+    this.user = this.authService.getUser();
     this.route.params.subscribe(params => {
       const id = +params['id'];
       this.getReserva(id);

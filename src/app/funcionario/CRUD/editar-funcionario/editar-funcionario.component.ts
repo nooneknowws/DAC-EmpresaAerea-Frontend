@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FuncionarioService } from '../../../shared/services/funcionario.service';
 import { Funcionario } from '../../../shared/models/funcionario/funcionario';
 import { Cliente } from '../../../shared/models/cliente/cliente';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-editar-funcionario',
@@ -17,10 +18,12 @@ export class EditarFuncionarioComponent implements OnInit {
   constructor(
     private funcionarioService: FuncionarioService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
+    this.user = this.authService.getUser();
     const id = this.route.snapshot.paramMap.get('id');
     console.log(id);
     if (id) {

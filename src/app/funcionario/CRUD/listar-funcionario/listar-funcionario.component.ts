@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FuncionarioService } from '../../../shared/services/funcionario.service';
 import { Funcionario } from '../../../shared/models/funcionario/funcionario';
 import { Cliente } from '../../../shared/models/cliente/cliente';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-listar-funcionario',
@@ -13,9 +14,13 @@ export class ListarFuncionarioComponent implements OnInit {
   user: Cliente | null = null;
   funcionarios: Funcionario[] = [];
 
-  constructor(private funcionarioService: FuncionarioService) {}
+  constructor(
+    private funcionarioService: FuncionarioService,
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
+    this.user = this.authService.getUser();
     this.funcionarioService.listarTodos().subscribe(funcionarios => this.funcionarios = funcionarios);
   }
 
