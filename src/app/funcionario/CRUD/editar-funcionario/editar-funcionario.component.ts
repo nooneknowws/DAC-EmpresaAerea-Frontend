@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuncionarioService } from '../../../shared/services/funcionario.service';
 import { Funcionario } from '../../../shared/models/funcionario/funcionario';
+import { Cliente } from '../../../shared/models/cliente/cliente';
 
 @Component({
   selector: 'app-editar-funcionario',
   templateUrl: './editar-funcionario.component.html'
 })
 export class EditarFuncionarioComponent implements OnInit {
+  //TODO: Usar lógica para funcionário. Usando cliente apenas para testar.
+  // user: Funcionario | null = null;
+  user: Cliente | null = null;
   funcionario: Funcionario = new Funcionario();
 
   constructor(

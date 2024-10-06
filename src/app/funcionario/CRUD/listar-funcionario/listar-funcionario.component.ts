@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FuncionarioService } from '../../../shared/services/funcionario.service';
 import { Funcionario } from '../../../shared/models/funcionario/funcionario';
+import { Cliente } from '../../../shared/models/cliente/cliente';
 
 @Component({
   selector: 'app-listar-funcionario',
   templateUrl: './listar-funcionario.component.html'
 })
 export class ListarFuncionarioComponent implements OnInit {
+  //TODO: Usar lógica para funcionário. Usando cliente apenas para testar.
+  // user: Funcionario | null = null;
+  user: Cliente | null = null;
   funcionarios: Funcionario[] = [];
 
   constructor(private funcionarioService: FuncionarioService) {}

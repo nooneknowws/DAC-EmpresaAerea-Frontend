@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Reserva } from '../../../shared/models/reserva/reserva.model';
 import { ReservaService } from '../../../shared/services/reserva.service';
+import { Cliente } from '../../../shared/models/cliente/cliente';
 
 @Component({
   selector: 'app-detalhe-reserva',
@@ -9,6 +10,7 @@ import { ReservaService } from '../../../shared/services/reserva.service';
   styleUrl: './detalhe-reserva.component.css'
 })
 export class DetalheReservaComponent {
+  user: Cliente | null = null;
   reserva: Reserva | null = null;
   loading: boolean = true;
   errorMessage: string | null = null;

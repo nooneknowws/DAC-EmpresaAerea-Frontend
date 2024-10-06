@@ -1,52 +1,65 @@
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Lista de Funcionários</h2>
-  
-    <div class="text-end mb-3">
-      <a class="btn btn-primary" [routerLink]="['/funcionario/inserir-funcionarios']">
-        Adicionar Funcionário
-      </a>
+<div *ngIf="user != null; else non_authorized">
+  <div>
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Lista de Funcionários</h2>
+
+      <div class="text-end mb-3">
+        <a class="btn btn-primary" [routerLink]="['/funcionario/inserir-funcionarios']">
+          Adicionar Funcionário
+        </a>
+      </div>
+
+      <div *ngIf="funcionarios.length > 0; else noData">
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>E-mail</th>
+              <th>Telefone</th>
+              <th class="text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let funcionario of funcionarios">
+              <td>{{ funcionario.nome }}</td>
+              <td>{{ funcionario.cpf }}</td>
+              <td>{{ funcionario.email }}</td>
+              <td>{{ funcionario.telefone }}</td>
+              <td class="text-center">
+                <a
+                  class="btn btn-warning btn-sm me-2"
+                  [routerLink]="['/funcionario/editar-funcionarios', funcionario.id]"
+                  title="Editar Funcionário"
+                >
+                  Editar
+                </a>
+                <button
+                  class="btn btn-danger btn-sm"
+                  (click)="removerFuncionario(funcionario.id)"
+                  title="Remover Funcionário"
+                >
+                  Remover
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noData>
+        <p class="text-center text-muted">Nenhum funcionário encontrado.</p>
+      </ng-template>
     </div>
-  
-    <div *ngIf="funcionarios.length > 0; else noData">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>E-mail</th>
-            <th>Telefone</th>
-            <th class="text-center">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let funcionario of funcionarios">
-            <td>{{ funcionario.nome }}</td>
-            <td>{{ funcionario.cpf }}</td>
-            <td>{{ funcionario.email }}</td>
-            <td>{{ funcionario.telefone }}</td>
-            <td class="text-center">
-              <a
-                class="btn btn-warning btn-sm me-2"
-                [routerLink]="['/funcionario/editar-funcionarios', funcionario.id]"
-                title="Editar Funcionário"
-              >
-                Editar
-              </a>
-              <button
-                class="btn btn-danger btn-sm"
-                (click)="removerFuncionario(funcionario.id)"
-                title="Remover Funcionário"
-              >
-                Remover
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <ng-template #noData>
-      <p class="text-center text-muted">Nenhum funcionário encontrado.</p>
-    </ng-template>
   </div>
-  
+</div>
+
+<ng-template #non_authorized>
+  <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Acesso não autorizado!</h4>
+      <p>Você não tem permissão para acessar esta página.</p>
+      <hr>
+      <p class="mb-0">Esta é uma funcionalidade disponível apenas para funcionários. Por favor, verifique suas permissões e tente novamente mais tarde.</p>
+  </div>
+</ng-template>
+

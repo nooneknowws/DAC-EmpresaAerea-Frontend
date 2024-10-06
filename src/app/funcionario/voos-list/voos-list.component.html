@@ -1,31 +1,43 @@
-<div class="card">
-  <div class="card-header">
-    Lista de Voos
-  </div>
-  <div class="card-body">
-    <h5 class="card-title">Voos Disponíveis</h5>
-    <p class="card-text">Aqui estão os voos disponíveis para os passageiros.</p>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Código do Voo</th>
-          <th>Origem</th>
-          <th>Destino</th>
-          <th>Data/Hora de Partida</th>
-          <th>Valor da Passagem</th>
-          <th>Assentos Disponíveis</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let voo of voos">
-          <td>{{ voo.codigoVoo }}</td>
-          <td>{{ voo.origem?.nome }} ({{ voo.origem?.codigo }})</td>
-          <td>{{ voo.destino?.nome }} ({{ voo.destino?.codigo }})</td>
-          <td>{{ voo.dataHoraPartida | date: 'dd/MM/yyyy HH:mm' }}</td>
-          <td>{{ voo.valorPassagem | currency: 'BRL' }}</td>
-          <td>{{ voo.quantidadeAssentos! - voo.quantidadePassageiros! }}</td>
-        </tr>
-      </tbody>
-    </table>
+<div *ngIf="user != null; else non_authorized">
+  <div class="card">
+    <div class="card-header">
+      Lista de Voos
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Voos Disponíveis</h5>
+      <p class="card-text">Aqui estão os voos disponíveis para os passageiros.</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Código do Voo</th>
+            <th>Origem</th>
+            <th>Destino</th>
+            <th>Data/Hora de Partida</th>
+            <th>Valor da Passagem</th>
+            <th>Assentos Disponíveis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let voo of voos">
+            <td>{{ voo.codigoVoo }}</td>
+            <td>{{ voo.origem?.nome }} ({{ voo.origem?.codigo }})</td>
+            <td>{{ voo.destino?.nome }} ({{ voo.destino?.codigo }})</td>
+            <td>{{ voo.dataHoraPartida | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ voo.valorPassagem | currency: 'BRL' }}</td>
+            <td>{{ voo.quantidadeAssentos! - voo.quantidadePassageiros! }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
+
+<ng-template #non_authorized>
+  <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Acesso não cadastrado!</h4>
+      <p>Parece que você não realizou seu login.</p>
+      <hr>
+      <p class="mb-0">Por favor, realize o login ou cadastre-se no sistema.</p>
+  </div>
+</ng-template>
+
