@@ -18,7 +18,10 @@
       },
       "telefone": "123456789",
       "milhas": {
-        "quantidade": 0
+        "quantidade": 595.8,
+        "dataHoraTransacao": "2024-10-10T18:46:51.860Z",
+        "descricao": "COMPRA DE MILHAS",
+        "entradaSaida": "entrada"
       }
     },
     {
@@ -349,7 +352,7 @@
       },
       "valor": 350,
       "milhas": 5000,
-      "status": "Cancelado",
+      "status": "Pendente",
       "voo": {
         "id": "1",
         "codigoVoo": "GRU123",
