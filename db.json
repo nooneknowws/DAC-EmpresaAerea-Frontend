@@ -349,7 +349,7 @@
       },
       "valor": 350,
       "milhas": 5000,
-      "status": "Pendente",
+      "status": "Cancelado",
       "voo": {
         "id": "1",
         "codigoVoo": "GRU123",
