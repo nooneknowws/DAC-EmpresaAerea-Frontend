@@ -13,13 +13,17 @@ import { InicioComponent } from './inicio/inicio.component';
 import { ClienteModule } from './cliente/cliente.module';
 import { DetalheReservaComponent } from './cliente/reserva/detalhe-reserva/detalhe-reserva.component';
 import { FuncionarioModule } from './funcionario/funcionario.module';
+import { ComprarComponent } from './milhas/comprar/comprar.component';
+import { ConsultarComponent } from './milhas/consultar/consultar.component';
 @NgModule({
   declarations: [
     AppComponent,
     CadastroComponent,
     LoginComponent,
     InicioComponent,
-    DetalheReservaComponent
+    DetalheReservaComponent,
+    ComprarComponent,
+    ConsultarComponent
   ],
   imports: [
     BrowserModule,

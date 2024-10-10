@@ -22,8 +22,8 @@
                     <li class="list-group-item">
                         <h5 class="fw-bold">Milhas</h5>
                         <ul class="list-unstyled">
-                            <li><a [routerLink]="['/milhas/comprar']" class="nav-link">Comprar Milhas</a></li>
-                            <li><a [routerLink]="['/milhas/consultar']" class="nav-link">Consultar Extrato</a></li>
+                            <li><a [routerLink]="['/cliente/milhas/comprar']" class="nav-link">Comprar Milhas</a></li>
+                            <li><a [routerLink]="['/cliente/milhas/consultar']" class="nav-link">Consultar Extrato</a></li>
                         </ul>
                     </li>
                     <li class="list-group-item">
@@ -91,8 +91,8 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a [routerLink]="['/reserva', reserva.id]" class="btn btn-sm btn-outline-secondary mb-2">Detalhes</a>
-                                    <button *ngIf="reserva.status === 'Pendente'" class="btn btn-sm btn-danger" (click)="cancelarReserva(reserva.id)">Cancelar</button>
+                                    <a [routerLink]="['/cliente/reserva', reserva.id]" class="btn btn-sm btn-outline-secondary mb-2">Detalhes</a>
+                                    <button *ngIf="reserva.status === 'Pendente'" class="btn btn-sm btn-danger" (click)="cancelarReserva(reserva)">Cancelar</button>
                                 </td>
                             </tr>
                         </tbody>

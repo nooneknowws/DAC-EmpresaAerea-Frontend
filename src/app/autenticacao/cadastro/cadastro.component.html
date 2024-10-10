@@ -41,15 +41,6 @@
                 </div>
             </div>
 
-            <div class="form-floating mb-2">
-                <input type="password" class="form-control" id="floatingSenha" placeholder="Senha" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }">
-                <label for="floatingSenha">Senha</label>
-                <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
-                    <div *ngIf="password.errors['required']">A senha é obrigatória!</div>
-                    <div *ngIf="password.errors['minlength']">A senha deve ter no mínimo 6 caracteres.</div>
-                </div>
-            </div>
-
             <hr class="my-3">
 
             <div class="input-group mb-2">
