@@ -15,6 +15,7 @@ import { DetalheReservaComponent } from './cliente/reserva/detalhe-reserva/detal
 import { FuncionarioModule } from './funcionario/funcionario.module';
 import { ComprarComponent } from './milhas/comprar/comprar.component';
 import { ConsultarComponent } from './milhas/consultar/consultar.component';
+import { EfetuarReservaComponent } from './reserva/efetuar-reserva/efetuar-reserva.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { ConsultarComponent } from './milhas/consultar/consultar.component';
     InicioComponent,
     DetalheReservaComponent,
     ComprarComponent,
-    ConsultarComponent
+    ConsultarComponent,
+    EfetuarReservaComponent
   ],
   imports: [
     BrowserModule,
