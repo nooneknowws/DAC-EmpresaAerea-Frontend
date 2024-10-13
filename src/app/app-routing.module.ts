@@ -11,6 +11,8 @@ import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionari
 import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
 import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funcionario/inserir-funcionario.component';
 import { DetalheReservaComponent } from './cliente/reserva/detalhe-reserva/detalhe-reserva.component';
+import { ComprarComponent } from './milhas/comprar/comprar.component';
+import { ConsultarComponent } from './milhas/consultar/consultar.component';
 
 const routes: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -19,7 +21,9 @@ const routes: Routes = [
   { path: 'cliente',
     children: [
       { path: 'reserva', component: DetalheReservaComponent},
-      {  path: 'reserva/:id', component: DetalheReservaComponent}
+      { path: 'reserva/:id', component: DetalheReservaComponent},
+      { path: 'milhas/comprar', component: ComprarComponent },
+      { path: 'milhas/consultar', component: ConsultarComponent}
     ]
   },
   {
