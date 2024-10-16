@@ -1,5 +1,4 @@
 import { CommonModule } from "@angular/common";
-import { MenuClienteComponent } from "./menu/menu.component";
 import { CancelarReservaComponent } from "./reserva/cancelar-reserva/cancelar-reserva.component";
 import { ConsultarReservaComponent } from "./reserva/consultar-reserva/consultar-reserva.component";
 import { EfetuarReservaComponent } from "./reserva/efetuar-reserva/efetuar-reserva.component";
@@ -10,7 +9,6 @@ import { DetalheReservaComponent } from "./reserva/detalhe-reserva/detalhe-reser
 
 @NgModule({
   declarations: [
-    MenuClienteComponent,
     EfetuarReservaComponent,
     DetalheReservaComponent,
     CancelarReservaComponent,
@@ -22,7 +20,6 @@ import { DetalheReservaComponent } from "./reserva/detalhe-reserva/detalhe-reser
     ClienteRoutingModule
   ],
   exports: [
-    MenuClienteComponent
   ]
 })
 export class ClienteModule { }
