@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './autenticacao/login/login.component';
 import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
 import { InicioComponent } from './inicio/inicio.component';
-import { ClienteModule } from './cliente/cliente.module';
 import { DetalheReservaComponent } from './cliente/reserva/detalhe-reserva/detalhe-reserva.component';
 import { ComprarComponent } from './milhas/comprar/comprar.component';
 import { ConsultarComponent } from './milhas/consultar/consultar.component';
@@ -33,7 +32,6 @@ import { FuncionarioModule } from './funcionario/funcionario.module';
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    ClienteModule,
     FuncionarioModule
   ],
   providers: [],

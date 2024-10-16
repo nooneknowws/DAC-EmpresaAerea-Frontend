@@ -1,7 +1,8 @@
-<div class="container mt-5">
+<div *ngIf="user != null; else non_authorized">
+  <div class="container mt-5">
     <div class="d-flex justify-content-around mb-3">
-        <h2 class="">Bem-vindo, {{ user?.nome }}</h2>
-        <button class="btn btn-sm btn-danger" (click)="logout()">Logout</button>    
+        <h2 class="">Bem-vindo, {{ user.nome }}</h2>
+        <button class="btn btn-sm btn-danger" (click)="logout()">Logout</button>
     </div>
 
     <div class="row">
@@ -33,7 +34,7 @@
                 </ul>
             </div>
         </div>
-    
+
         <div class="col-9">
             <div class="card">
                 <div class="card-header">
@@ -41,21 +42,23 @@
                 </div>
                 <div class="card-body">
                     <div class="col-md-6">
-                        <p><strong>Saldo em milhas:</strong> {{ user?.milhas?.quantidade }}</p>
-                        <p><strong>ID:</strong> {{ user?.id }}</p>
-                        <p><strong>CPF:</strong> {{ user?.cpf }}</p>
-                        <p><strong>Email:</strong> {{ user?.email }}</p>
+                        <p><strong>Saldo em milhas:</strong> {{ user.milhas?.quantidade }}</p>
+                        <p><strong>ID:</strong> {{ user.id }}</p>
+                        <p><strong>CPF:</strong> {{ user.cpf }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
                     </div>
-                    <div class="col-md-6">
+                    <div *ngIf="user.endereco">
+                      <div class="col-md-6">
                         <p>
-                            {{ user!.endereco?.logradouro }}, {{ user!.endereco?.numero }} 
-                            {{ user!.endereco?.complemento ? '(' + user!.endereco?.complemento + ')' : '' }}<br>
-                            {{ user!.endereco?.bairro }} - {{ user!.endereco?.cidade }}/{{ user!.endereco?.estado }}, {{ user!.endereco?.cep }}
+                            {{ user.endereco.logradouro }}, {{ user.endereco.numero }}
+                            {{ user.endereco.complemento ? '(' + user.endereco.complemento + ')' : '' }}<br>
+                            {{ user.endereco.bairro }} - {{ user!.endereco.cidade }}/{{ user.endereco.estado }}, {{ user.endereco.cep }}
                         </p>
+                      </div>
                     </div>
                 </div>
             </div>
-        
+
             <div *ngIf="reservas.length > 0" class="card shadow-sm mt-4">
                 <div class="card-header">
                     <h5 class="mb-0">Reservas</h5>
@@ -75,17 +78,17 @@
                             <tr *ngFor="let reserva of reservas">
                                 <td>{{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</td>
                                 <td>
-                                    <span class="badge bg-secondary">{{ reserva.origem.codigo }}</span> 
+                                    <span class="badge bg-secondary">{{ reserva.origem.codigo }}</span>
                                     {{ reserva.origem.nome }}
                                     </td>
                                     <td>
-                                    <span class="badge bg-primary">{{ reserva.destino.codigo }}</span> 
+                                    <span class="badge bg-primary">{{ reserva.destino.codigo }}</span>
                                     {{ reserva.destino.nome }}
                                 </td>
                                 <td>
-                                    <span class="badge" 
-                                    [ngClass]="{'bg-secondary': reserva.status === 'Pendente', 
-                                    'bg-success': reserva.status === 'Finalizada', 
+                                    <span class="badge"
+                                    [ngClass]="{'bg-secondary': reserva.status === 'Pendente',
+                                    'bg-success': reserva.status === 'Finalizada',
                                     'bg-danger': reserva.status === 'Cancelada'}">
                                     {{ reserva.status }}
                                     </span>
@@ -101,4 +104,14 @@
             </div>
         </div>
     </div>
+  </div>
 </div>
+
+<ng-template #non_authorized>
+  <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Acesso não cadastrado!</h4>
+      <p>Parece que você não realizou seu login.</p>
+      <hr>
+      <p class="mb-0">Por favor, realize o login ou cadastre-se no sistema.</p>
+  </div>
+</ng-template>

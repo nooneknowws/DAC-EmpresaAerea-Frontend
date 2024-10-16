@@ -1,54 +1,65 @@
-<div class="container mt-5" *ngIf="loading">
-    <p>Carregando detalhes da reserva...</p>
+<div *ngIf="user != null; else non_authorized">
+    <div class="container mt-5" *ngIf="loading">
+      <p>Carregando detalhes da reserva...</p>
+  </div>
+
+  <div class="container mt-5" *ngIf="!loading && reserva">
+      <div class="card shadow-sm">
+          <div class="card-header">
+              <h5 class="mb-0">Reserva #{{ reserva.id }}</h5>
+              <span class="ms-1 badge"
+              [ngClass]="{'text-bg-secondary': reserva.status === 'Pendente',
+                              'text-bg-success': reserva.status === 'Finalizada',
+                              'text-bg-danger': reserva.status === 'Cancelada'}">
+              {{ reserva.status }}
+              </span>
+          </div>
+          <div class="card-body">
+              <p><strong>Data/Hora:</strong> {{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
+
+              <table class="table table-sm table-striped">
+                  <thead>
+                      <th>Origem</th>
+                      <th>Destino</th>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>
+                              <span class="badge bg-secondary text-light">{{ reserva.origem.codigo }}</span>
+                              {{ reserva.origem.nome }}
+                          </td>
+                          <td>
+                              <span class="badge bg-primary text-light">{{ reserva.destino.codigo }}</span>
+                              {{ reserva.destino.nome }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              {{ reserva.origem.cidade }}, {{ reserva.origem.estado }}, {{ reserva.origem.pais }}
+                          </td>
+                          <td>
+                              {{ reserva.destino.cidade }}, {{ reserva.destino.estado }}, {{ reserva.destino.pais }}
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+
+              <p><strong>Valor:</strong> {{ reserva.valor | currency:'BRL':'symbol' }}</p>
+              <p><strong>Milhas:</strong> {{ reserva.milhas }}</p>
+          </div>
+      </div>
+  </div>
+
+  <div class="container mt-5" *ngIf="!loading && !reserva">
+      <p class="text-danger">Nenhuma reserva encontrada.</p>
+  </div>
 </div>
 
-<div class="container mt-5" *ngIf="!loading && reserva">
-    <div class="card shadow-sm">
-        <div class="card-header">
-            <h5 class="mb-0">Reserva #{{ reserva.id }}</h5>
-            <span class="ms-1 badge" 
-            [ngClass]="{'text-bg-secondary': reserva.status === 'Pendente', 
-                            'text-bg-success': reserva.status === 'Finalizada', 
-                            'text-bg-danger': reserva.status === 'Cancelada'}">
-            {{ reserva.status }}
-            </span>
-        </div>
-        <div class="card-body">
-            <p><strong>Data/Hora:</strong> {{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
-            
-            <table class="table table-sm table-striped">
-                <thead>
-                    <th>Origem</th>
-                    <th>Destino</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <span class="badge bg-secondary text-light">{{ reserva.origem.codigo }}</span> 
-                            {{ reserva.origem.nome }}
-                        </td>
-                        <td>
-                            <span class="badge bg-primary text-light">{{ reserva.destino.codigo }}</span> 
-                            {{ reserva.destino.nome }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            {{ reserva.origem.cidade }}, {{ reserva.origem.estado }}, {{ reserva.origem.pais }}
-                        </td>
-                        <td>
-                            {{ reserva.destino.cidade }}, {{ reserva.destino.estado }}, {{ reserva.destino.pais }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p><strong>Valor:</strong> {{ reserva.valor | currency:'BRL':'symbol' }}</p>
-            <p><strong>Milhas:</strong> {{ reserva.milhas }}</p>
-        </div>
-    </div>
-</div>
-
-<div class="container mt-5" *ngIf="!loading && !reserva">
-    <p class="text-danger">Nenhuma reserva encontrada.</p>
-</div>
+<ng-template #non_authorized>
+  <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Acesso não cadastrado!</h4>
+      <p>Parece que você não realizou seu login.</p>
+      <hr>
+      <p class="mb-0">Por favor, realize o login ou cadastre-se no sistema.</p>
+  </div>
+</ng-template>

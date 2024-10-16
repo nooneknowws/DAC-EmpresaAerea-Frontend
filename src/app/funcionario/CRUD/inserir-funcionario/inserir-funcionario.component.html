@@ -1,16 +1,28 @@
-<h2>Inserir Funcionário</h2>
-<form (ngSubmit)="salvar()">
-  <label>Nome</label>
-  <input [(ngModel)]="funcionario.nome" name="nome" required>
-  
-  <label>CPF</label>
-  <input [(ngModel)]="funcionario.cpf" name="cpf" required>
+<div *ngIf="user != null; else non_authorized">
+  <h2>Inserir Funcionário</h2>
+  <form (ngSubmit)="salvar()">
+    <label>Nome</label>
+    <input [(ngModel)]="funcionario.nome" name="nome" required>
 
-  <label>E-mail</label>
-  <input [(ngModel)]="funcionario.email" name="email" required>
+    <label>CPF</label>
+    <input [(ngModel)]="funcionario.cpf" name="cpf" required>
 
-  <label>Telefone</label>
-  <input [(ngModel)]="funcionario.telefone" name="telefone" required>
+    <label>E-mail</label>
+    <input [(ngModel)]="funcionario.email" name="email" required>
 
-  <button type="submit">Salvar</button>
-</form>
+    <label>Telefone</label>
+    <input [(ngModel)]="funcionario.telefone" name="telefone" required>
+
+    <button type="submit">Salvar</button>
+  </form>
+</div>
+
+<ng-template #non_authorized>
+  <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Acesso não autorizado!</h4>
+      <p>Você não tem permissão para acessar esta página.</p>
+      <hr>
+      <p class="mb-0">Esta é uma funcionalidade disponível apenas para funcionários. Por favor, verifique suas permissões e tente novamente mais tarde.</p>
+  </div>
+</ng-template>
+
