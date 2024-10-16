@@ -38,7 +38,6 @@ export class InicioComponent implements OnInit {
       if (confirm('Deseja realmente cancelar essa reserva?')) {
         this.reservaService.cancelar(reserva).subscribe(
           () => {
-            // Atualiza o status da reserva localmente
             const reservaAtualizada = this.reservas.find(r => r.id === reserva.id);
             if (reservaAtualizada) {
               reservaAtualizada.status = 'Cancelada';

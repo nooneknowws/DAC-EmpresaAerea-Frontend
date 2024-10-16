@@ -80,4 +80,9 @@ export class AuthService {
   isAuthenticated(): boolean {
     return this.getToken() !== null;
   }
+
+ gerarSenha(): string {
+    const senha = Math.floor(1000 + Math.random() * 9000);
+    return senha.toString();
+  }
 }

@@ -54,7 +54,9 @@ export class CadastroComponent {
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
-      const { nome, cpf, email, password, telefone, endereco } = this.form;
+      const { nome, cpf, email, telefone, endereco } = this.form;
+      const password = this.authService.gerarSenha();
+      console.log(password);
 
       const cliente = new Cliente(telefone, { quantidade: 0 });
       cliente.nome = nome;
