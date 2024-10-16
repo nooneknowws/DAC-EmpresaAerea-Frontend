@@ -33,18 +33,17 @@ export class AuthService {
   }
   */
 
-  //Login de mentira
   login(email: string, senha: string): Observable<Cliente | Funcionario | null> {
-    const buscarUsuarios = (url: string) => this.http.get<any[]>(url, httpOptions).pipe(
-      map(usuarios => usuarios.find(usuario => usuario.email === email)),
+    const buscarUsuario = (url: string) => this.http.get<any[]>(url, httpOptions).pipe(
+      map(usuarios => usuarios.find(usuario => usuario.email === email && usuario.senha === senha)),
       tap(usuario => usuario && this.simularLogin(`fake-token-${url.split('/').pop()}`, usuario))
     );
-  
-    return buscarUsuarios(`${this.apiUrl}/clientes`).pipe(
-      catchError(() => buscarUsuarios(`${this.apiUrl}/funcionarios`))
+
+    return buscarUsuario(`${this.apiUrl}/clientes`).pipe(
+      catchError(() => buscarUsuario(`${this.apiUrl}/funcionarios`))
     );
   }
-  
+
   private simularLogin(token: string, user: Cliente | Funcionario): void {
     window.sessionStorage.setItem('auth-token', token);
     window.sessionStorage.setItem('user', JSON.stringify(user));
