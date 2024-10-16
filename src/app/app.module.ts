@@ -12,20 +12,19 @@ import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { ClienteModule } from './cliente/cliente.module';
 import { DetalheReservaComponent } from './cliente/reserva/detalhe-reserva/detalhe-reserva.component';
-import { FuncionarioModule } from './funcionario/funcionario.module';
 import { ComprarComponent } from './milhas/comprar/comprar.component';
 import { ConsultarComponent } from './milhas/consultar/consultar.component';
-import { EfetuarReservaComponent } from './reserva/efetuar-reserva/efetuar-reserva.component';
+import { EfetuarReservaComponent } from './cliente/reserva/efetuar-reserva/efetuar-reserva.component';
+import { FuncionarioModule } from './funcionario/funcionario.module';
+
 @NgModule({
   declarations: [
     AppComponent,
     CadastroComponent,
     LoginComponent,
     InicioComponent,
-    DetalheReservaComponent,
     ComprarComponent,
     ConsultarComponent,
-    EfetuarReservaComponent
   ],
   imports: [
     BrowserModule,
