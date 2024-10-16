@@ -26,6 +26,7 @@ export class InserirFuncionarioComponent implements OnInit{
   }
 
   salvar(): void {
+    this.funcionario.perfil = "Funcionario"
     this.funcionarioService.inserir(this.funcionario).subscribe(() => {
       this.router.navigate(['/funcionario/listar-funcionarios']);
     });
