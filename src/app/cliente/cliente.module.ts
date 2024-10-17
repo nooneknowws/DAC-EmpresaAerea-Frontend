@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ClienteRoutingModule } from './cliente-routing.module';
 import { DashboardClienteComponent } from './dashboard-cliente/dashboard-cliente.component';
 import { ComprarMilhasComponent } from './milhas/comprar-milhas/comprar-milhas.component';
@@ -25,7 +25,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
-    ClienteRoutingModule
+    ClienteRoutingModule,
+    DatePipe
   ]
 })
 export class ClienteModule { }
