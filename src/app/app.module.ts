@@ -10,11 +10,13 @@ import { FuncionarioModule } from './funcionario/funcionario.module';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { InicioComponent } from './autenticacao/inicio/inicio.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CadastroComponent
+    CadastroComponent,
+    InicioComponent
   ],
   imports: [
     ClienteModule,
