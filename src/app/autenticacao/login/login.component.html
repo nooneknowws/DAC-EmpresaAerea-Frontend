@@ -1,4 +1,4 @@
-<div class="form-container mt-5 pt-5 d-flex justify-content-center">
+<div class="form-container d-flex justify-content-center">
     <div class="form-wrapper">
         <div *ngIf="!isLoggedIn; else loggedInTemplate">
             <form (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
@@ -13,11 +13,11 @@
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="floatingSenha" placeholder="Senha" name="senha" [(ngModel)]="form.senha" required minlength="6" #senha="ngModel" [ngClass]="{ 'is-invalid': f.submitted && senha.errors }">
+                    <input type="password" class="form-control" id="floatingSenha" placeholder="Senha" name="senha" [(ngModel)]="form.senha" required minlength="4" #senha="ngModel" [ngClass]="{ 'is-invalid': f.submitted && senha.errors }">
                     <label for="floatingSenha">Senha</label>
                     <div *ngIf="senha.errors && f.submitted" class="invalid-feedback">
                         <div *ngIf="senha.errors['required']">Digite uma senha.</div>
-                        <div *ngIf="senha.errors['minlength']">A senha deve ter pelo menos 6 caracteres.</div>
+                        <div *ngIf="senha.errors['minlength']">A senha deve ter pelo menos 4 caracteres.</div>
                     </div>
                 </div>
 
@@ -29,7 +29,7 @@
 
                 <div class="form-group">
                     <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">
-                        Login failed: {{ errorMessage }}
+                        {{ errorMessage }}
                     </div>
                 </div>
             </form>

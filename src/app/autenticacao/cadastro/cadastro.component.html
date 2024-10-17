@@ -1,4 +1,4 @@
-<div class="form-container mt-5 pt-5 d-flex justify-content-center">
+<div class="form-container d-flex justify-content-center">
     <div class="form-wrapper">
         <div *ngIf="isRegistered" class="alert alert-success">
             Cadastro realizado com sucesso. <a [routerLink]="['/login']">Login</a>.
@@ -32,7 +32,6 @@
                 </div>
             </div>
 
-            <!-- Campo de Telefone -->
             <div class="form-floating mb-2">
                 <input type="text" class="form-control" id="floatingTelefone" placeholder="Telefone" name="telefone" [(ngModel)]="form.telefone" required #telefone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && telefone.errors }">
                 <label for="floatingTelefone">Telefone</label>

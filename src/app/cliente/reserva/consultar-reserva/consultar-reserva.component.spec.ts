@@ -11,7 +11,7 @@ describe('ConsultarReservaComponent', () => {
       declarations: [ConsultarReservaComponent]
     })
     .compileComponents();
-
+    
     fixture = TestBed.createComponent(ConsultarReservaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

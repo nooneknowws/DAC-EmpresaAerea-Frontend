@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Comprar Milhas</h2>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title">Saldo atual: {{ cliente.milhas?.quantidade }}</h5>
+      <p class="mb-5">A proporção para comprar milhas é 1 milha para R$5,00.</p>
+      <form (ngSubmit)="comprarMilhas()" class="row">
+        <div class="form-group mb-3 col-6">
+          <label for="valorEmReais">Valor a comprar (R$):</label>
+          <input type="number" class="form-control" id="valorEmReais" [(ngModel)]="valorEmReais" name="valorEmReais" (input)="calcularMilhas()" min="0" required>
+        </div>
+    
+        <div class="form-group mb-3 col-6">
+          <label for="milhasCompradas">Milhas:</label>
+          <input type="number" class="form-control" id="milhasCompradas" [value]="milhasCompradas" readonly>
+        </div>
+    
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="col-6 mb-5 btn btn-primary">Comprar Milhas</button>
+        </div>
+      </form>
+    </div>
+  </div>  
+</div>
+  
