@@ -56,6 +56,7 @@ export class CadastroComponent {
     if (form.valid) {
       const { nome, cpf, email, telefone, endereco } = this.form;
       const password = this.authService.gerarSenha();
+      const perfil = "Cliente"
       console.log(password);
 
       const cliente = new Cliente(telefone, { quantidade: 0 });
@@ -64,6 +65,7 @@ export class CadastroComponent {
       cliente.email = email;
       cliente.senha = password;
       cliente.endereco = endereco;
+      cliente.perfil = perfil;
 
       this.authService.registerCliente(cliente).subscribe({
         next: (data: Autenticacao) => {
