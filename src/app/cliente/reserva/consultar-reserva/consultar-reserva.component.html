@@ -1,4 +1,23 @@
-<p>consultar-reserva works!</p>
-<div class="container">
-    R09: Consultar Reserva - O sistema deve mostrar uma tela em branco com um campo de entrada de texto, onde o cliente digita o código de reserva. Então, nesta mesma tela devem ser mostrados todos os dados da reserva: data/hora, código da reserva, origem, destino, valor gasto, milhas gastas, e o estado do voo (ex, se já ocorreu, está confirmado, feito check-in, cancelado, etc). Se o voo está para acontecer nas próximas 48h, deve-se apresentar a opção de fazer check-in. 
+<div class="container mt-5">
+  <h2 class="text-center">Consultar Reserva</h2>
+
+  <div class="mb-3">
+    <label for="codigoReserva" class="form-label">Digite o ID da Reserva:</label>
+    <input type="text" class="form-control" id="codigoReserva" [(ngModel)]="codigoReservaInput" placeholder="Ex: 1">
+  </div>
+
+  <button type="button" class="btn btn-primary">Consultar</button>
+
+  <div *ngIf="reserva" class="card mt-3">
+    <div class="card-body">
+      <h5 class="card-title">Dados da Reserva</h5>
+      <p><strong>ID da Reserva:</strong> {{ reserva.id }}</p>
+      <p><strong>Data/Hora:</strong> {{ reserva.dataHora }}</p>
+      <p><strong>Origem:</strong> {{ reserva.origem.nome }} ({{ reserva.origem.cidade }} - {{ reserva.origem.estado }})</p>
+      <p><strong>Destino:</strong> {{ reserva.destino.nome }} ({{ reserva.destino.cidade }} - {{ reserva.destino.estado }})</p>
+      <p><strong>Valor Gasto:</strong> R$ {{ reserva.valor.toFixed(2) }}</p>
+      <p><strong>Milhas Gastas:</strong> {{ reserva.milhas }}</p>
+      <p><strong>Status da Reserva:</strong> {{ reserva.status }}</p>
+    </div>
+  </div>
 </div>

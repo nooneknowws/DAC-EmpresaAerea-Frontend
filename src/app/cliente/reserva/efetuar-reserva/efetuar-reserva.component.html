@@ -1,11 +1,65 @@
-<p>efetuar-reserva works!</p>
-<div class="container">
-    R07: Efetuar Reserva - O cliente pode reservar os voos.
-O sistema deve apresentar uma tela de busca mostrando um campo aeroporto origem e aeroporto destino (ambos podem ser vazios);
-Ao clicar em "Buscar", devem ser apresentados todos os voos, a partir da data atual, que casam com a busca solicitada, em formato de tabela;
-O cliente então pode selecionar um desses voos para ir para a próxima tela. Na próxima tela devem aparecer os dados do voo: Origem, Destino, Data/Hora e Preço do Assento; além disso deve apresentar seu saldo de milhas;
-Nesta tela o cliente escolhe quantas passagens vai comprar e deve ser calculado o valor total, bem como a quantidade de milhas necessárias para comprar as passagens;
-Então o cliente pode informar a quantidade de milhas que usará do seu saldo, e o valor resultante deverá ser pago em dinheiro;
-Assim que o cliente confirma o pagamento, seu saldo é atualizado e a compra é efetivada (assumimos que o cliente já fez o pagamento em dinheiro necessário);
-Como passo final é gerado um código de reserva único, formado por 3 letras maiúsculas e 3 números. Este código será usado para localizar a reserva e confirmar o embarque.
-</div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efetuar Reserva - Detalhes do Voo</title>
+    <link rel="stylesheet" href="efetuar-reserva.component.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Efetuar Reserva</h2>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Voo Selecionado</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Origem</th>
+                            <th>Destino</th>
+                            <th>Data/Hora</th>
+                            <th>Preço por Assento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aeroporto Internacional de São Paulo (GRU)</td>
+                            <td>Aeroporto Santos Dumont (SDU)</td>
+                            <td>18/10/2024 - 14:00</td>
+                            <td>R$ 500,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Informações da Compra</h5>
+                <div class="mb-3">
+                    <label for="saldoMilhas" class="form-label">Seu saldo de milhas</label>
+                    <input type="text" class="form-control" id="saldoMilhas" value="5.000 milhas" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="quantidadePassagens" class="form-label">Quantidade de passagens</label>
+                    <input type="number" class="form-control" id="quantidadePassagens" value="1" min="1" max="5">
+                </div>
+                <div class="mb-3">
+                    <label for="milhasUsadas" class="form-label">Milhas a usar</label>
+                    <input type="number" class="form-control" id="milhasUsadas" value="0" min="0" max="5000">
+                </div>
+
+                <div class="mb-3">
+                    <p><strong>Valor total em dinheiro: </strong> <span id="valorTotal">R$ 500,00</span></p>
+                    <p><strong>Milhas necessárias: </strong> <span id="milhasNecessarias">XXX</span></p>
+                </div>
+
+                <button type="button" class="btn btn-primary" id="confirmarCompra" >Confirmar Compra</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
