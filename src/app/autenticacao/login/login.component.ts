@@ -13,8 +13,8 @@ import { Cliente } from '../../shared/models/cliente/cliente';
 })
 export class LoginComponent implements OnInit {
   form: any = {
-    email: null,
-    senha: null
+    email: '',
+    senha: ''
   };
 
   isLoggedIn = false;
