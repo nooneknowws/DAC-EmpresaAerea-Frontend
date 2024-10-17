@@ -1,10 +1,28 @@
 {
-  "funcionarios": [],
+  "funcionarios": [
+    {
+      "id": "ab7a",
+      "cpf": "12345678910",
+      "nome": "Funcionario",
+      "email": "funcionario@mail.com",
+      "senha": "password",
+      "endereco": {
+        "cep": 83562006,
+        "logradouro": "Rua Alcides Gomes da Silva",
+        "numero": 123,
+        "complemento": "123",
+        "bairro": "Santa Maria",
+        "cidade": "Itaperuçu",
+        "estado": "PR"
+      },
+      "matricula": "123456789"
+    }
+  ],
   "clientes": [
     {
       "id": "f4ea",
       "cpf": "12345678910",
-      "nome": "",
+      "nome": "Cliente",
       "email": "teste@mail.com",
       "senha": "password",
       "endereco": {
@@ -40,6 +58,26 @@
         "estado": "PR"
       },
       "telefone": "41920032665",
+      "milhas": {
+        "quantidade": 0
+      }
+    },
+    {
+      "id": "9cff",
+      "cpf": "12309219828",
+      "nome": "Clara",
+      "email": "clara@mail.com",
+      "senha": "6529",
+      "endereco": {
+        "cep": 83541000,
+        "logradouro": "Avenida Brasil",
+        "numero": 757,
+        "complemento": "Casa",
+        "bairro": "Vila Buava",
+        "cidade": "Rio Branco do Sul",
+        "estado": "PR"
+      },
+      "telefone": "12039812098",
       "milhas": {
         "quantidade": 0
       }
@@ -89,126 +127,131 @@
     }
   ],
   "voos": [
-    {
-      "id": "1",
-      "codigoVoo": "GRU123",
-      "dataHoraPartida": "2024-12-01T09:00:00",
-      "origem": {
-        "id": 1,
-        "codigo": "GRU",
-        "nome": "Aeroporto Internacional de Guarulhos",
-        "cidade": "São Paulo",
-        "estado": "SP",
-        "pais": "Brasil"
-      },
-      "destino": {
-        "id": 2,
-        "codigo": "GIG",
-        "nome": "Aeroporto Internacional do Galeão",
-        "cidade": "Rio de Janeiro",
-        "estado": "RJ",
-        "pais": "Brasil"
-      },
-      "valorPassagem": 350,
-      "quantidadeAssentos": 180,
-      "quantidadePassageiros": 120
-    },
-    {
-      "id": "2",
-      "codigoVoo": "GIG124",
-      "dataHoraPartida": "2024-12-02T14:30:00",
-      "origem": {
-        "id": 2,
-        "codigo": "GIG",
-        "nome": "Aeroporto Internacional do Galeão",
-        "cidade": "Rio de Janeiro",
-        "estado": "RJ",
-        "pais": "Brasil"
-      },
-      "destino": {
-        "id": 3,
-        "codigo": "BSB",
-        "nome": "Aeroporto Internacional de Brasília",
-        "cidade": "Brasília",
-        "estado": "DF",
-        "pais": "Brasil"
-      },
-      "valorPassagem": 450,
-      "quantidadeAssentos": 200,
-      "quantidadePassageiros": 180
-    },
-    {
-      "id": "3",
-      "codigoVoo": "BSB125",
-      "dataHoraPartida": "2024-12-03T18:00:00",
-      "origem": {
-        "id": 3,
-        "codigo": "BSB",
-        "nome": "Aeroporto Internacional de Brasília",
-        "cidade": "Brasília",
-        "estado": "DF",
-        "pais": "Brasil"
-      },
-      "destino": {
-        "id": 4,
-        "codigo": "POA",
-        "nome": "Aeroporto Internacional Salgado Filho",
-        "cidade": "Porto Alegre",
-        "estado": "RS",
-        "pais": "Brasil"
-      },
-      "valorPassagem": 500,
-      "quantidadeAssentos": 150,
-      "quantidadePassageiros": 100
-    },
-    {
-      "id": "4",
-      "codigoVoo": "POA126",
-      "dataHoraPartida": "2024-12-04T10:00:00",
-      "origem": {
-        "id": 4,
-        "codigo": "POA",
-        "nome": "Aeroporto Internacional Salgado Filho",
-        "cidade": "Porto Alegre",
-        "estado": "RS",
-        "pais": "Brasil"
-      },
-      "destino": {
-        "id": 1,
-        "codigo": "GRU",
-        "nome": "Aeroporto Internacional de Guarulhos",
-        "cidade": "São Paulo",
-        "estado": "SP",
-        "pais": "Brasil"
-      },
-      "valorPassagem": 400,
-      "quantidadeAssentos": 170,
-      "quantidadePassageiros": 160
-    },
-    {
-      "id": "5",
-      "codigoVoo": "SSA127",
-      "dataHoraPartida": "2024-12-05T22:30:00",
-      "origem": {
-        "id": 5,
-        "codigo": "SSA",
-        "nome": "Aeroporto Internacional de Salvador",
-        "cidade": "Salvador",
-        "estado": "BA",
-        "pais": "Brasil"
-      },
-      "destino": {
-        "id": 2,
-        "codigo": "GIG",
-        "nome": "Aeroporto Internacional do Galeão",
-        "cidade": "Rio de Janeiro",
-        "estado": "RJ",
-        "pais": "Brasil"
-      },
-      "valorPassagem": 600,
-      "quantidadeAssentos": 200,
-      "quantidadePassageiros": 190
-    },
+	{
+	"id": "1",
+	"codigoVoo": "GRU123",
+	"dataHoraPartida": "2024-12-01T09:00:00",
+	"origem": {
+	  "id": 1,
+	  "codigo": "GRU",
+	  "nome": "Aeroporto Internacional de Guarulhos",
+	  "cidade": "São Paulo",
+	  "estado": "SP",
+	  "pais": "Brasil"
+	},
+	"destino": {
+	  "id": 2,
+	  "codigo": "GIG",
+	  "nome": "Aeroporto Internacional do Galeão",
+	  "cidade": "Rio de Janeiro",
+	  "estado": "RJ",
+	  "pais": "Brasil"
+	},
+	"valorPassagem": 350,
+	"quantidadeAssentos": 180,
+	"quantidadePassageiros": 120,
+	"status": "Confirmado"
+	},
+	{
+	"id": "2",
+	"codigoVoo": "GIG124",
+	"dataHoraPartida": "2024-12-02T14:30:00",
+	"origem": {
+	  "id": 2,
+	  "codigo": "GIG",
+	  "nome": "Aeroporto Internacional do Galeão",
+	  "cidade": "Rio de Janeiro",
+	  "estado": "RJ",
+	  "pais": "Brasil"
+	},
+	"destino": {
+	  "id": 3,
+	  "codigo": "BSB",
+	  "nome": "Aeroporto Internacional de Brasília",
+	  "cidade": "Brasília",
+	  "estado": "DF",
+	  "pais": "Brasil"
+	},
+	"valorPassagem": 450,
+	"quantidadeAssentos": 200,
+	"quantidadePassageiros": 180,
+	"status": "Confirmado"
+	},
+	{
+	"id": "3",
+	"codigoVoo": "BSB125",
+	"dataHoraPartida": "2024-12-03T18:00:00",
+	"origem": {
+	  "id": 3,
+	  "codigo": "BSB",
+	  "nome": "Aeroporto Internacional de Brasília",
+	  "cidade": "Brasília",
+	  "estado": "DF",
+	  "pais": "Brasil"
+	},
+	"destino": {
+	  "id": 4,
+	  "codigo": "POA",
+	  "nome": "Aeroporto Internacional Salgado Filho",
+	  "cidade": "Porto Alegre",
+	  "estado": "RS",
+	  "pais": "Brasil"
+	},
+	"valorPassagem": 500,
+	"quantidadeAssentos": 150,
+	"quantidadePassageiros": 100,
+	"status": "Confirmado"
+	},
+	{
+	"id": "4",
+	"codigoVoo": "POA126",
+	"dataHoraPartida": "2024-12-04T10:00:00",
+	"origem": {
+	  "id": 4,
+	  "codigo": "POA",
+	  "nome": "Aeroporto Internacional Salgado Filho",
+	  "cidade": "Porto Alegre",
+	  "estado": "RS",
+	  "pais": "Brasil"
+	},
+	"destino": {
+	  "id": 1,
+	  "codigo": "GRU",
+	  "nome": "Aeroporto Internacional de Guarulhos",
+	  "cidade": "São Paulo",
+	  "estado": "SP",
+	  "pais": "Brasil"
+	},
+	"valorPassagem": 400,
+	"quantidadeAssentos": 170,
+	"quantidadePassageiros": 160,
+	"status": "Realizado"
+	},
+	{
+	"id": "5",
+	"codigoVoo": "SSA127",
+	"dataHoraPartida": "2024-12-05T22:30:00",
+	"origem": {
+	  "id": 5,
+	  "codigo": "SSA",
+	  "nome": "Aeroporto Internacional de Salvador",
+	  "cidade": "Salvador",
+	  "estado": "BA",
+	  "pais": "Brasil"
+	},
+	"destino": {
+	  "id": 2,
+	  "codigo": "GIG",
+	  "nome": "Aeroporto Internacional do Galeão",
+	  "cidade": "Rio de Janeiro",
+	  "estado": "RJ",
+	  "pais": "Brasil"
+	},
+	"valorPassagem": 600,
+	"quantidadeAssentos": 200,
+	"quantidadePassageiros": 190,
+	"status": "Embarcado"
+	},
     {
       "id": "6",
       "codigoVoo": "GRU128",
@@ -231,7 +274,8 @@
       },
       "valorPassagem": 500,
       "quantidadeAssentos": 180,
-      "quantidadePassageiros": 150
+      "quantidadePassageiros": 150,
+	  "status": "Cancelado"
     },
     {
       "id": "7",
@@ -255,7 +299,8 @@
       },
       "valorPassagem": 550,
       "quantidadeAssentos": 160,
-      "quantidadePassageiros": 140
+      "quantidadePassageiros": 140,
+	  "status": "Realizado"
     },
     {
       "id": "8",
@@ -279,7 +324,8 @@
       },
       "valorPassagem": 600,
       "quantidadeAssentos": 180,
-      "quantidadePassageiros": 170
+      "quantidadePassageiros": 170,
+	  "status": "Embarcado"
     },
     {
       "id": "9",
@@ -303,7 +349,9 @@
       },
       "valorPassagem": 550,
       "quantidadeAssentos": 200,
-      "quantidadePassageiros": 180
+      "quantidadePassageiros": 180,
+	  "status": "Realizado"
+	  
     },
     {
       "id": "10",
@@ -327,7 +375,8 @@
       },
       "valorPassagem": 450,
       "quantidadeAssentos": 150,
-      "quantidadePassageiros": 130
+      "quantidadePassageiros": 130,
+	  "status": "Cancelado"
     }
   ],
   "reservas": [

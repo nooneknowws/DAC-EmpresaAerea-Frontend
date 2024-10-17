@@ -1,0 +1,39 @@
+<div class="container mt-5">
+    <div class="card mt-4">
+        <div class="card-header">
+          <h5 class="mb-0">Lista de Funcionários</h5>
+        </div>
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Matricula</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let funcionario of funcionarios">
+              <td>{{ funcionario.id }}</td>
+              <td>{{ funcionario.nome }}</td>
+              <td>{{ funcionario.email }}</td>
+              <td>
+                <span *ngIf="funcionario.matricula === '0'; else ativo" class="badge text-bg-danger">Inativo</span>
+                <ng-template #ativo>{{ funcionario.matricula }}</ng-template>
+              </td>
+              <td>
+                <div class="d-flex flex-column w-100">
+                  <button class="btn btn-sm btn-primary w-100 mb-1" (click)="editarFuncionario(funcionario)">Editar</button>
+                  <button *ngIf="funcionario.matricula === '0'; else btnInativo" class="btn btn-sm btn-success w-100" (click)="desativarFuncionario(funcionario)">Ativar</button>
+                  <ng-template #btnInativo><button class="btn btn-sm btn-danger w-100" (click)="desativarFuncionario(funcionario)">Desativar</button></ng-template>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+  

@@ -11,7 +11,7 @@ describe('CancelarReservaComponent', () => {
       declarations: [CancelarReservaComponent]
     })
     .compileComponents();
-
+    
     fixture = TestBed.createComponent(CancelarReservaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

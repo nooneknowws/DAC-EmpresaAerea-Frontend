@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Reserva } from '../../../shared/models/reserva/reserva.model';
 import { ReservaService } from '../../../shared/services/reserva.service';
 import { Cliente } from '../../../shared/models/cliente/cliente';
 import { AuthService } from '../../../shared/services/auth.service';
+import { Reserva } from '../../../shared/models/reserva/reserva';
+import { StatusReservaEnum } from '../../../shared/models/reserva/status-reserva.enum';
 
 @Component({
   selector: 'app-detalhe-reserva',
@@ -15,6 +16,7 @@ export class DetalheReservaComponent {
   reserva: Reserva | null = null;
   loading: boolean = true;
   errorMessage: string | null = null;
+  e = StatusReservaEnum;
 
   constructor(
     private reservaService: ReservaService,

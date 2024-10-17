@@ -1,14 +1,16 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Reserva } from '../models/reserva/reserva.model';
-import { Observable } from 'rxjs';
 import { AppComponent } from '../../app.component';
+import { HttpClient } from '@angular/common/http';
+import { Reserva } from '../models/reserva/reserva';
+import { Observable } from 'rxjs';
+import { StatusReservaEnum } from '../models/reserva/status-reserva.enum';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ReservaService {
 
+export class ReservaService {
+  
   private apiUrl: string = AppComponent.PUBLIC_BACKEND_URL;
   constructor(private http: HttpClient) {}
 
@@ -21,7 +23,7 @@ export class ReservaService {
   }
 
   cancelar(reserva: Reserva): Observable<Reserva> {
-    reserva.status = 'Cancelado'
+    reserva.status = StatusReservaEnum.CANCELADO;
     return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva);
   }
 }
