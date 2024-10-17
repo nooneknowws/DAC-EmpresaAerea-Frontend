@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { NgForm } from '@angular/forms';
-import { Autenticacao } from '../../shared/models/autenticacao/autenticacao';
-import { Endereco } from '../../shared/models/usuario/endereco.model';
 import { HttpClient } from '@angular/common/http';
 import { Cliente } from '../../shared/models/cliente/cliente';
-import { EstadosBrasilEnum } from '../../shared/enums/estados-brasil.enum';
+import { Endereco } from '../../shared/models/usuario/endereco';
+import { EstadosBrasil } from '../../shared/models/voo/estados-brasil';
+import { Autenticacao } from '../../shared/models/autenticacao';
 
 @Component({
   selector: 'app-cadastro',
@@ -25,7 +25,7 @@ export class CadastroComponent {
   isRegistered = false;
   isRegistrationFailed = false;
   errorMessage = '';
-  estados = Object.values(EstadosBrasilEnum);
+  estados = Object.values(EstadosBrasil);
 
   constructor(private authService: AuthService, private http: HttpClient) { }
 
@@ -65,7 +65,7 @@ export class CadastroComponent {
       cliente.senha = password;
       cliente.endereco = endereco;
 
-      this.authService.register(cliente).subscribe({
+      this.authService.registerCliente(cliente).subscribe({
         next: (data: Autenticacao) => {
           this.isRegistered = true;
           this.isRegistrationFailed = false;

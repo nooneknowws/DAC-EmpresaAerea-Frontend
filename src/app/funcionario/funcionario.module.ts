@@ -1,28 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DashboardFuncionarioComponent } from './dashboard-funcionario/dashboard-funcionario.component';
+import { CancelarVooComponent } from './voo/cancelar-voo/cancelar-voo.component';
+import { RealizarVooComponent } from './voo/realizar-voo/realizar-voo.component';
+import { CadastrarVooComponent } from './voo/cadastrar-voo/cadastrar-voo.component';
 import { FuncionarioRoutingModule } from './funcionario-routing.module';
-import { VoosListComponent } from './voos-list/voos-list.component';
-import { ConfirmacaoEmbarqueComponent } from './confirmacao-embarque/confirmacao-embarque.component';
-import { CancelarVooComponent } from './cancelar-voo/cancelar-voo.component';
-import { RealizarVooComponent } from './realizar-voo/realizar-voo.component';
-import { ListarFuncionarioComponent } from './CRUD/listar-funcionario/listar-funcionario.component';
-import { InserirFuncionarioComponent } from './CRUD/inserir-funcionario/inserir-funcionario.component';
-import { EditarFuncionarioComponent } from './CRUD/editar-funcionario/editar-funcionario.component';
+import { EditarFuncionarioComponent } from './_crud/editar-funcionario/editar-funcionario.component';
+import { ListarFuncionarioComponent } from './_crud/listar-funcionario/listar-funcionario.component';
+import { CadastrarFuncionarioComponent } from './_crud/cadastrar-funcionario/cadastrar-funcionario.component';
 import { FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
-    VoosListComponent,
-    ConfirmacaoEmbarqueComponent,
+    DashboardFuncionarioComponent,
     CancelarVooComponent,
     RealizarVooComponent,
+    CadastrarVooComponent,
+    EditarFuncionarioComponent,
     ListarFuncionarioComponent,
-    InserirFuncionarioComponent,
-    EditarFuncionarioComponent
+    CadastrarFuncionarioComponent
   ],
   imports: [
     CommonModule,
-    FuncionarioRoutingModule,
-    FormsModule  ]
+    FormsModule,
+    FuncionarioRoutingModule
+  ]
 })
 export class FuncionarioModule { }

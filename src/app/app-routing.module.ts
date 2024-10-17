@@ -1,49 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
 import { LoginComponent } from './autenticacao/login/login.component';
-import { InicioComponent } from './inicio/inicio.component';
-import { VoosListComponent } from './funcionario/voos-list/voos-list.component';
-import { ConfirmacaoEmbarqueComponent } from './funcionario/confirmacao-embarque/confirmacao-embarque.component';
-import { CancelarVooComponent } from './funcionario/cancelar-voo/cancelar-voo.component';
-import { RealizarVooComponent } from './funcionario/realizar-voo/realizar-voo.component';
-import { ListarFuncionarioComponent } from './funcionario/CRUD/listar-funcionario/listar-funcionario.component';
-import { EditarFuncionarioComponent } from './funcionario/CRUD/editar-funcionario/editar-funcionario.component';
-import { InserirFuncionarioComponent } from './funcionario/CRUD/inserir-funcionario/inserir-funcionario.component';
-import { DetalheReservaComponent } from './cliente/reserva/detalhe-reserva/detalhe-reserva.component';
-import { ComprarComponent } from './milhas/comprar/comprar.component';
-import { ConsultarComponent } from './milhas/consultar/consultar.component';
+import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
-  { path: 'cadastro', component: CadastroComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'inicio', component: InicioComponent },
-  { path: 'cliente',
-    children: [
-      { path: 'reserva', component: DetalheReservaComponent},
-      { path: 'reserva/:id', component: DetalheReservaComponent},
-      { path: 'milhas/comprar', component: ComprarComponent },
-      { path: 'milhas/consultar', component: ConsultarComponent}
-    ]
+  { path: 'cadastro', component: CadastroComponent },
+  {
+    path: 'cliente',
+    loadChildren: () => import('./cliente/cliente.module').then(m => m.ClienteModule),
+    canActivate: [AuthGuard], 
+    data: { role: 'cliente' }
   },
   {
     path: 'funcionario',
-    children: [
-      { path: 'listar-funcionarios', component: ListarFuncionarioComponent},
-      { path: 'editar-funcionarios', component: EditarFuncionarioComponent},
-      { path: 'editar-funcionarios/:id', component:EditarFuncionarioComponent},
-      { path: 'inserir-funcionarios', component: InserirFuncionarioComponent},
-      { path: 'voos-list', component: VoosListComponent },
-      { path: 'confirmacao-embarque', component: ConfirmacaoEmbarqueComponent },
-      { path: 'cancelar-voo', component: CancelarVooComponent },
-      { path: 'realizar-voo', component: RealizarVooComponent },
-    ]
+    loadChildren: () => import('./funcionario/funcionario.module').then(m => m.FuncionarioModule),
+    canActivate: [AuthGuard],
+    data: { role: 'funcionario' }
   },
-  { path: '', redirectTo: '/inicio', pathMatch: 'full' } // Redireciona para a página inicial
+  { path: '**', redirectTo: 'login' } 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { Observable, catchError, map, switchMap, tap } from 'rxjs';
 import { Cliente } from '../models/cliente/cliente';
-import { Milhas } from '../models/cliente/milhas.model';
+import { Milhas } from '../models/cliente/milhas';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
