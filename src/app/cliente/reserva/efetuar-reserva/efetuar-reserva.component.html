@@ -1,11 +1,129 @@
-<p>efetuar-reserva works!</p>
-<div class="container">
-    R07: Efetuar Reserva - O cliente pode reservar os voos.
-O sistema deve apresentar uma tela de busca mostrando um campo aeroporto origem e aeroporto destino (ambos podem ser vazios);
-Ao clicar em "Buscar", devem ser apresentados todos os voos, a partir da data atual, que casam com a busca solicitada, em formato de tabela;
-O cliente então pode selecionar um desses voos para ir para a próxima tela. Na próxima tela devem aparecer os dados do voo: Origem, Destino, Data/Hora e Preço do Assento; além disso deve apresentar seu saldo de milhas;
-Nesta tela o cliente escolhe quantas passagens vai comprar e deve ser calculado o valor total, bem como a quantidade de milhas necessárias para comprar as passagens;
-Então o cliente pode informar a quantidade de milhas que usará do seu saldo, e o valor resultante deverá ser pago em dinheiro;
-Assim que o cliente confirma o pagamento, seu saldo é atualizado e a compra é efetivada (assumimos que o cliente já fez o pagamento em dinheiro necessário);
-Como passo final é gerado um código de reserva único, formado por 3 letras maiúsculas e 3 números. Este código será usado para localizar a reserva e confirmar o embarque.
-</div>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h5 class="mb-0">Efetuar Reserva</h5>
+      </div>
+      <div *ngIf="!tabelaVisivel && !vooSelecionado" class="card-body">
+        <form (ngSubmit)="setAeroportos(aeroportoOrigem, aeroportoDestino)">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Aeroporto Origem</span>
+            <select class="form-select" name="aeroportoOrigem" [(ngModel)]="aeroportoOrigem" #aeroportoOrigemSelect="ngModel">
+                <option *ngFor="let aeroporto of aeroportos" [ngValue]="aeroporto">{{ aeroporto.nome }}</option>
+            </select>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon2">Aeroporto Destino</span>
+            <select class="form-select" name="aeroportoDestino" [(ngModel)]="aeroportoDestino" #aeroportoDestinoSelect="ngModel">
+                <option *ngFor="let aeroporto of aeroportos" [ngValue]="aeroporto">{{ aeroporto.nome }}</option>
+            </select>              
+          </div>
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-primary col-6" type="submit">Buscar</button>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="tabelaVisivel" class="card-body">
+        <p>Lista dos voos disponíveis entre os aeroportos:</p>
+        
+        <div class="container row mb-3">
+            <p class="col-6"><span class="badge bg-secondary me-1">{{ aeroportoOrigem?.codigo }}</span>{{ aeroportoOrigem?.nome }}</p>
+            <p class="col-6"><span class="badge bg-secondary me-1">{{ aeroportoDestino?.codigo }}</span>{{ aeroportoDestino?.nome }}</p>
+        </div>
+        
+        <table class="table table-sm table-striped">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Origem</th>
+                <th>Destino</th>
+                <th>Data de partida</th>
+                <th>Preço por assento</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let voo of voosFiltrados">
+                <td>
+                  <span class="badge bg-secondary text-light">{{ voo.codigoVoo }}</span>
+                </td>
+                <td>
+                  <span class="badge bg-primary">{{ voo.origem?.codigo }}</span>
+                  {{ voo.origem?.cidade }}
+                </td>
+                <td>
+                  <span class="badge bg-primary">{{ voo.destino?.codigo }}</span>
+                  {{ voo.destino?.cidade }}
+                </td>
+                <td>
+                    {{ voo.dataHoraPartida | date: 'short'}}
+                </td>
+                <td>
+                    R{{ voo.valorPassagem | currency }}
+                </td>
+                <td>
+                    <button (click)="selecionarVoo(voo)" class="btn btn-success col-12">Selecionar</button>
+                </td>  
+              </tr>
+            </tbody>
+          </table>          
+        </div>
+        <div *ngIf="vooSelecionado && !tabelaVisivel" class="container mt-4">
+            <h5 class="mb-4">Detalhes do voo selecionado</h5>
+            
+            <table class="table table-bordered mb-4">
+              <tbody>
+                <tr>
+                  <th scope="row">Voo</th>
+                  <td><span class="badge bg-secondary">{{ vooSelecionado.codigoVoo }}</span> de {{ vooSelecionado.origem?.cidade }} para {{ vooSelecionado.destino?.cidade }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Preço por assento</th>
+                  <td>R{{ vooSelecionado.valorPassagem | currency }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Total de assentos</th>
+                  <td>{{ vooSelecionado.quantidadeAssentos }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Assentos ocupados</th>
+                  <td>{{ vooSelecionado.quantidadePassageiros }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <hr class="my-3">
+            
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="quantidadePassagens" class="form-label fw-bold">Quantidade de passagens:</label>
+                <input id="quantidadePassagens" type="number" class="form-control" [(ngModel)]="quantidadePassagens" (input)="calcularValorTotal()" />
+              </div>
+              <div class="col-md-6">
+                <label for="milhasUsadas" class="form-label fw-bold">Milhas a serem usadas (Saldo: {{ saldoMilhas }}):</label>
+                <input id="milhasUsadas" type="number" class="form-control" [(ngModel)]="milhasUsadas" (input)="calcularValorTotal()" />
+              </div>
+            </div>
+          
+            <table class="table table-striped">
+              <tbody>
+                <tr>
+                  <th scope="row">Valor total</th>
+                  <td>R{{ valorTotal | currency }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Milhas necessárias</th>
+                  <td>{{ milhasNecessarias }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Valor a ser pago</th>
+                  <td>R{{ valorAPagar | currency }}</td>
+                </tr>
+              </tbody>
+            </table>
+          
+            <div class="d-grid gap-2 mb-3">
+              <button (click)="confirmarReserva()" class="btn btn-success">Confirmar e Efetuar Pagamento</button>
+            </div>
+          </div>
+        </div>
+  </div>

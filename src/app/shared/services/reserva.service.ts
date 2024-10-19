@@ -4,13 +4,15 @@ import { HttpClient } from '@angular/common/http';
 import { Reserva } from '../models/reserva/reserva';
 import { Observable } from 'rxjs';
 import { StatusReservaEnum } from '../models/reserva/status-reserva.enum';
+import { Aeroporto } from '../models/voo/aeroporto';
+import { Voo } from '../models/voo/voo';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ReservaService {
-  
+
   private apiUrl: string = AppComponent.PUBLIC_BACKEND_URL;
   constructor(private http: HttpClient) {}
 
@@ -18,8 +20,21 @@ export class ReservaService {
     return this.http.get<Reserva[]>(`${this.apiUrl}/reservas`);
   }
 
+  getAeroportos(): Observable<Aeroporto[]>{
+    return this.http.get<Aeroporto[]>(`${this.apiUrl}/aeroportos`);
+  }
+
+  getVoosFiltrados(aeroportoOrigem: Aeroporto, aeroportoDestino: Aeroporto) {
+    return this.http.get<Voo[]>(`${this.apiUrl}/voos`);
+  }
+
   getReservaById(id: number): Observable<Reserva> {
     return this.http.get<Reserva>(`${this.apiUrl}/reservas/` + id);
+  }
+
+  efetuar(reserva: Reserva): Observable<Reserva> {
+    reserva.status = StatusReservaEnum.PENDENTE;
+    return this.http.post<Reserva>(`${this.apiUrl}/reservas`, reserva);
   }
 
   cancelar(reserva: Reserva): Observable<Reserva> {
