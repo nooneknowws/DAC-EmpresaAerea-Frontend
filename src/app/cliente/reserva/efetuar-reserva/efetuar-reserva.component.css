@@ -1,10 +1,115 @@
 body {
     background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
   }
   .card {
     margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
   }
   .reservation-code {
     font-weight: bold;
-    color: green;
+    color: rgb(5, 158, 5);
   }
+
+.container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.card-header {
+  background-color: #009bb6;
+  color: white;
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+  font-size: 18px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+h5 {
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.form-select,
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.input-group-text {
+  background-color: #009bb6;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #0077b6;
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #005f93;
+}
+
+.table {
+  background-color: white;
+  margin-top: 15px;
+}
+
+.table thead {
+  background-color: #6aa4c4;
+  color: white;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.badge-secondary {
+  background-color: #adb5bd;
+}
+
+.badge-primary {
+  background-color: #0077b6;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* Alinhamento de conteúdo e responsividade */
+.d-flex {
+  justify-content: center;
+  align-items: center;
+}
+
+.d-grid {
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
+  }
+
+  .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

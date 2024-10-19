@@ -1,0 +1,176 @@
+/* Importação do Font Awesome */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+/* Corpo geral */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f4f8;
+}
+
+.container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.d-flex {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+h2 {
+  color: #238676;
+}
+
+.btn {
+  border-radius: 30px;
+  padding: 8px 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.btn-danger, .btn-outline-secondary {
+  background-color: #da3324;
+  color: white;
+  border: none;
+}
+
+.btn-danger:hover, .btn-outline-secondary:hover {
+  background-color: #ff4c3b;
+}
+
+.btn-outline-secondary {
+  background-color: #0077b6;
+  color: white;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #005f93;
+}
+
+.fa-icon {
+  margin-right: 10px;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-bottom: 30px;
+}
+
+.card-header {
+  background-color: #009bb6;
+  color: white;
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+  font-size: 18px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.list-group-item {
+  border: none;
+  background-color: #f8f9fa;
+}
+
+.nav-link {
+  color: #116877;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.nav-link .fa-icon {
+  font-size: 16px;
+  margin-right: 5px;
+  line-height: 1;
+}
+
+
+.nav-link:hover {
+  color: #009bb6;
+  text-decoration: underline;
+}
+
+p {
+  font-size: 16px;
+  color: #333;
+}
+
+h5 {
+  color: #333;
+  font-weight: bold;
+}
+
+.table {
+  margin-top: 15px;
+  background-color: white;
+}
+
+.table thead {
+  background-color: #6aa4c4;
+  color: white;
+}
+
+.table th, .table td {
+  text-align: center;
+}
+
+.table .badge {
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.badge-secondary {
+  background-color: #adb5bd;
+}
+
+.badge-primary {
+  background-color: #0077b6;
+}
+
+.badge-danger {
+  background-color: #ff6f61;
+}
+
+.badge-success {
+  background-color: #28a745;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.alert {
+  text-align: center;
+  background-color: #ffe6e6;
+  color: #e63946;
+  border-color: #fcb1b1;
+}
+
+.alert-heading {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .d-flex {
+    flex-direction: column;
+  }
+
+  .col-md-3, .col-9 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .container {
+    margin-top: 20px;
+  }
+}

@@ -36,8 +36,8 @@
       },
       "telefone": "123456789",
       "milhas": {
-        "quantidade": 595.8,
-        "dataHoraTransacao": "2024-10-10T18:46:51.860Z",
+        "quantidade": 695.8,
+        "dataHoraTransacao": "2024-10-19T20:45:22.278Z",
         "descricao": "COMPRA DE MILHAS",
         "entradaSaida": "entrada"
       }
@@ -539,6 +539,52 @@
         "nome": "Teste Cliente",
         "email": "teste@mail.com",
         "telefone": "123456789"
+      }
+    },
+    {
+      "id": "6ad1",
+      "dataHora": "Sat Oct 19 2024",
+      "origem": {
+        "id": 1,
+        "codigo": "GRU",
+        "nome": "Aeroporto Internacional de Guarulhos",
+        "cidade": "São Paulo",
+        "estado": "SP",
+        "pais": "Brasil"
+      },
+      "destino": {
+        "id": 2,
+        "codigo": "GIG",
+        "nome": "Aeroporto Internacional do Galeão",
+        "cidade": "Rio de Janeiro",
+        "estado": "RJ",
+        "pais": "Brasil"
+      },
+      "status": "Pendente",
+      "voo": {
+        "id": "1",
+        "codigoVoo": "GRU123",
+        "dataHoraPartida": "2024-12-01T09:00:00",
+        "origem": {
+          "id": 1,
+          "codigo": "GRU",
+          "nome": "Aeroporto Internacional de Guarulhos",
+          "cidade": "São Paulo",
+          "estado": "SP",
+          "pais": "Brasil"
+        },
+        "destino": {
+          "id": 2,
+          "codigo": "GIG",
+          "nome": "Aeroporto Internacional do Galeão",
+          "cidade": "Rio de Janeiro",
+          "estado": "RJ",
+          "pais": "Brasil"
+        },
+        "valorPassagem": 350,
+        "quantidadeAssentos": 180,
+        "quantidadePassageiros": 120,
+        "status": "Confirmado"
       }
     }
   ]
