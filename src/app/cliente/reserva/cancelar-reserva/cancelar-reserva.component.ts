@@ -39,4 +39,26 @@ export class CancelarReservaComponent {
     });
   }
 
+  cancelarReserva(reserva: Reserva): void {
+    if (reserva.id !== undefined && reserva.id !== null) {
+      if (confirm('Deseja realmente cancelar essa reserva?')) {
+        this.reservaService.cancelar(reserva).subscribe(
+          () => {
+            const reservaAtualizada = Array.isArray(this.reserva) ? this.reserva.find(r => r.id === reserva.id) : null;
+            if (reservaAtualizada) {
+              reservaAtualizada.status = this.e.CANCELADO;
+              console.log(`Reserva ${reserva.id} cancelada com sucesso.`);
+            } else {
+              console.error('Reserva não encontrada na lista.');
+            }
+          },
+          error => {
+            console.error('Erro ao cancelar a reserva:', error);
+          }
+        );
+      }
+    } else console.error('ID da reserva inválido');
+
+  }
+
 }
