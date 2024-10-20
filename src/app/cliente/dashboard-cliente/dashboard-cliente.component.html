@@ -1,8 +1,8 @@
 <div *ngIf="user != null; else non_authorized">
     <div class="container mt-5">
-      <div class="d-flex justify-content-around mb-3">
-          <h2 class="">Bem-vindo, {{ user.nome }}!</h2>
-          <button class="btn btn-sm btn-danger" (click)="logout()">Logout</button>
+      <div class="d-flex justify-content-between mb-3">
+          <h2 class="">Bem-vindo, {{ user.nome }}</h2>
+          <button class="btn btn-sm btn-danger" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
       </div>
 
       <div class="row">
@@ -12,23 +12,23 @@
                       <h5 class="mb-0">Menu</h5>
                   </div>
                   <ul class="list-group list-group-flush">
-                      <li class="list-group-item">
-                          <h5 class="fw-bold">Reservas</h5>
-                          <ul class="list-unstyled">
-                              <li><a [routerLink]="['/cliente/efetuar-reserva']" class="nav-link">Efetuar Reserva</a></li>
-                          </ul>
-                      </li>
-                      <li class="list-group-item">
-                          <h5 class="fw-bold">Milhas</h5>
-                          <ul class="list-unstyled">
-                              <li><a [routerLink]="['/cliente/comprar-milhas']" class="nav-link">Comprar Milhas</a></li>
-                              <li><a [routerLink]="['/cliente/extrato-milhas']" class="nav-link">Consultar Extrato</a></li>
-                          </ul>
-                      </li>
-                      <li class="list-group-item">
-                          <h5 class="fw-bold">Check-in</h5>
-                          <a [routerLink]="['/cliente/fazer-checkin']" class="nav-link">Fazer Check-in</a>
-                      </li>
+                    <li class="list-group-item">
+                      <h5 class="fw-bold"><i class="fa fa-plane fa-icon"></i>Reservas</h5>
+                      <ul class="list-unstyled">
+                        <li><a [routerLink]="['/cliente/efetuar-reserva']" class="nav-link"><i class="fa fa-calendar fa-icon"></i>Efetuar Reserva</a></li>
+                      </ul>
+                    </li>
+                    <li class="list-group-item">
+                      <h5 class="fw-bold"><i class="fa fa-money-bill fa-icon"></i>Milhas</h5>
+                      <ul class="list-unstyled">
+                        <li><a [routerLink]="['/cliente/comprar-milhas']" class="nav-link"><i class="fa fa-shopping-cart fa-icon"></i>Comprar Milhas</a></li>
+                        <li><a [routerLink]="['/cliente/extrato-milhas']" class="nav-link"><i class="fa fa-file-alt fa-icon"></i>Consultar Extrato</a></li>
+                      </ul>
+                    </li>
+                    <li class="list-group-item">
+                      <h5 class="fw-bold"><i class="fa fa-check fa-icon"></i>Check-in</h5>
+                      <a [routerLink]="['/cliente/fazer-checkin']" class="nav-link"><i class="fa fa-sign-in-alt fa-icon"></i>Fazer Check-in</a>
+                    </li>
                   </ul>
               </div>
           </div>
@@ -78,8 +78,8 @@
                                     </span>
                                   </td>
                                   <td>
-                                      <a [routerLink]="['/cliente/detalhe-reserva', reserva.id]" class="btn btn-sm btn-outline-secondary mb-2">Detalhes</a>
-                                      <button *ngIf="reserva.status === e.PENDENTE" class="btn btn-sm btn-danger" (click)="cancelarReserva(reserva)">Cancelar</button>
+                                      <a [routerLink]="['/cliente/detalhe-reserva', reserva.id]" class="btn btn-sm btn-outline-secondary mb-2"><i class="fas fa-info-circle fa-icon"></i>Detalhes</a>
+                                      <button *ngIf="reserva.status === e.PENDENTE" class="btn btn-sm btn-danger" (click)="cancelarReserva(reserva)"><i class="fas fa-times-circle fa-icon"></i>Cancelar</button>
                                   </td>
                               </tr>
                           </tbody>
