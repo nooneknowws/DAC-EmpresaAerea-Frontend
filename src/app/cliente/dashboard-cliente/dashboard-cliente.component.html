@@ -36,24 +36,9 @@
           <div class="col-9">
               <div class="card">
                   <div class="card-header">
-                      <h5 class="mb-0">Suas informações</h5>
+                      <h5 class="mb-0">Suas Milhas: {{ user.milhas?.quantidade }}</h5>
                   </div>
-                  <div class="card-body">
-                      <div class="col-md-6">
-                          <p><strong>Saldo em milhas:</strong> {{ user.milhas?.quantidade }}</p>
-                          <p><strong>CPF:</strong> {{ user.cpf }}</p>
-                          <p><strong>Email:</strong> {{ user.email }}</p>
-                      </div>
-                      <div *ngIf="user.endereco">
-                        <div class="col-md-6">
-                          <p>
-                              {{ user.endereco.logradouro }}, {{ user.endereco.numero }}
-                              {{ user.endereco.complemento ? '(' + user.endereco.complemento + ')' : '' }}<br>
-                              {{ user.endereco.bairro }} - {{ user!.endereco.cidade }}/{{ user.endereco.estado }}, {{ user.endereco.cep }}
-                          </p>
-                        </div>
-                      </div>
-                  </div>
+
               </div>
 
               <div *ngIf="reservas.length > 0" class="card shadow-sm mt-4">
