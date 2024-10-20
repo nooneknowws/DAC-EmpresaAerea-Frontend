@@ -1,4 +1,48 @@
-<p>fazer-checkin works!</p>
 <div class="container">
-    R10: Fazer Check-in - O sistema deve mostrar uma tela com os voos que vão acontecer nas próximas 48h para que o cliente possa fazer o check-in. O Check-in não é uma confirmação de embarque do cliente, mas de que ele tem ciência da data/hora e que tem a intenção de voar;
+  <h2>Seus próximos vôos:</h2>
+  <div *ngIf="reservas.length > 0" class="card shadow-sm mt-4">
+    <div class="card-header">
+        <h5 class="mb-0">Reservas</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+            <tr>
+            <th>Data/Hora</th>
+            <th>Origem</th>
+            <th>Destino</th>
+            <th>Status</th>
+            <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let reserva of reservas">
+                    <td>{{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</td>
+                    <td>
+                        <span class="badge bg-secondary">{{ reserva.origem?.codigo }}</span>
+                        {{ reserva.origem?.nome }}
+                        </td>
+                        <td>
+                        <span class="badge bg-primary">{{ reserva.destino?.codigo }}</span>
+                        {{ reserva.destino?.nome }}
+                    </td>
+                    <td>
+                      <!-- <span class="badge"
+                            [ngClass]="{
+                              'bg-secondary': reserva.status === e.PENDENTE,
+                              'bg-success': reserva.status === e.FINALIZADO,
+                              'bg-danger': reserva.status === e.CANCELADO
+                            }">
+                        {{ reserva.status }}
+                      </span> -->
+                    </td>
+                    <td>
+                        <!-- <a [routerLink]="['/cliente/detalhe-reserva', reserva.id]" class="btn btn-sm btn-outline-secondary mb-2">Detalhes</a>
+                        <button *ngIf="reserva.status === e.PENDENTE" class="btn btn-sm btn-danger" (click)="cancelarReserva(reserva)">Cancelar</button> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </div>
