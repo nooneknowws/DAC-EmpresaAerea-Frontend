@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { ReservaService } from '../../../shared/services/reserva.service';
 import { Cliente } from '../../../shared/models/cliente/cliente';
@@ -22,6 +23,7 @@ export class CancelarReservaComponent {
     private reservaService: ReservaService,
     private route: ActivatedRoute,
     private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +60,11 @@ export class CancelarReservaComponent {
         );
       }
     } else console.error('ID da reserva inválido');
+    this.voltar();
+  }
 
+  voltar() {
+    this.router.navigate(['/cliente']);
   }
 
 }
