@@ -10,3 +10,8 @@
 .card-title {
   font-weight: bold;
 }
+
+.btn {
+  background-color: #001aff88;
+  border: none;
+}

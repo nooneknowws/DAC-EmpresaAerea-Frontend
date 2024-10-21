@@ -22,7 +22,7 @@ body {
 }
 
 .card-header {
-  background-color: #009bb6;
+  background-color: #001aff88;
   color: white;
   padding: 15px;
   border-radius: 10px 10px 0 0;
@@ -46,12 +46,12 @@ h5 {
 }
 
 .input-group-text {
-  background-color: #009bb6;
+  background-color: #001aff88;
   color: white;
 }
 
 .btn-primary {
-  background-color: #0077b6;
+  background-color: #001aff88;
   color: white;
   border: none;
   transition: background-color 0.3s ease, color 0.3s ease;

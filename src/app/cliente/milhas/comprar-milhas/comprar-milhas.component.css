@@ -10,7 +10,7 @@ body {
 }
 
 h2 {
-  color: #238676;
+  color: #001aff88;
   font-weight: bold;
   margin-bottom: 30px;
 }
@@ -29,17 +29,15 @@ h2 {
 
 .card-title {
   font-size: 1.5rem;
-  color: #116877;
+  color: #001aff88;
   margin-bottom: 20px;
 }
 
-/* Texto */
 p {
   font-size: 1rem;
   margin-bottom: 40px;
 }
 
-/* Estilo do formulário */
 form {
   display: flex;
   flex-wrap: wrap;
@@ -60,7 +58,8 @@ form {
 
 /* Botão */
 button.btn-primary {
-  background-color: #238676;
+  width: 300px;
+  background-color: #001aff88;
   border: none;
   font-size: 1.1rem;
   font-weight: bold;
@@ -70,7 +69,7 @@ button.btn-primary {
 }
 
 button.btn-primary:hover {
-  background-color: #1a5e56;
+  background-color: #001affa9;
 }
 
 button:focus {
