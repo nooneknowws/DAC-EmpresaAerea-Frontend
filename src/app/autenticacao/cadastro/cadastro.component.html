@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="form-floating w-50">
-                    <input type="number" class="form-control" id="floatingCpf" placeholder="CPF" name="cpf" [(ngModel)]="form.cpf" required #cpf="ngModel" [ngClass]="{ 'is-invalid': f.submitted && cpf.errors }">
+                    <input type="text" class="form-control" id="floatingCpf" placeholder="CPF" name="cpf" [(ngModel)]="form.cpf" mask="000.000.000-00" required #cpf="ngModel" [ngClass]="{ 'is-invalid': f.submitted && cpf.errors }" >
                     <label for="floatingCpf">CPF</label>
                     <div *ngIf="cpf.errors && f.submitted" class="invalid-feedback">
                         O CPF é obrigatório!
@@ -33,7 +33,7 @@
             </div>
 
             <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="floatingTelefone" placeholder="Telefone" name="telefone" [(ngModel)]="form.telefone" required #telefone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && telefone.errors }">
+                <input type="text" class="form-control" id="floatingTelefone" placeholder="Telefone" name="telefone" [(ngModel)]="form.telefone" mask="(00) 00000-0000" required #telefone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && telefone.errors }">
                 <label for="floatingTelefone">Telefone</label>
                 <div *ngIf="telefone.errors && f.submitted" class="invalid-feedback">
                     O telefone é obrigatório!
@@ -44,7 +44,7 @@
 
             <div class="input-group mb-2">
                 <div class="form-floating w-75">
-                    <input type="number" class="form-control" id="floatingCep" placeholder="CEP" name="cep" [(ngModel)]="form.endereco.cep" required #cep="ngModel" [ngClass]="{ 'is-invalid': f.submitted && cep.errors }">
+                    <input type="text" class="form-control" id="floatingCep" placeholder="CEP" name="cep" [(ngModel)]="form.endereco.cep" mask="00000-000" required #cep="ngModel" [ngClass]="{ 'is-invalid': f.submitted && cep.errors }">
                     <label for="floatingCep">CEP</label>
                     <div *ngIf="cep.errors && f.submitted" class="invalid-feedback">
                         O CEP é obrigatório!
@@ -103,7 +103,9 @@
             </div>
 
             <button class="w-100 btn btn-lg btn-primary mb-2" type="submit">Cadastrar</button>
-
+            <div class="form-group text-center">
+               <a>Já possui uma conta? </a> <a href="/login" class="text-decoration-none">Login</a>
+            </div>
             <div class="form-group mb-2">
                 <div *ngIf="f.submitted && isRegistrationFailed" class="alert alert-danger" role="alert">
                     Falha ao registrar: {{ errorMessage }}
