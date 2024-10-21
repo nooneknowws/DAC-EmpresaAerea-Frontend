@@ -1,0 +1,101 @@
+/* Estilos Gerais */
+body {
+  background-color: #f4f7fc;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+h2 {
+  color: #001aff88;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* Card */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.card-body {
+  background-color: #ffffff;
+  padding: 30px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  color: #001aff88;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.form-group label {
+  color: #555;
+  font-weight: bold;
+}
+
+.form-group input {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+/* Botão */
+button.btn-primary {
+  width: 300px;
+  background-color: #001aff88;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 10px 0;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+button.btn-primary:hover {
+  background-color: #001affa9;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    margin-top: 20px;
+  }
+
+  .form-group {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+}

@@ -18,7 +18,7 @@ export class CadastroComponent {
     cpf: null,
     email: null,
     password: null,
-    telefone: null, 
+    telefone: null,
     endereco: new Endereco('', '', '', '', '', '', '')
   };
 
