@@ -9,6 +9,7 @@ import { CancelarReservaComponent } from './reserva/cancelar-reserva/cancelar-re
 import { EfetuarReservaComponent } from './reserva/efetuar-reserva/efetuar-reserva.component';
 import { ConsultarReservaComponent } from './reserva/consultar-reserva/consultar-reserva.component';
 import { FormsModule } from '@angular/forms';
+import { FazerCheckinComponent } from './fazer-checkin/fazer-checkin.component';
 
 
 
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     DetalheReservaComponent,
     CancelarReservaComponent,
     EfetuarReservaComponent,
-    ConsultarReservaComponent
+    ConsultarReservaComponent,
+    FazerCheckinComponent
   ],
   imports: [
     CommonModule,

@@ -11,14 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { InicioComponent } from './autenticacao/inicio/inicio.component';
-import { FazerCheckinComponent } from './cliente/fazer-checkin/fazer-checkin.component';
+import { HomeRedirectComponent } from './home-redirect/home-redirect.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     CadastroComponent,
     InicioComponent,
-    FazerCheckinComponent,
+    HomeRedirectComponent,
   ],
   imports: [
     ClienteModule,
