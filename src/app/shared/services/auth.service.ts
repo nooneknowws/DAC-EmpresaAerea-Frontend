@@ -7,6 +7,7 @@ import { Cliente } from '../models/cliente/cliente';
 import { Usuario } from '../models/usuario/usuario';
 import { Funcionario } from '../models/funcionario';
 import { Autenticacao } from '../models/autenticacao';
+import { Router } from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,7 +20,7 @@ export class AuthService {
   private token: string | undefined = undefined;
   private apiUrl: string = AppComponent.PUBLIC_BACKEND_URL;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   private setAuthData(token: string, user: Usuario): void {
     localStorage.setItem('auth-token', token);
@@ -34,22 +35,22 @@ export class AuthService {
 
   // Gambiarra burra pro login funcionar pra funcionário e cliente
   login(email: string, senha: string): Observable<Cliente | Funcionario | null> {
-    const buscarUsuario = (url: string): Observable<Cliente | Funcionario | null> => 
+    const buscarUsuario = (url: string): Observable<Cliente | Funcionario | null> =>
       this.http.get<Usuario[]>(url, httpOptions).pipe(
         map((usuarios: Usuario[]) => {
           const usuario = usuarios.find(u => u.email === email && u.senha === senha);
           if (usuario) {
             if ('milhas' in usuario) {
-              return Object.assign(new Cliente(), usuario); // Mapeia para Cliente
-            } 
+              return Object.assign(new Cliente(), usuario);
+            }
             if ('matricula' in usuario && !('milhas' in usuario)) {
-              return Object.assign(new Funcionario(), usuario); // Mapeia para Funcionario
+              return Object.assign(new Funcionario(), usuario);
             }
           }
           return null;
         })
       );
-  
+
     return buscarUsuario(`${this.apiUrl}/clientes`).pipe(
       switchMap(cliente => {
         if (cliente) {
@@ -65,11 +66,16 @@ export class AuthService {
         if (usuario) {
           const token = `fake-token-${usuario instanceof Cliente ? 'cliente' : 'funcionario'}`;
           this.setAuthData(token, usuario);
+          if (usuario instanceof Cliente) {
+            this.router.navigate(['/cliente']);
+          } else if (usuario instanceof Funcionario) {
+            this.router.navigate(['/funcionario']);
+          }
         }
       })
     );
   }
-  
+
   registerCliente (cliente: Cliente): Observable<Autenticacao> {
     return this.http.post<Autenticacao>(`${this.apiUrl}/clientes`, cliente, httpOptions).pipe(
       tap(response => this.setAuthData(response.token!, response.user!))
@@ -104,10 +110,11 @@ export class AuthService {
       return 'cliente';
     } else return 'funcionario';
   }
-  
+
 
   isAuthenticated(): boolean {
-    return this.getToken() !== null;
+    const token = this.getToken();
+    return token !== null && token !== undefined;
   }
 
   gerarSenha(): string {

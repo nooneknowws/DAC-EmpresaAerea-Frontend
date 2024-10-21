@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FazerCheckinComponent } from './fazer-checkin.component';
+import { HomeRedirectComponent } from './home-redirect.component';
 
-describe('FazerCheckinComponent', () => {
-  let component: FazerCheckinComponent;
-  let fixture: ComponentFixture<FazerCheckinComponent>;
+describe('HomeRedirectComponent', () => {
+  let component: HomeRedirectComponent;
+  let fixture: ComponentFixture<HomeRedirectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FazerCheckinComponent]
+      declarations: [HomeRedirectComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FazerCheckinComponent);
+    fixture = TestBed.createComponent(HomeRedirectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

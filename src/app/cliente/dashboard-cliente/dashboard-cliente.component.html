@@ -14,18 +14,19 @@
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                       <h5 class="fw-bold"><i class="fa fa-plane fa-icon"></i>Reservas</h5>
-                      <ul class="list-unstyled">
+                      <ul class="list-unstyled ml-3">
                         <li><a [routerLink]="['/cliente/efetuar-reserva']" class="nav-link"><i class="fa fa-calendar fa-icon"></i>Efetuar Reserva</a></li>
+                        <li><a [routerLink]="['/cliente/consultar-reserva']" class="nav-link ml-3"><i class="fa fa-address-book" aria-hidden="true"></i> Consultar Reserva</a></li>
                       </ul>
                     </li>
                     <li class="list-group-item">
-                      <h5 class="fw-bold"><i class="fa fa-money-bill fa-icon"></i>Milhas</h5>
-                      <ul class="list-unstyled">
+                      <h5 class="fw-bold"><i class="fa fa-money-bill fa-icon ml-3"></i>Milhas</h5>
+                      <ul class="list-unstyled ml-3">
                         <li><a [routerLink]="['/cliente/comprar-milhas']" class="nav-link"><i class="fa fa-shopping-cart fa-icon"></i>Comprar Milhas</a></li>
                         <li><a [routerLink]="['/cliente/extrato-milhas']" class="nav-link"><i class="fa fa-file-alt fa-icon"></i>Consultar Extrato</a></li>
                       </ul>
                     </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item ml-3">
                       <h5 class="fw-bold"><i class="fa fa-check fa-icon"></i>Check-in</h5>
                       <a [routerLink]="['/cliente/fazer-checkin']" class="nav-link"><i class="fa fa-sign-in-alt fa-icon"></i>Fazer Check-in</a>
                     </li>
@@ -36,25 +37,9 @@
           <div class="col-9">
               <div class="card">
                   <div class="card-header">
-                      <h5 class="mb-0">Informações do Usuário</h5>
+                      <h5 class="mb-0">Suas Milhas: {{ user.milhas?.quantidade }}</h5>
                   </div>
-                  <div class="card-body">
-                      <div class="col-md-6">
-                          <p><strong>Saldo em milhas:</strong> {{ user.milhas?.quantidade }}</p>
-                          <p><strong>ID:</strong> {{ user.id }}</p>
-                          <p><strong>CPF:</strong> {{ user.cpf }}</p>
-                          <p><strong>Email:</strong> {{ user.email }}</p>
-                      </div>
-                      <div *ngIf="user.endereco">
-                        <div class="col-md-6">
-                          <p><strong>Endereço:</strong>
-                              {{ user.endereco.logradouro }}, {{ user.endereco.numero }}
-                              {{ user.endereco.complemento ? '(' + user.endereco.complemento + ')' : '' }}<br>
-                              {{ user.endereco.bairro }} - {{ user!.endereco.cidade }}/{{ user.endereco.estado }}, {{ user.endereco.cep }}
-                          </p>
-                        </div>
-                      </div>
-                  </div>
+
               </div>
 
               <div *ngIf="reservas.length > 0" class="card shadow-sm mt-4">

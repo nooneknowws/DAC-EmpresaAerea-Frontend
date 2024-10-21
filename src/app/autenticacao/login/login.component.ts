@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit {
       this.user = user;
 
       if ('milhas' in user) {
-        this.router.navigate(['/cliente']); 
+        this.router.navigate(['/cliente']);
       } else if ('matricula' in user) {
-        this.router.navigate(['/funcionario']); 
+        this.router.navigate(['/funcionario']);
       } else {
         console.log("Tipo de usuário desconhecido");
       }
@@ -44,18 +44,18 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm): void {
     if (form.valid) {
       const { email, senha } = this.form;
-  
+
       this.authService.login(email, senha).subscribe({
         next: (data: Cliente | Funcionario | null) => {
           if (data) {
             this.isLoginFailed = false;
             this.isLoggedIn = true;
             this.user = data;
-  
+
             if ('milhas' in data) {
-              this.router.navigate(['/cliente']); 
+              this.router.navigate(['/cliente']);
             } else if ('matricula' in data) {
-              this.router.navigate(['/funcionario']); 
+              this.router.navigate(['/funcionario']);
             } else {
               console.log("Tipo de usuário desconhecido");
             }
@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
       });
     }
   }
-  
+
   reloadPage(): void {
     window.location.reload();
   }
