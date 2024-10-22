@@ -9,7 +9,7 @@
                     <div *ngIf="isRegistered" class="alert alert-success">
                         Cadastro realizado com sucesso. <a [routerLink]="['/login']">Login</a>.
                     </div>
-            
+
                     <form *ngIf="!isRegistered" (ngSubmit)="onSubmit(f)" #f="ngForm">
                         <div class="input-group mb-2">
                             <div class="form-floating w-50">
@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                         </div>
-            
+
                         <div class="form-floating mb-2">
                             <input type="email" class="form-control" id="floatingEmail" placeholder="nome@exemplo.com" name="email" [(ngModel)]="form.email" required #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.errors }">
                             <label for="floatingEmail">Email</label>
@@ -35,7 +35,7 @@
                                 O email é obrigatório!
                             </div>
                         </div>
-            
+
                         <div class="form-floating mb-2">
                             <input type="text" class="form-control" id="floatingMatricula" placeholder="Matricula" name="matricula" [(ngModel)]="form.matricula" required #matricula="ngModel" [ngClass]="{ 'is-invalid': f.submitted && matricula.errors }">
                             <label for="floatingMatricula">Matricula</label>
@@ -43,9 +43,9 @@
                                 A matrícula é obrigatória!
                             </div>
                         </div>
-            
+
                         <hr class="my-3">
-            
+
                         <div class="input-group mb-2">
                             <div class="form-floating w-75">
                                 <input type="text" class="form-control" id="floatingCep" placeholder="CEP" name="cep" [(ngModel)]="form.endereco.cep" mask="00000-000" required #cep="ngModel" [ngClass]="{ 'is-invalid': f.submitted && cep.errors }">
@@ -56,7 +56,7 @@
                             </div>
                             <button type="button" class="btn btn-primary w-25" (click)="buscarCep()">Buscar</button>
                         </div>
-            
+
                         <div class="input-group mb-2">
                             <div class="form-floating w-75">
                                 <input type="text" class="form-control" id="floatingLogradouro" placeholder="Logradouro" name="logradouro" [(ngModel)]="form.endereco.logradouro" required #logradouro="ngModel" [ngClass]="{ 'is-invalid': f.submitted && logradouro.errors }">
@@ -65,7 +65,7 @@
                                     O Logradouro é obrigatório!
                                 </div>
                             </div>
-            
+
                             <div class="form-floating w-25">
                                 <input type="number" class="form-control" id="floatingNumero" placeholder="Número" name="numero" [(ngModel)]="form.endereco.numero" required #numero="ngModel" [ngClass]="{ 'is-invalid': f.submitted && numero.errors }">
                                 <label for="floatingNumero">Número</label>
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-            
+
                         <div class="input-group mb-2">
                             <div class="form-floating w-50">
                                 <input type="text" class="form-control" id="floatingComplemento" placeholder="Complemento" name="complemento" [(ngModel)]="form.endereco.complemento" #complemento="ngModel">
@@ -85,7 +85,7 @@
                                 <label for="floatingBairro">Bairro</label>
                             </div>
                         </div>
-            
+
                         <div class="input-group mb-2">
                             <div class="form-floating w-75">
                                 <input type="text" class="form-control" id="floatingCidade" placeholder="Cidade" name="cidade" [(ngModel)]="form.endereco.cidade" required #cidade="ngModel" [ngClass]="{ 'is-invalid': f.submitted && cidade.errors }">
@@ -105,9 +105,9 @@
                                 </div>
                             </div>
                         </div>
-            
+
                         <button class="w-100 btn btn-lg btn-primary mb-2" type="submit">Cadastrar</button>
-            
+
                         <div class="form-group mb-2">
                             <div *ngIf="f.submitted && isRegistrationFailed" class="alert alert-danger" role="alert">
                                 Falha ao registrar: {{ errorMessage }}

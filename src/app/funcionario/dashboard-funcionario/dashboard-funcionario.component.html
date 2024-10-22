@@ -1,8 +1,8 @@
 <div *ngIf="user != null; else non_authorized">
   <div class="container mt-5">
-    <div class="d-flex justify-content-around mb-3">
+    <div class="d-flex justify-content-between mb-3">
       <h2 class="">Bem-vindo, {{ user.nome }}</h2>
-      <button class="btn btn-sm btn-danger" (click)="logout()">Logout</button>
+      <button class="btn btn-sm btn-danger" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
     </div>
 
     <div class="row">
@@ -15,17 +15,17 @@
             <li class="list-group-item">
               <h5 class="fw-bold">Voos</h5>
               <ul class="list-unstyled">
-                <li><a [routerLink]="['/funcionario/cadastrar-voo']" class="nav-link">Cadastrar Voo</a></li>
+                <li><a [routerLink]="['/funcionario/cadastrar-voo']" class="nav-link"><i class="fa fa-calendar fa-icon"></i> Cadastrar Voo</a></li>
               </ul>
             </li>
             <li class="list-group-item">
               <h5 class="fw-bold">Funcionários</h5>
               <ul class="list-unstyled">
-                <li><a [routerLink]="['/funcionario/listar-funcionarios']" class="nav-link">Listar Funcionários</a></li>
-                <li><a [routerLink]="['/funcionario/cadastrar-funcionario']" class="nav-link">Cadastrar Funcionário</a></li>
+                <li><a [routerLink]="['/funcionario/listar-funcionarios']" class="nav-link"><i class="fa fa-address-book" aria-hidden="true"></i> Listar Funcionários</a></li>
+                <li><a [routerLink]="['/funcionario/cadastrar-funcionario']" class="nav-link"><i class="fa-solid fa-user-plus"></i> Cadastrar Funcionário</a></li>
               </ul>
             </li>
-          </ul>          
+          </ul>
         </div>
       </div>
 
@@ -68,26 +68,25 @@
                     </span>
                   </td>
                   <td>
-                    <div class="d-flex flex-column w-100">
-                      <button class="btn btn-sm btn-outline-success mb-2 w-100" 
-                              (click)="confirmarEmbarque(voo)" 
-                              *ngIf="voo.status === 'Confirmado'">
+                      <button class="btn btn-sm btn-success"
+                              (click)="confirmarEmbarque(voo)"
+                              *ngIf="voo.status === 'Confirmado'"><i class="fa-regular fa-circle-check"></i>
                         Confirmar Embarque
                       </button>
-                  
-                      <button class="btn btn-sm btn-danger mb-2 w-100" 
-                              (click)="cancelarVoo(voo)" 
-                              *ngIf="voo.status === 'Confirmado'">
-                        Cancelar
+
+                      <button class="btn btn-sm btn-danger"
+                              (click)="cancelarVoo(voo)"
+                              *ngIf="voo.status === 'Confirmado'"><i class="fa-solid fa-xmark"></i>
+                        Cancelar Embarque
                       </button>
-                  
-                      <button class="btn btn-sm btn-info w-100" 
-                              (click)="realizarVoo(voo)" 
-                              *ngIf="voo.status === 'Confirmado'">
-                        Realizar
+
+                      <button class="btn btn-sm btn-info"
+                              (click)="realizarVoo(voo)"
+                              *ngIf="voo.status === 'Confirmado'"><i class="fa-solid fa-check"></i>
+                        Realizar Embarque
                       </button>
-                    </div>
-                  </td>                  
+
+                  </td>
                 </tr>
               </tbody>
             </table>
