@@ -1,4 +1,3 @@
-<!-- Navbar para usuário autenticado -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light p-2" *ngIf="isLoggedIn">
   <a class="navbar-brand" href="#"> <i class="fas fa-plane"></i> Fly High </a>
   <button
@@ -20,7 +19,6 @@
         </a>
       </li>
 
-      <!-- Navbar do Cliente -->
       <ng-container *ngIf="authService.getUserRole() === 'cliente'">
         <li class="nav-item">
           <a class="nav-link" routerLink="/cliente">
@@ -54,7 +52,6 @@
         </li>
       </ng-container>
 
-      <!-- Navbar do Funcionário -->
       <ng-container *ngIf="authService.getUserRole() === 'funcionario'">
         <li class="nav-item">
           <a class="nav-link" routerLink="/funcionario">
