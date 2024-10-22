@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.card {
+  width: 100%;
+  max-width: 600px;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+}
+
+.table {
+  margin-top: 15px;
+}
+
+.row {
+  margin-top: 40px;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  width: 48%;
+
+}
+
