@@ -4,10 +4,9 @@ import { LoginComponent } from './autenticacao/login/login.component';
 import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
 import { InicioComponent } from './autenticacao/inicio/inicio.component';
 import { AuthGuard } from './shared/auth.guard';
-import { HomeRedirectComponent } from './home-redirect/home-redirect.component';
 
 const routes: Routes = [
-  { path: '', component: HomeRedirectComponent },
+  { path: '', component: InicioComponent },
   { path: 'login', component: LoginComponent },
   { path: 'cadastro', component: CadastroComponent },
   {

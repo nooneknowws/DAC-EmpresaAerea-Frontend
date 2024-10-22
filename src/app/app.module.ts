@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { InicioComponent } from './autenticacao/inicio/inicio.component';
-import { HomeRedirectComponent } from './home-redirect/home-redirect.component'
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     LoginComponent,
     CadastroComponent,
     InicioComponent,
-    HomeRedirectComponent,
   ],
   imports: [
     ClienteModule,

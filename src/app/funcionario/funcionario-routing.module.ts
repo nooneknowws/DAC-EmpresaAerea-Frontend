@@ -12,18 +12,21 @@ import { EditarFuncionarioComponent } from './_crud/editar-funcionario/editar-fu
 
 const routes: Routes = [
   {
-    path: 'funcionario', 
+    path: 'funcionario',
     component: DashboardFuncionarioComponent,
     canActivate: [AuthGuard],
-    data: { role: 'funcionario' } 
-  },
-  { path: 'funcionario/confirmar-embarque/:id', component: ConfirmarEmbarqueComponent },
-  { path: 'funcionario/cancelar-voo/:id', component: CancelarVooComponent },
-  { path: 'funcionario/realizar-voo/:id', component: RealizarVooComponent },
-  { path: 'funcionario/cadastrar-voo', component: CadastrarVooComponent },
-  { path: 'funcionario/listar-funcionarios', component: ListarFuncionarioComponent },
-  { path: 'funcionario/cadastrar-funcionario', component: CadastrarFuncionarioComponent },
-  { path: 'funcionario/editar-funcionario/:id', component: EditarFuncionarioComponent }
+    data: { role: 'funcionario' },
+    children: [
+      { path: '', component: DashboardFuncionarioComponent },
+      { path: 'confirmar-embarque/:id', component: ConfirmarEmbarqueComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },
+      { path: 'cancelar-voo/:id', component: CancelarVooComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },
+      { path: 'realizar-voo/:id', component: RealizarVooComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },
+      { path: 'cadastrar-voo', component: CadastrarVooComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },
+      { path: 'listar-funcionarios', component: ListarFuncionarioComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },
+      { path: 'cadastrar-funcionario', component: CadastrarFuncionarioComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },
+      { path: 'editar-funcionario/:id', component: EditarFuncionarioComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } }
+    ]
+  }
 ];
 
 @NgModule({
