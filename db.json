@@ -37,28 +37,37 @@
   ],
   "clientes": [
     {
-      "id": "f4ea",
-      "cpf": "12345678910",
-      "nome": "Cliente",
-      "email": "teste@mail.com",
-      "senha": "password",
-      "endereco": {
-        "cep": 83562006,
-        "logradouro": "Rua Alcides Gomes da Silva",
-        "numero": 123,
-        "complemento": "123",
-        "bairro": "Santa Maria",
-        "cidade": "Itaperuçu",
-        "estado": "PR"
-      },
-      "telefone": "123456789",
-      "milhas": {
-        "quantidade": 695.8,
-        "dataHoraTransacao": "2024-10-19T20:45:22.278Z",
-        "descricao": "COMPRA DE MILHAS",
-        "entradaSaida": "entrada"
-      }
-    },
+	  "id": "f4ea",
+	  "cpf": "12345678910",
+	  "nome": "Cliente",
+	  "email": "teste@mail.com",
+	  "senha": "password",
+	  "endereco": {
+		"cep": 83562006,
+		"logradouro": "Rua Alcides Gomes da Silva",
+		"numero": 123,
+		"complemento": "123",
+		"bairro": "Santa Maria",
+		"cidade": "Itaperuçu",
+		"estado": "PR"
+	  },
+	  "telefone": "123456789",
+	  "saldoMilhas": 495.8,
+	  "milhas": [
+		{
+		  "quantidade": 695.8,
+		  "dataHoraTransacao": "2024-10-19T20:45:22.278Z",
+		  "descricao": "COMPRA DE MILHAS",
+		  "entradaSaida": "entrada"
+		},
+		{
+		  "quantidade": 200.0,
+		  "dataHoraTransacao": "2024-10-21T14:48:12.378Z",
+		  "descricao": "GRU->SSA",
+		  "entradaSaida": "saida"
+		}
+	  ]
+	},
     {
       "id": "383b",
       "cpf": "10594113938",
@@ -75,9 +84,8 @@
         "estado": "PR"
       },
       "telefone": "41920032665",
-      "milhas": {
-        "quantidade": 0
-      }
+	  "saldoMilhas": 0,
+	  "milhas": []
     },
     {
       "id": "9cff",
@@ -95,9 +103,8 @@
         "estado": "PR"
       },
       "telefone": "12039812098",
-      "milhas": {
-        "quantidade": 0
-      }
+      "saldoMilhas": 0,
+	  "milhas": []
     }
   ],
   "milhas": [],
@@ -417,7 +424,7 @@
       },
       "valor": 350,
       "milhas": 5000,
-      "status": "Pendente",
+      "status": "Embarcado",
       "voo": {
         "id": "1",
         "codigoVoo": "GRU123",
@@ -559,7 +566,7 @@
       }
     },
     {
-      "id": "6ad1",
+      "id": "4",
       "dataHora": "Sat Oct 19 2024",
       "origem": {
         "id": 1,
@@ -577,6 +584,8 @@
         "estado": "RJ",
         "pais": "Brasil"
       },
+      "valor": 550,
+      "milhas": 8000,
       "status": "Pendente",
       "voo": {
         "id": "1",

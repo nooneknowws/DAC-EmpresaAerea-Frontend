@@ -11,7 +11,8 @@
               [ngClass]="{
                 'text-bg-secondary': reserva.status === e.PENDENTE,
                 'text-bg-success': reserva.status === e.FINALIZADO,
-                'text-bg-danger': reserva.status === e.CANCELADO
+                'text-bg-danger': reserva.status === e.CANCELADO,
+                'text-bg-info': reserva.status === e.EMBARCADO,
               }">
               {{ reserva.status }}
               </span>
@@ -47,7 +48,7 @@
               </table>
 
               <p><strong>Valor:</strong> {{ reserva.valor | currency:'BRL':'symbol' }}</p>
-              <p><strong>Milhas:</strong> {{ reserva.milhas }}</p>
+              <p><strong>Milhas gastas:</strong> {{ reserva.milhas }}</p>
           </div>
       </div>
   </div>

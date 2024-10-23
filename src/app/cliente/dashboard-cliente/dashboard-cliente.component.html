@@ -48,17 +48,19 @@
                       <table class="table table-bordered table-hover">
                           <thead class="thead-light">
                           <tr>
-                          <th>Código do vôo</th>
-                          <th>Data/Hora</th>
-                          <th>Origem</th>
-                          <th>Destino</th>
-                          <th>Status</th>
-                          <th>Ações</th>
+                            <th>Código da reserva</th>
+                            <th>Código do voo</th>
+                            <th>Data/Hora</th>
+                            <th>Origem</th>
+                            <th>Destino</th>
+                            <th>Status</th>
+                            <th>Ações</th>
                           </tr>
                           </thead>
                           <tbody>
                               <tr *ngFor="let reserva of reservas">
-                                  <td> {{ reserva.voo?.codigoVoo}} </td>
+                                  <td>{{ reserva.id }}</td>
+                                  <td>{{ reserva.voo?.codigoVoo}} </td>
                                   <td>{{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</td>
                                   <td>
                                       <span class="badge bg-secondary">{{ reserva.origem?.codigo }}</span>
@@ -73,7 +75,8 @@
                                           [ngClass]="{
                                             'bg-secondary': reserva.status === e.PENDENTE,
                                             'bg-success': reserva.status === e.FINALIZADO,
-                                            'bg-danger': reserva.status === e.CANCELADO
+                                            'bg-danger': reserva.status === e.CANCELADO,
+                                            'bg-info': reserva.status === e.EMBARCADO
                                           }">
                                       {{ reserva.status }}
                                     </span>

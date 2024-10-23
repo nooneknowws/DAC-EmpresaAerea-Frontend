@@ -54,7 +54,7 @@ export class EfetuarReservaComponent implements OnInit {
     this.vooSelecionado = voo;
     this.tabelaVisivel = !this.tabelaVisivel;
     const cliente = this.authService.getUser() as Cliente;
-    this.saldoMilhas = cliente.milhas?.quantidade!;
+    this.saldoMilhas = cliente.saldoMilhas!;
   }
 
   efetuarReserva() {

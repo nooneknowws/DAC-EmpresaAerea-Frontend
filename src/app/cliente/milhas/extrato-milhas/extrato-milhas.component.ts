@@ -11,7 +11,7 @@ import { Cliente } from '../../../shared/models/cliente/cliente';
 })
 export class ExtratoMilhasComponent {
   cliente: Cliente | null = null;
-  milhas: Milhas | undefined;
+  milhas: Milhas[] | undefined;
 
   constructor(private clienteService: ClienteService, private authService: AuthService) {}
 

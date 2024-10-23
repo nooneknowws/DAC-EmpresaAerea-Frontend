@@ -26,7 +26,8 @@
     [ngClass]="{
       'bg-secondary': reserva.status === e.PENDENTE,
       'bg-success': reserva.status === e.FINALIZADO,
-      'bg-danger': reserva.status === e.CANCELADO
+      'bg-danger': reserva.status === e.CANCELADO,
+      'bg-info': reserva.status === e.EMBARCADO
     }">
     {{ reserva.status }}
     </span>

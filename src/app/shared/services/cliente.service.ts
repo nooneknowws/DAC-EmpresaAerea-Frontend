@@ -26,10 +26,7 @@ export class ClienteService {
   atualizarMilhas(clienteId: number, quantidadeMilhas: number): Observable<Cliente> {
     return this.getClienteById(clienteId).pipe(
       map(cliente => {
-        if (!cliente.milhas) {
-          cliente.milhas = new Milhas();
-        }
-        cliente.milhas.quantidade = (cliente.milhas.quantidade || 0) + quantidadeMilhas;
+        cliente.saldoMilhas = (cliente.saldoMilhas || 0) + quantidadeMilhas;
         return cliente;
       }),
       switchMap(clienteAtualizado => this.http.put<Cliente>(`${this.apiUrl}/${clienteId}`, clienteAtualizado, httpOptions)),
@@ -51,12 +48,10 @@ export class ClienteService {
     return this.getClienteById(clienteId).pipe(
       map(cliente => {
         if (!cliente.milhas) {
-          cliente.milhas = new Milhas();
+          cliente.milhas = [];
         }
-        cliente.milhas.quantidade = (cliente.milhas.quantidade || 0) + quantidadeMilhas;
-        cliente.milhas.dataHoraTransacao = novaTransacao.dataHoraTransacao;
-        cliente.milhas.descricao = novaTransacao.descricao;
-        cliente.milhas.entradaSaida = novaTransacao.entradaSaida;
+        cliente.milhas.push(novaTransacao);  // Adiciona a nova transação ao array
+        cliente.saldoMilhas = (cliente.saldoMilhas || 0) + quantidadeMilhas;
         return cliente;
       }),
       switchMap(clienteAtualizado => this.http.put<Cliente>(`${this.apiUrl}/${clienteId}`, clienteAtualizado, httpOptions)),
@@ -67,7 +62,7 @@ export class ClienteService {
 
   listarTransacoes(clienteId: number): Observable<Milhas[]> {
     return this.getClienteById(clienteId).pipe(
-      map(cliente => cliente.milhas ? [cliente.milhas] : []),
+      map(cliente => cliente.milhas || []),  
       catchError(this.handleError<Milhas[]>('listarTransacoes', []))
     );
   }

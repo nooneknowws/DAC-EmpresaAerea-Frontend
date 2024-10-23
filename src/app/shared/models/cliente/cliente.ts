@@ -4,7 +4,8 @@ import { Milhas } from "./milhas";
 export class Cliente extends Usuario {
     constructor(
       public telefone?: string,
-      public milhas?: Milhas,
+      public saldoMilhas?: number,
+      public milhas?: Milhas[],
     ) { super(); }
   }
   

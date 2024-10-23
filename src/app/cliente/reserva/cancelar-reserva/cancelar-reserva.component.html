@@ -35,7 +35,7 @@
             </table>
 
             <p><strong>Valor:</strong> {{ reserva.valor | currency:'BRL':'symbol' }}</p>
-            <p><strong>Milhas:</strong> {{ reserva.milhas }}</p>
+            <p><strong>Milhas gastas:</strong> {{ reserva.milhas }}</p>
         </div>
     </div>
 
@@ -44,7 +44,7 @@
             <h5 class="mb-0">Confirmação</h5>
         </div>
         <div class="card-body">
-            <h2 class="text-center mb-4">Confirma o cancelamento do voo acima?</h2>
+            <h2 class="text-center mb-4">Confirma o cancelamento da reserva acima?</h2>
             <div class="d-flex justify-content-evenly">
                 <button class="btn btn-danger col-4" (click)="cancelarReserva(reserva!)">Cancelar</button>
                 <button class="btn btn-secondary col-4" (click)="voltar()">Voltar</button>

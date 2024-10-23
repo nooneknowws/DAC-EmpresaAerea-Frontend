@@ -59,7 +59,7 @@ export class CadastroComponent {
       const perfil = "Cliente"
       console.log(password);
 
-      const cliente = new Cliente(telefone, { quantidade: 0 });
+      const cliente = new Cliente(telefone, 0);
       cliente.nome = nome;
       cliente.cpf = cpf.toString();
       cliente.email = email;
