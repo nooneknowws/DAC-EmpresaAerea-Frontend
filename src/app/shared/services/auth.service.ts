@@ -103,13 +103,16 @@ export class AuthService {
     return this.getAuthData().user;
   }
 
+  setUser(cliente: Cliente): void {
+    localStorage.setItem('user', JSON.stringify(cliente));
+  }
+
   getUserRole(): string {
     const currentUser = this.getUser();
     if (currentUser && 'milhas' in currentUser) {
       return 'cliente';
     } else return 'funcionario';
   }
-
 
   isAuthenticated(): boolean {
     const token = this.getToken();

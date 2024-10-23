@@ -7,6 +7,7 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { Cliente } from '../../../shared/models/cliente/cliente';
 import { Router } from '@angular/router';
 import { StatusReservaEnum } from '../../../shared/models/reserva/status-reserva.enum';
+import { ClienteService } from '../../../shared/services/cliente.service';
 
 @Component({
   selector: 'app-efetuar-reserva',
@@ -30,6 +31,7 @@ export class EfetuarReservaComponent implements OnInit {
 
   constructor(private reservaService: ReservaService,
               private authService: AuthService,
+              private clienteService: ClienteService,
               private router: Router
   ) { }
 
@@ -74,10 +76,18 @@ export class EfetuarReservaComponent implements OnInit {
     reserva.dataHora = new Date().toISOString();
     reserva.valor = this.valorTotal;
     reserva.milhas = this.milhasUsadas; 
-    reserva.status = StatusReservaEnum.PENDENTE;  
-  
+    reserva.status = StatusReservaEnum.PENDENTE;
+
     this.saldoMilhas -= this.milhasUsadas;
-  
+
+    const descricaoTransacao = `${this.vooSelecionado?.origem?.codigo}->${this.vooSelecionado?.destino?.codigo}`;
+    this.clienteService.registrarTransacao(this.authService.getUser()!.id!, this.milhasUsadas, 'saida', descricaoTransacao)
+      .subscribe(() => {
+          console.log("Milhas registradas no extrato.");
+      }, erro => {
+          console.error("Erro ao registrar milhas no extrato:", erro);
+      });
+
     this.reservaService.efetuar(reserva).subscribe(reservaCriada => {
       this.reserva = reservaCriada;
       alert(`Reserva confirmada! Código da reserva: ${this.reserva.id}`);
@@ -87,6 +97,7 @@ export class EfetuarReservaComponent implements OnInit {
       alert("Ocorreu um erro ao tentar efetuar a reserva.");
     });
   }
+
 
   gerarCodigoReserva(): string {
     const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';

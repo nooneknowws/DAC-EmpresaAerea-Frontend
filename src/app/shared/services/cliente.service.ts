@@ -23,6 +23,15 @@ export class ClienteService {
     );
   }
 
+  atualizarCliente(cliente: Cliente): Observable<Cliente> {
+    return this.http.put<Cliente>(`${this.apiUrl}/${cliente.id}`, cliente, httpOptions).pipe(
+      catchError(error => {
+        console.error('Erro ao atualizar cliente:', error);
+        throw error;
+      })
+    );
+  }  
+
   atualizarMilhas(clienteId: number, quantidadeMilhas: number): Observable<Cliente> {
     return this.getClienteById(clienteId).pipe(
       map(cliente => {
@@ -35,22 +44,22 @@ export class ClienteService {
     );
   }
 
-  registrarTransacao(clienteId: number, valorEmReais: number, tipo: 'entrada' | 'saida'): Observable<Cliente> {
+  registrarTransacao(clienteId: number, valorEmReais: number, tipo: 'entrada' | 'saida', descricao: string): Observable<Cliente> {
     const quantidadeMilhas = tipo === 'entrada' ? valorEmReais / 5 : -(valorEmReais / 5);
     const novaTransacao = new Milhas(
       undefined,
       new Date().toISOString(),
       quantidadeMilhas,
       tipo,
-      tipo === 'entrada' ? 'COMPRA DE MILHAS' : 'USO DE MILHAS'
+      descricao
     );
-
+  
     return this.getClienteById(clienteId).pipe(
       map(cliente => {
         if (!cliente.milhas) {
           cliente.milhas = [];
         }
-        cliente.milhas.push(novaTransacao);  // Adiciona a nova transação ao array
+        cliente.milhas.push(novaTransacao);  
         cliente.saldoMilhas = (cliente.saldoMilhas || 0) + quantidadeMilhas;
         return cliente;
       }),
@@ -58,7 +67,7 @@ export class ClienteService {
       tap(clienteAtualizado => { window.sessionStorage.setItem('user', JSON.stringify(clienteAtualizado)); }),
       catchError(this.handleError<Cliente>('registrarTransacao'))
     );
-  }
+  }  
 
   listarTransacoes(clienteId: number): Observable<Milhas[]> {
     return this.getClienteById(clienteId).pipe(
