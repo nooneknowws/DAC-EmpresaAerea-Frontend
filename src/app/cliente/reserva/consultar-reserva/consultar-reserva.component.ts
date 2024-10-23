@@ -22,7 +22,7 @@ export class ConsultarReservaComponent {
   ngOnInit(){
   }
 
-  getReserva(id: number): void {
+  getReserva(id: string): void {
     this.reservaService.getReservaById(id).subscribe(
       (reserva) => {
         if (reserva) {
@@ -43,7 +43,7 @@ export class ConsultarReservaComponent {
   fazerCheckin() {
     this.router.navigate(['/cliente/fazer-checkin'])
   }
-  
+
   cancelarReserva(reserva: Reserva) {
     this.router.navigate(['cliente/cancelar-reserva/', reserva.id])
   }

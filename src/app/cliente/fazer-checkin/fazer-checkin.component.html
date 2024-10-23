@@ -1,4 +1,4 @@
-  <div *ngIf="reservas.length > 0" class="card shadow-sm">
+  <div *ngIf="reservas.length > 0 else vazioTemplate" class="card shadow-sm">
     <div class="card-header-cliente">
         <h5 class="mb-0">Check-in - Seus voos nas próximas 48h</h5>
     </div>
@@ -37,3 +37,18 @@
         </table>
     </div>
 </div>
+
+<ng-template #vazioTemplate>
+    <div class="card">
+        <div class="card-header-cliente">
+            <h5 class="mb-0">Check-in</h5>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <small class="text-muted">
+                    Não há voos dentro das próximas 48h para fazer check-in.
+                </small>
+            </div>
+        </div>
+    </div>
+</ng-template>

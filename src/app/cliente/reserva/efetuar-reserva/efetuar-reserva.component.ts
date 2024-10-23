@@ -20,7 +20,7 @@ export class EfetuarReservaComponent implements OnInit {
   saldoMilhas: number = 0;
   quantidadePassagens: number = 0;
   milhasUsadas: number = 0;
-  reserva: any = null;
+  reserva: Reserva | undefined;
   aeroportos: Aeroporto[] = [];
   tabelaVisivel: boolean = false;
   valorTotal: number = 0;
@@ -60,6 +60,8 @@ export class EfetuarReservaComponent implements OnInit {
   efetuarReserva() {
     const reserva = new Reserva();
     reserva.voo = this.vooSelecionado;
+    reserva.valor = this.valorTotal;
+    reserva.milhas = this.milhasUsadas;
     this.reservaService.efetuar(reserva).subscribe(reserva => {
       this.reserva = reserva;
     });
@@ -82,8 +84,8 @@ export class EfetuarReservaComponent implements OnInit {
   
     this.reservaService.efetuar(reserva).subscribe(reserva => {
       this.reserva = reserva;
-      this.reserva.codigoReserva = this.gerarCodigoReserva();
-      alert(`Reserva confirmada! Código da reserva: ${this.reserva.codigoReserva}`);
+      this.reserva.id = this.gerarCodigoReserva();
+      alert(`Reserva confirmada! Código da reserva: ${this.reserva.id}`);
       this.router.navigate(['/cliente']);
     });
   }

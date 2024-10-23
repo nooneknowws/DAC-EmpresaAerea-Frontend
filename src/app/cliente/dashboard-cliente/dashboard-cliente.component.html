@@ -40,7 +40,7 @@
                   </div>
                   <div class="card-body"></div>
               </div>
-              <div *ngIf="reservas.length > 0" class="card shadow-sm mt-4">
+              <div *ngIf="reservas.length > 0 else vazioTemplate" class="card shadow-sm mt-4">
                   <div class="card-header-cliente">
                       <h5 class="mb-0">Reservas</h5>
                   </div>
@@ -90,6 +90,20 @@
                       </table>
                   </div>
               </div>
+              <ng-template #vazioTemplate>
+                <div class="card">
+                  <div class="card-header-cliente">
+                    <h5 class="mb-0">Reservas</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <small class="text-muted">
+                        Não há reservas!
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
           </div>
       </div>
   </div>

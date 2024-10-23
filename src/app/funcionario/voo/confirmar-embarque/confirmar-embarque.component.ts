@@ -30,7 +30,7 @@ export class ConfirmarEmbarqueComponent implements OnInit {
   }
 
   getReserva(codigoReserva: string) {
-    const idReserva = Number(codigoReserva);
+    const idReserva = codigoReserva;
     this.reservaService.getReservaById(idReserva).subscribe(
       (reserva) => {
         if (reserva.status === 'Pendente') {

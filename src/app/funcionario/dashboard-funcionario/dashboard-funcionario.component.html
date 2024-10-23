@@ -28,7 +28,7 @@
     </div>
 
     <div class="col-9">
-      <div *ngIf="voos.length > 0" class="card shadow-sm">
+      <div *ngIf="voos.length > 0 else vazioTemplate" class="card shadow-sm">
         <div class="card-header-funcionario">
           <h5 class="mb-0">Voos nas Próximas 48h</h5>
         </div>
@@ -92,5 +92,19 @@
           </table>
         </div>
       </div>
+      <ng-template #vazioTemplate>
+        <div class="card">
+          <div class="card-header-funcionario">
+            Voos
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <small class="text-muted">
+                Não há voos cadastrados.
+              </small>
+            </div>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </div>

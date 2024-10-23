@@ -44,15 +44,21 @@
 
             <div class="input-group mb-2">
                 <div class="form-floating w-75">
-                    <input type="text" class="form-control" id="floatingCep" placeholder="CEP" name="cep" [(ngModel)]="form.endereco.cep" mask="00000-000" required #cep="ngModel" [ngClass]="{ 'is-invalid': f.submitted && cep.errors }">
+                    <input type="text" class="form-control" id="floatingCep" placeholder="CEP" name="cep" [(ngModel)]="form.endereco.cep" mask="00000-000" required #cep="ngModel" [ngClass]="{ 'is-invalid': f.submitted && (cep.errors || cepInvalido || erroTimeout) }">
                     <label for="floatingCep">CEP</label>
                     <div *ngIf="cep.errors && f.submitted" class="invalid-feedback">
-                        O CEP é obrigatório!
+                      O CEP é obrigatório!
                     </div>
-                </div>
+                    <div *ngIf="cepInvalido && f.submitted" class="invalid-feedback">
+                      CEP inválido ou não encontrado!
+                    </div>
+                    <div *ngIf="erroTimeout && f.submitted" class="invalid-feedback">
+                      Tempo esgotado ao buscar o CEP. Tente novamente mais tarde!
+                    </div>
+                  </div>                  
                 <button type="button" class="btn btn-primary w-25" (click)="buscarCep()">Buscar</button>
             </div>
-
+            
             <div class="input-group mb-2">
                 <div class="form-floating w-75">
                     <input type="text" class="form-control" id="floatingLogradouro" placeholder="Logradouro" name="logradouro" [(ngModel)]="form.endereco.logradouro" required #logradouro="ngModel" [ngClass]="{ 'is-invalid': f.submitted && logradouro.errors }">

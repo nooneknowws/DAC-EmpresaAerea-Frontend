@@ -19,7 +19,7 @@ export class CadastrarFuncionarioComponent {
     email: null,
     password: null,
     telefone: null, 
-    endereco: new Endereco('', '', '', '', '', '', '')
+    endereco: new Endereco(0, '', '', '', '', '', '')
   };
 
   isRegistered = false;
