@@ -8,28 +8,41 @@
             <tr>
               <th>ID</th>
               <th>Nome</th>
+              <th>CPF</th>
               <th>Email</th>
-              <th>Matricula</th>
-              <th>Ações</th>
+              <th>Telefone</th>
+              <th colspan="2">Status</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let funcionario of funcionarios">
               <td>{{ funcionario.id }}</td>
               <td>{{ funcionario.nome }}</td>
+              <td>{{ funcionario.cpf }}</td>
               <td>{{ funcionario.email }}</td>
+              <td>{{ funcionario.telefone }}</td>
               <td>
-                <span *ngIf="funcionario.matricula === '0'; else ativo" class="badge text-bg-danger">Inativo</span>
-                <ng-template #ativo>{{ funcionario.matricula }}</ng-template>
+                <span *ngIf="funcionario.ativo; else ativo" class="badge text-bg-danger">Inativo</span>
+                <ng-template #ativo>
+                  <span class="badge text-bg-success">Ativo</span>
+                </ng-template>
               </td>
               <td>
                 <div class="d-flex flex-column w-100">
-                  <button class="btn btn-sm btn-primary w-100 mb-1" (click)="editarFuncionario(funcionario)"><i class="fa-solid fa-pen"></i> Editar</button>
-                  <button *ngIf="funcionario.matricula === '0'; else btnInativo" class="btn btn-sm btn-success w-100" (click)="desativarFuncionario(funcionario)">Ativar</button>
-                  <ng-template #btnInativo><button class="btn btn-sm btn-danger w-100" (click)="desativarFuncionario(funcionario)"><i class="fa-solid fa-xmark"></i> Desativar</button></ng-template>
+                  <button class="btn btn-sm btn-primary w-100 mb-1" (click)="editarFuncionario(funcionario)">
+                    <i class="fa-solid fa-pen"></i> Editar
+                  </button>
+                  <button *ngIf="funcionario.ativo; else btnInativo" class="btn btn-sm btn-success w-100" (click)="desativarFuncionario(funcionario)">
+                    Ativar
+                  </button>
+                  <ng-template #btnInativo>
+                    <button class="btn btn-sm btn-danger w-100" (click)="desativarFuncionario(funcionario)">
+                      <i class="fa-solid fa-xmark"></i> Desativar
+                    </button>
+                  </ng-template>
                 </div>
               </td>
-            </tr>
+            </tr>            
           </tbody>
         </table>
       </div>

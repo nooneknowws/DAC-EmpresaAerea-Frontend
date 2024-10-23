@@ -33,11 +33,11 @@ export class ReservaService {
   }
 
   efetuar(reserva: Reserva): Observable<Reserva> {
-    reserva.status = StatusReservaEnum.PENDENTE;
     return this.http.post<Reserva>(`${this.apiUrl}/reservas`, reserva);
   }
 
   cancelar(reserva: Reserva): Observable<Reserva> {
+    reserva.dataHora = new Date().toISOString();
     reserva.status = StatusReservaEnum.CANCELADO;
     return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva);
   }

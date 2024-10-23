@@ -33,7 +33,6 @@ export class AuthService {
     return { token, user };
   }
 
-  // Gambiarra burra pro login funcionar pra funcionário e cliente
   login(email: string, senha: string): Observable<Cliente | Funcionario | null> {
     const buscarUsuario = (url: string): Observable<Cliente | Funcionario | null> =>
       this.http.get<Usuario[]>(url, httpOptions).pipe(
@@ -43,7 +42,7 @@ export class AuthService {
             if ('milhas' in usuario) {
               return Object.assign(new Cliente(), usuario);
             }
-            if ('matricula' in usuario && !('milhas' in usuario)) {
+            else {
               return Object.assign(new Funcionario(), usuario);
             }
           }

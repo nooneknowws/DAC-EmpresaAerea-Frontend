@@ -19,7 +19,7 @@
                                 </div>
                             </div>
                             <div class="form-floating w-50">
-                                <input type="text" class="form-control" id="floatingCpf" placeholder="CPF" name="cpf" [(ngModel)]="form.cpf" mask="000.000.000-00"required #cpf="ngModel" [ngClass]="{ 'is-invalid': f.submitted && cpf.errors }">
+                                <input type="text" class="form-control" id="floatingCpf" placeholder="CPF" name="cpf" [(ngModel)]="form.cpf" mask="000.000.000-00" required #cpf="ngModel" [ngClass]="{ 'is-invalid': f.submitted && cpf.errors }">
                                 <label for="floatingCpf">CPF</label>
                                 <div *ngIf="cpf.errors && f.submitted" class="invalid-feedback">
                                     O CPF é obrigatório!
@@ -36,10 +36,10 @@
                         </div>
 
                         <div class="form-floating mb-2">
-                            <input type="text" class="form-control" id="floatingMatricula" placeholder="Matricula" name="matricula" [(ngModel)]="form.matricula" required #matricula="ngModel" [ngClass]="{ 'is-invalid': f.submitted && matricula.errors }">
-                            <label for="floatingMatricula">Matricula</label>
-                            <div *ngIf="matricula.errors && f.submitted" class="invalid-feedback">
-                                A matrícula é obrigatória!
+                            <input type="text" class="form-control" id="floatingTelefone" placeholder="Telefone" name="telefone" [(ngModel)]="form.telefone" mask="(00) 00000-0000" required #telefone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && telefone.errors }">
+                            <label for="floatingTelefone">Telefone</label>
+                            <div *ngIf="telefone.errors && f.submitted" class="invalid-feedback">
+                                O telefone é obrigatório!
                             </div>
                         </div>
 

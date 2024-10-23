@@ -33,10 +33,8 @@ export class LoginComponent implements OnInit {
 
       if ('milhas' in user) {
         this.router.navigate(['/cliente']);
-      } else if ('matricula' in user) {
-        this.router.navigate(['/funcionario']);
       } else {
-        console.log("Tipo de usuário desconhecido");
+        this.router.navigate(['/funcionario']);
       }
     }
   }
@@ -54,10 +52,8 @@ export class LoginComponent implements OnInit {
 
             if ('milhas' in data) {
               this.router.navigate(['/cliente']);
-            } else if ('matricula' in data) {
-              this.router.navigate(['/funcionario']);
             } else {
-              console.log("Tipo de usuário desconhecido");
+              this.router.navigate(['/funcionario']);
             }
           } else {
             this.errorMessage = 'Credenciais inválidas';

@@ -49,7 +49,7 @@ export class ConfirmarEmbarqueComponent implements OnInit {
   }
 
   getVoo(codigoVoo: string) {
-    this.vooService.getVooById(Number(codigoVoo)).subscribe(voo => {
+    this.vooService.getVooById(codigoVoo).subscribe(voo => {
       this.voo = voo;
     });
   }

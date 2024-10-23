@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { FuncionarioLayoutComponent } from './funcionario-layout/funcionario-layout.component';
 import { NavbarFuncionarioComponent } from './navbar-funcionario/navbar-funcionario.component';
 import { ConfirmarEmbarqueComponent } from './voo/confirmar-embarque/confirmar-embarque.component';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 
 
@@ -32,7 +33,9 @@ import { ConfirmarEmbarqueComponent } from './voo/confirmar-embarque/confirmar-e
     CommonModule,
     FormsModule,
     FuncionarioRoutingModule,
-    DatePipe
-  ]
+    DatePipe,
+    NgxMaskDirective
+  ],
+  providers: [provideNgxMask()]
 })
 export class FuncionarioModule { }

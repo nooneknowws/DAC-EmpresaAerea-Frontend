@@ -15,7 +15,7 @@ export class VooService {
     return this.http.get<Voo[]>(`${this.apiUrl}/voos`);
   }
 
-  getVooById(id: number): Observable<Voo> {
+  getVooById(id: string): Observable<Voo> {
     return this.http.get<Voo>(`${this.apiUrl}/voos/` + id);
   }
 

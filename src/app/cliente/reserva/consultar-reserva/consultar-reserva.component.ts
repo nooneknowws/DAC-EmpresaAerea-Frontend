@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ConsultarReservaComponent {
   reserva: Reserva | null = null;
-  codigoReservaInput: number = 0;
+  codigoReservaInput: string = "";
   e = StatusReservaEnum;
   errorMessage: string = '';
 
