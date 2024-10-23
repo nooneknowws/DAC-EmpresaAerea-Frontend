@@ -10,6 +10,7 @@ import { AuthGuard } from '../shared/auth.guard';
 import { EditarFuncionarioComponent } from './_crud/editar-funcionario/editar-funcionario.component';
 import { FuncionarioLayoutComponent } from './funcionario-layout/funcionario-layout.component';
 import { InicioComponent } from '../autenticacao/inicio/inicio.component';
+import { DashboardFuncionarioComponent } from './dashboard-funcionario/dashboard-funcionario.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { role: 'funcionario' },
     children: [
-      { path: '', component: InicioComponent },
+      { path: '', component: DashboardFuncionarioComponent },
       { path: 'confirmar-embarque/:id', component: ConfirmarEmbarqueComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },
       { path: 'cancelar-voo/:id', component: CancelarVooComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },
       { path: 'realizar-voo/:id', component: RealizarVooComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },

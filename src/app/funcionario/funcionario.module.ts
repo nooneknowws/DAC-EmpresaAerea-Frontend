@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DashboardFuncionarioComponent } from './dashboard-funcionario/dashboard-funcionario.component';
 import { CancelarVooComponent } from './voo/cancelar-voo/cancelar-voo.component';
 import { RealizarVooComponent } from './voo/realizar-voo/realizar-voo.component';
@@ -29,7 +29,8 @@ import { NavbarFuncionarioComponent } from './navbar-funcionario/navbar-funciona
   imports: [
     CommonModule,
     FormsModule,
-    FuncionarioRoutingModule
+    FuncionarioRoutingModule,
+    DatePipe
   ]
 })
 export class FuncionarioModule { }

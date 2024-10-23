@@ -1,5 +1,5 @@
   <div class="card">
-    <div class="card-header">
+    <div class="card-header-cliente">
       <h5 class="mb-0">Consultar Reserva</h5>
     </div>
     <div class="card-body">
@@ -15,7 +15,7 @@
     Reserva não encontrada!
   </div>
   <div *ngIf="reserva" class="card shadow-sm">
-    <div class="card-header">
+    <div class="card-header-cliente">
         <h5 class="mb-0">Reserva #{{ reserva.id }}</h5>
         <span class="ms-1 badge"
         [ngClass]="{

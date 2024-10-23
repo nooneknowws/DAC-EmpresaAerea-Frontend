@@ -1,5 +1,5 @@
     <div class="card shadow-sm">
-      <div class="card-header">
+      <div class="card-header-cliente">
         <h5 class="mb-0">Efetuar Reserva</h5>
       </div>
       <div *ngIf="!tabelaVisivel && !vooSelecionado" class="card-body">
@@ -24,7 +24,7 @@
       <div *ngIf="tabelaVisivel" class="card-body">
         <p>Lista dos voos disponíveis entre os aeroportos:</p>
         
-        <div class="container row mb-3">
+        <div class="container-reserva row mb-3">
             <p class="col-6"><span class="badge bg-secondary me-1">{{ aeroportoOrigem?.codigo }}</span>{{ aeroportoOrigem?.nome }}</p>
             <p class="col-6"><span class="badge bg-secondary me-1">{{ aeroportoDestino?.codigo }}</span>{{ aeroportoDestino?.nome }}</p>
         </div>
@@ -66,7 +66,7 @@
             </tbody>
           </table>          
         </div>
-        <div *ngIf="vooSelecionado && !tabelaVisivel" class="container mt-4">
+        <div *ngIf="vooSelecionado && !tabelaVisivel" class="container-reserva mt-1">
             <h5 class="mb-4">Detalhes do voo selecionado</h5>
             
             <table class="table table-bordered mb-4">

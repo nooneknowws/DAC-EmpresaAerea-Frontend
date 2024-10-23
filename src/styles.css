@@ -12,10 +12,21 @@ body {
   background-color: #F2F4F5;
 }
 
-.container {
+.container-cliente {
   background-color: #edecf5;
   padding: 2.5em;
   border-radius: 8px;
+}
+
+.container-funcionario {
+  background-color: #EBF1FF;
+  padding: 2.5em;
+  border-radius: 8px;
+}
+
+.back {
+  text-decoration: none;
+  margin-bottom: 1em !important;
 }
 
 i {
@@ -90,12 +101,26 @@ i {
   margin-bottom: 0;
 }
 
-.card .nav-link {
+.card .nav-link-cliente {
   color: #7482fd;
+  text-decoration: none;
 }
 
-.card-header {
+.card .nav-link-funcionario {
+  color: #2062FE;
+  text-decoration: none;
+}
+
+.card-header-cliente {
   background-color: #7784ff !important;
+  color: white !important;
+  padding: 0.5em !important;
+  border-radius: 0.25em 0.25em 0 0 !important;
+  font-size: 18px;
+}
+
+.card-header-funcionario {
+  background-color: #2062FE !important;
   color: white !important;
   padding: 0.5em !important;
   border-radius: 0.25em 0.25em 0 0 !important;

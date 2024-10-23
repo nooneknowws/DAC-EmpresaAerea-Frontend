@@ -16,6 +16,23 @@
         "estado": "PR"
       },
       "matricula": "123456789"
+    },
+    {
+      "id": "e9f8",
+      "cpf": "141414484822",
+      "nome": "Carlinhos",
+      "email": "carlinhos@mail.com",
+      "senha": "1160",
+      "endereco": {
+        "cep": "83546740",
+        "logradouro": "Rua Epitácio Pessoa",
+        "numero": 33,
+        "complemento": "Fundos",
+        "bairro": "Nossa Senhora de Fátima",
+        "cidade": "Rio Branco do Sul",
+        "estado": "PR"
+      },
+      "matricula": "1234545"
     }
   ],
   "clientes": [

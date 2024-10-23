@@ -41,4 +41,9 @@ export class ReservaService {
     reserva.status = StatusReservaEnum.CANCELADO;
     return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva);
   }
+
+  confirmarEmbarque(reserva: Reserva): Observable<Reserva> {
+    reserva.status = StatusReservaEnum.EMBARCADO;
+    return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva);
+  }
 }

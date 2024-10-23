@@ -7,27 +7,27 @@
       <div class="row">
           <div class="col-md-3">
               <div class="card">
-                  <div class="card-header">
+                  <div class="card-header-cliente">
                       <h5 class="mb-0">Menu</h5>
                   </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                       <h5 class="fw-bold"><i class="fa fa-plane fa-icon"></i> Reservas</h5>
                       <ul class="list-unstyled ml-3">
-                        <li><a [routerLink]="['/cliente/efetuar-reserva']" class="nav-link"><i class="fa fa-calendar fa-icon"></i> Efetuar Reserva</a></li>
-                        <li><a [routerLink]="['/cliente/consultar-reserva']" class="nav-link ml-3"><i class="fa fa-address-book" aria-hidden="true"></i> Consultar Reserva</a></li>
+                        <li><a [routerLink]="['/cliente/efetuar-reserva']" class="nav-link-cliente"><i class="fa fa-calendar fa-icon"></i> Efetuar Reserva</a></li>
+                        <li><a [routerLink]="['/cliente/consultar-reserva']" class="nav-link-cliente ml-3"><i class="fa fa-address-book" aria-hidden="true"></i> Consultar Reserva</a></li>
                       </ul>
                     </li>
                     <li class="list-group-item">
                       <h5 class="fw-bold"><i class="fa fa-money-bill fa-icon ml-3"></i> Milhas</h5>
                       <ul class="list-unstyled ml-3">
-                        <li><a [routerLink]="['/cliente/comprar-milhas']" class="nav-link"><i class="fa fa-money-bill-transfer fa-icon"></i> Comprar Milhas</a></li>
-                        <li><a [routerLink]="['/cliente/extrato-milhas']" class="nav-link"><i class="fa fa-file-invoice icon fa-icon"></i> Consultar Extrato</a></li>
+                        <li><a [routerLink]="['/cliente/comprar-milhas']" class="nav-link-cliente"><i class="fa fa-money-bill-transfer fa-icon"></i> Comprar Milhas</a></li>
+                        <li><a [routerLink]="['/cliente/extrato-milhas']" class="nav-link-cliente"><i class="fa fa-file-invoice icon fa-icon"></i> Consultar Extrato</a></li>
                       </ul>
                     </li>
                     <li class="list-group-item ml-3">
                       <h5 class="fw-bold"><i class="fa fa-check fa-icon"></i> Check-in</h5>
-                      <a [routerLink]="['/cliente/fazer-checkin']" class="nav-link"><i class="fa fa-sign-in-alt fa-icon"></i> Fazer Check-in</a>
+                      <a [routerLink]="['/cliente/fazer-checkin']" class="nav-link-cliente"><i class="fa fa-sign-in-alt fa-icon"></i> Fazer Check-in</a>
                     </li>
                   </ul>
               </div>
@@ -35,13 +35,13 @@
 
           <div class="col-9">
               <div class="card">
-                  <div class="card-header">
+                  <div class="card-header-cliente">
                       <h5 class="mb-0">Suas Milhas: {{ user.milhas?.quantidade }}</h5>
                   </div>
                   <div class="card-body"></div>
               </div>
               <div *ngIf="reservas.length > 0" class="card shadow-sm mt-4">
-                  <div class="card-header">
+                  <div class="card-header-cliente">
                       <h5 class="mb-0">Reservas</h5>
                   </div>
                   <div class="card-body">

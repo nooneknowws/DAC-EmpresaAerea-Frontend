@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-funcionario-layout',
@@ -6,5 +8,24 @@ import { Component } from '@angular/core';
   styleUrl: './funcionario-layout.component.css'
 })
 export class FuncionarioLayoutComponent {
+  linkVoltarVisivel: boolean = false;
 
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.linkVoltarVisivel = !this.isRotaInicial();
+    });
+  }
+
+  voltar() {
+    history.back();
+  }
+
+  isRotaInicial(): boolean {
+    console.log(this.router.url);
+    return this.router.url === '/funcionario';
+  }
 }
