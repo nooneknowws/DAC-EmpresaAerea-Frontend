@@ -36,14 +36,14 @@ export class DashboardFuncionarioComponent {
   }
 
   cancelarVoo(voo: Voo): void {
-    this.router.navigate(['/funcionario/cancelar-voo', voo.id]);
+    this.router.navigate(['/funcionario/cancelar-voo', voo.codigoVoo]);
     /*this.vooService.cancelarVoo(voo.id!).subscribe(() => {
       this.getVoos(); 
     });*/
   }
   
   realizarVoo(voo: Voo): void {
-    this.router.navigate(['/funcionario/realizar-voo', voo.id]);
+    this.router.navigate(['/funcionario/realizar-voo', voo.codigoVoo]);
     /*this.vooService.realizarVoo(voo.id!).subscribe(() => {
       this.getVoos(); 
     });*/

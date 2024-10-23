@@ -13,27 +13,45 @@ import { AuthService } from '../../../shared/services/auth.service';
 export class CancelarVooComponent {
   user: Funcionario | null = null;
   voo: Voo | null = null;
-  loading: boolean = true;
-  errorMessage: string | null = null;
+  codigoVooInput: string = '';
+  errorMessage: string = '';
 
-  constructor(
-    private vooService: VooService,
-    private route: ActivatedRoute,
-    private authService: AuthService,
-  ) {}
+  constructor(private vooService: VooService, 
+              private authService: AuthService,
+              private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
-    this.route.params.subscribe(params => {
-      const id = +params['id'];
-      this.getVooById(id);
+    const idVoo = this.route.snapshot.paramMap.get('id');
+    if (idVoo) {
+      this.getVoo(idVoo);
+    }
+  }
+
+  getVoo(codigoVoo: string) {
+    this.vooService.getVoos().subscribe(voos => {
+      const vooEncontrado = voos.find(voo => voo.codigoVoo === codigoVoo);
+      if (vooEncontrado) {
+        this.voo = vooEncontrado;
+        this.errorMessage = '';
+      } else {
+        this.errorMessage = 'Voo não encontrado!';
+        this.voo = null;
+      }
     });
   }
 
-  getVooById(id: number): void {
-    this.vooService.getVooById(id).subscribe(voo => {
-      this.voo = voo;
-      this.loading = false;
-    });
+  cancelarVoo() {
+    if (this.voo) {
+      this.vooService.cancelarVoo(this.voo.id!).subscribe(
+        () => {
+          alert('Voo cancelado com sucesso!');
+          this.voo = null; 
+        },
+        () => {
+          alert('Erro ao cancelar o voo!');
+        }
+      );
+    }
   }
 }

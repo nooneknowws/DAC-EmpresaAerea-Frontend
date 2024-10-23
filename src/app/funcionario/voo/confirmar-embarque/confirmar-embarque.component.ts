@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Reserva } from '../../../shared/models/reserva/reserva';
 import { StatusReservaEnum } from '../../../shared/models/reserva/status-reserva.enum';
 import { ReservaService } from '../../../shared/services/reserva.service';
@@ -9,19 +9,26 @@ import { ReservaService } from '../../../shared/services/reserva.service';
   templateUrl: './confirmar-embarque.component.html',
   styleUrls: ['./confirmar-embarque.component.css']
 })
-export class ConfirmarEmbarqueComponent {
+export class ConfirmarEmbarqueComponent implements OnInit {
   codigoReservaInput: string = '';
   reserva: Reserva | null = null;
   errorMessage: string = '';
   e = StatusReservaEnum;
 
-  constructor(private reservaService: ReservaService) {}
+  constructor(private reservaService: ReservaService, private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    const idReserva = this.route.snapshot.paramMap.get('id');
+    if (idReserva) {
+      this.getReserva(idReserva);
+    }
+  }
 
   getReserva(codigoReserva: string) {
     const idReserva = Number(codigoReserva);
     this.reservaService.getReservaById(idReserva).subscribe(
       (reserva) => {
-        if (reserva.status === 'Pendente') {
+        if (reserva.status === 'Confirmado') {
           this.reserva = reserva;
           this.errorMessage = '';
         } else {
@@ -49,4 +56,3 @@ export class ConfirmarEmbarqueComponent {
     }
   }
 }
-
