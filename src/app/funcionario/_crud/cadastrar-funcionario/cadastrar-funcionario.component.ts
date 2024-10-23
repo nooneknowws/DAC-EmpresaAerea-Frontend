@@ -56,7 +56,6 @@ export class CadastrarFuncionarioComponent {
     if (form.valid) {
       const { nome, cpf, email, telefone, endereco } = this.form;
       const password = this.authService.gerarSenha();
-      console.log(password);
 
       const funcionario = new Funcionario(telefone);
       funcionario.nome = nome;
@@ -64,6 +63,7 @@ export class CadastrarFuncionarioComponent {
       funcionario.email = email;
       funcionario.senha = password;
       funcionario.endereco = endereco;
+      funcionario.ativo = true;
 
       this.authService.registerFuncionario(funcionario).subscribe({
         next: (data: Autenticacao) => {

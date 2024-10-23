@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
 
       if ('milhas' in user) {
         this.router.navigate(['/cliente']);
-      } else {
+      } else if ('ativo' in user) {
         this.router.navigate(['/funcionario']);
-      }
+      } 
     }
   }
 
@@ -50,11 +50,10 @@ export class LoginComponent implements OnInit {
             this.isLoggedIn = true;
             this.user = data;
 
-            if ('milhas' in data) {
-              this.router.navigate(['/cliente']);
-            } else {
-              this.router.navigate(['/funcionario']);
-            }
+            if ('milhas' in data) 
+                this.router.navigate(['/cliente']);
+            else if ('ativo' in data) 
+                this.router.navigate(['/funcionario']);
           } else {
             this.errorMessage = 'Credenciais inválidas';
             this.isLoginFailed = true;

@@ -26,7 +26,6 @@ export class ClienteLayoutComponent implements OnInit {
   }
 
   isRotaInicial(): boolean {
-    console.log(this.router.url);
     return this.router.url === '/cliente';
   }
 }

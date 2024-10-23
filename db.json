@@ -1,128 +1,42 @@
 {
   "funcionarios": [
     {
-      "id": "ab7a",
-      "cpf": "12345678910",
-      "nome": "Funcionario",
-      "email": "funcionario@mail.com",
-      "senha": "password",
+      "id": "3c23",
+      "cpf": "98765432100",
+      "nome": "Funcionário",
+      "email": "funcionario@teste.com",
+      "senha": "1234",
       "endereco": {
-        "cep": 83562006,
-        "logradouro": "Rua Alcides Gomes da Silva",
-        "numero": 123,
-        "complemento": "123",
-        "bairro": "Santa Maria",
-        "cidade": "Itaperuçu",
+        "cep": 83050214,
+        "logradouro": "Rua Osvaldo Rodrigues Caldeira",
+        "numero": 225,
+        "complemento": "",
+        "bairro": "Parque da Fonte",
+        "cidade": "São José dos Pinhais",
         "estado": "PR"
       },
-      "matricula": "123456789"
-    },
-    {
-      "id": "e9f8",
-      "cpf": "141414484822",
-      "nome": "Carlinhos",
-      "email": "carlinhos@mail.com",
-      "senha": "1160",
-      "endereco": {
-        "cep": "83546740",
-        "logradouro": "Rua Epitácio Pessoa",
-        "numero": 33,
-        "complemento": "Fundos",
-        "bairro": "Nossa Senhora de Fátima",
-        "cidade": "Rio Branco do Sul",
-        "estado": "PR"
-      },
-      "matricula": "1234545"
+      "telefone": "41987654321",
+	  "ativo": true
     }
   ],
   "clientes": [
     {
-      "id": "f4ea",
+      "id": "7289",
       "cpf": "12345678910",
       "nome": "Cliente",
-      "email": "teste@mail.com",
-      "senha": "password",
+      "email": "cliente@teste.com",
+      "senha": "1234",
       "endereco": {
-        "cep": 83562006,
-        "logradouro": "Rua Alcides Gomes da Silva",
-        "numero": 123,
-        "complemento": "123",
-        "bairro": "Santa Maria",
-        "cidade": "Itaperuçu",
-        "estado": "PR"
-      },
-      "telefone": "123456789",
-      "saldoMilhas": 495.8,
-      "milhas": [
-        {
-          "quantidade": 695.8,
-          "dataHoraTransacao": "2024-10-19T20:45:22.278Z",
-          "descricao": "COMPRA DE MILHAS",
-          "entradaSaida": "entrada"
-        },
-        {
-          "quantidade": 200,
-          "dataHoraTransacao": "2024-10-21T14:48:12.378Z",
-          "descricao": "GRU->SSA",
-          "entradaSaida": "saida"
-        }
-      ]
-    },
-    {
-      "id": "383b",
-      "cpf": "10594113938",
-      "nome": "thalyson bruck andreatta",
-      "email": "thalysonbruck@hotmail.com",
-      "senha": "4678",
-      "endereco": {
-        "cep": 83420000,
-        "logradouro": "rosemiro alves de paula",
-        "numero": 91,
-        "complemento": "casa 2",
-        "bairro": "jd patricia",
-        "cidade": "Quatro Barras",
-        "estado": "PR"
-      },
-      "telefone": "41920032665",
-      "saldoMilhas": 0,
-      "milhas": []
-    },
-    {
-      "id": "9cff",
-      "cpf": "12309219828",
-      "nome": "Clara",
-      "email": "clara@mail.com",
-      "senha": "6529",
-      "endereco": {
-        "cep": 83541000,
-        "logradouro": "Avenida Brasil",
-        "numero": 757,
-        "complemento": "Casa",
-        "bairro": "Vila Buava",
-        "cidade": "Rio Branco do Sul",
-        "estado": "PR"
-      },
-      "telefone": "12039812098",
-      "saldoMilhas": 0,
-      "milhas": []
-    },
-    {
-      "id": "0fc9",
-      "cpf": "98485733991",
-      "nome": "ELISABETE SILVA FARIA THIBES",
-      "email": "elisabete-thibes@hotmail.com",
-      "senha": "7158",
-      "endereco": {
-        "cep": 83546374,
-        "logradouro": "Rua Epitácio Pessoa",
-        "numero": 23,
+        "cep": 82530210,
+        "logradouro": "Praça Major Fidêncio Lemos do Prado",
+        "numero": 14,
         "complemento": "",
-        "bairro": "Papanduva",
-        "cidade": "Rio Branco do Sul",
+        "bairro": "Tarumã",
+        "cidade": "Curitiba",
         "estado": "PR"
       },
       "perfil": "Cliente",
-      "telefone": "41984598081",
+      "telefone": "41998765432",
       "saldoMilhas": 0,
       "milhas": []
     }
@@ -170,77 +84,6 @@
       "pais": "Brasil"
     }
   ],
-  "voos": [
-    {
-      "id": "3b12",
-      "codigoVoo": "ACG",
-      "dataHoraPartida": "2024-10-23T14:00",
-      "origem": {
-        "id": "5",
-        "codigo": "CWB",
-        "nome": "Aeroporto Internacional de Curitiba",
-        "cidade": "Curitiba",
-        "estado": "PR",
-        "pais": "Brasil"
-      },
-      "destino": {
-        "id": "1",
-        "codigo": "GRU",
-        "nome": "Aeroporto Internacional de Guarulhos",
-        "cidade": "São Paulo",
-        "estado": "SP",
-        "pais": "Brasil"
-      },
-      "valorPassagem": 399,
-      "quantidadeAssentos": 180,
-      "status": "Confirmado"
-    }
-  ],
-  "reservas": [
-    {
-      "id": "4f95",
-      "dataHora": "Wed Oct 23 2024",
-      "origem": {
-        "id": "5",
-        "codigo": "CWB",
-        "nome": "Aeroporto Internacional de Curitiba",
-        "cidade": "Curitiba",
-        "estado": "PR",
-        "pais": "Brasil"
-      },
-      "destino": {
-        "id": "1",
-        "codigo": "GRU",
-        "nome": "Aeroporto Internacional de Guarulhos",
-        "cidade": "São Paulo",
-        "estado": "SP",
-        "pais": "Brasil"
-      },
-      "status": "Pendente",
-      "voo": {
-        "id": "3b12",
-        "codigoVoo": "ACG",
-        "dataHoraPartida": "2024-10-23T14:00",
-        "origem": {
-          "id": "5",
-          "codigo": "CWB",
-          "nome": "Aeroporto Internacional de Curitiba",
-          "cidade": "Curitiba",
-          "estado": "PR",
-          "pais": "Brasil"
-        },
-        "destino": {
-          "id": "1",
-          "codigo": "GRU",
-          "nome": "Aeroporto Internacional de Guarulhos",
-          "cidade": "São Paulo",
-          "estado": "SP",
-          "pais": "Brasil"
-        },
-        "valorPassagem": 399,
-        "quantidadeAssentos": 180,
-        "status": "Confirmado"
-      }
-    }
-  ]
+  "voos": [],
+  "reservas": []
 }

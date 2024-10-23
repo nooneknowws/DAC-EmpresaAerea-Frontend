@@ -25,7 +25,6 @@ export class FuncionarioLayoutComponent {
   }
 
   isRotaInicial(): boolean {
-    console.log(this.router.url);
     return this.router.url === '/funcionario';
   }
 }

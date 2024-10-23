@@ -8,6 +8,7 @@ import { EstadosBrasil } from '../../shared/models/voo/estados-brasil';
 import { Autenticacao } from '../../shared/models/autenticacao';
 import { catchError, timeout } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { Milhas } from '../../shared/models/cliente/milhas';
 
 @Component({
   selector: 'app-cadastro',
@@ -79,7 +80,8 @@ export class CadastroComponent {
       cliente.senha = password;
       cliente.endereco = endereco;
       cliente.perfil = perfil;
-
+      cliente.milhas = [];
+      
       this.authService.registerCliente(cliente).subscribe({
         next: (data: Autenticacao) => {
           this.isRegistered = true;

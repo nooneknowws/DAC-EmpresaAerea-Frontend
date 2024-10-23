@@ -42,7 +42,7 @@ export class AuthService {
             if ('milhas' in usuario) {
               return Object.assign(new Cliente(), usuario);
             }
-            else {
+            if ('ativo' in usuario && !('milhas' in usuario)) {
               return Object.assign(new Funcionario(), usuario);
             }
           }
