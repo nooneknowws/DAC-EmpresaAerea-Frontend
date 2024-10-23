@@ -30,5 +30,11 @@ export class VooService {
   realizarVoo(id: string): Observable<any> {
     return this.http.patch(`${this.apiUrl}/voos/${id}`, { status: 'Realizado' });
   }
+
+  cadastrarVoo(voo: Voo): Observable<any> {
+    return this.http.post(`${this.apiUrl}/voos`, {
+      ...voo, status: 'Confirmado'  
+    });
+  }
 }
 

@@ -8,6 +8,10 @@
       <input type="text" class="form-control" id="codigoReserva" [(ngModel)]="codigoReservaInput" placeholder="Ex: 1">
       <button type="button" class="btn btn-primary" (click)="getReserva(codigoReservaInput)">Consultar</button>  
     </div>
+
+    <h5 class="my-2">Voo selecionado:</h5>
+    <p><strong>Código do Voo:</strong> {{ voo?.codigoVoo }}</p>
+    <p><strong>Data/Hora:</strong> {{ voo?.dataHoraPartida | date: 'short' }}</p>
   </div>
 </div>
 
