@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardClienteComponent } from './dashboard-cliente/dashboard-cliente.component';
 import { DetalheReservaComponent } from './reserva/detalhe-reserva/detalhe-reserva.component';
 import { CancelarReservaComponent } from './reserva/cancelar-reserva/cancelar-reserva.component';
 import { ComprarMilhasComponent } from './milhas/comprar-milhas/comprar-milhas.component';
@@ -9,11 +8,14 @@ import { ConsultarReservaComponent } from './reserva/consultar-reserva/consultar
 import { FazerCheckinComponent } from './fazer-checkin/fazer-checkin.component';
 import { AuthGuard } from '../shared/auth.guard';
 import { EfetuarReservaComponent } from './reserva/efetuar-reserva/efetuar-reserva.component';
+import { InicioComponent } from '../autenticacao/inicio/inicio.component';
+import { ClienteLayoutComponent } from './cliente-layout/cliente-layout.component';
+import { DashboardClienteComponent } from './dashboard-cliente/dashboard-cliente.component';
 
 const routes: Routes = [
   {
     path: 'cliente',
-    component: DashboardClienteComponent,
+    component: ClienteLayoutComponent,
     canActivate: [AuthGuard],
     data: { role: 'cliente' },
     children: [

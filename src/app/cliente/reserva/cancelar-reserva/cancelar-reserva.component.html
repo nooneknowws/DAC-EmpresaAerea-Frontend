@@ -1,53 +1,54 @@
-<div class="container">
-  <h2>Deseja cancelar este vôo?</h2>
-  <div>
-    <div class="container mt-5" *ngIf="!loading && reserva">
-      <div class="card shadow-sm">
-          <div class="card-header">
-              <h5 class="mb-0">Voo {{ reserva.voo?.codigoVoo}}</h5>
-          </div>
-          <div class="card-body">
-              <p><strong>Data/Hora:</strong> {{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
+<div class="" *ngIf="!loading && reserva">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Cancelar reserva</h5>
+            <span>Voo {{ reserva.voo?.codigoVoo}}</span>
+        </div>
+        <div class="card-body">
+            <p><strong>Data/Hora:</strong> {{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
 
-              <table class="table table-sm table-striped">
-                  <thead>
-                      <th>Origem</th>
-                      <th>Destino</th>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>
-                              <span class="badge bg-secondary text-light">{{ reserva.origem?.codigo }}</span>
-                              {{ reserva.origem?.nome }}
-                          </td>
-                          <td>
-                              <span class="badge bg-primary text-light">{{ reserva.destino?.codigo }}</span>
-                              {{ reserva.destino?.nome }}
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                              {{ reserva.origem?.cidade }}, {{ reserva.origem?.estado }}, {{ reserva.origem?.pais }}
-                          </td>
-                          <td>
-                              {{ reserva.destino?.cidade }}, {{ reserva.destino?.estado }}, {{ reserva.destino?.pais }}
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
+            <table class="table table-sm table-striped">
+                <thead>
+                    <th>Origem</th>
+                    <th>Destino</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="badge bg-secondary text-light">{{ reserva.origem?.codigo }}</span>
+                            {{ reserva.origem?.nome }}
+                        </td>
+                        <td>
+                            <span class="badge bg-primary text-light">{{ reserva.destino?.codigo }}</span>
+                            {{ reserva.destino?.nome }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{ reserva.origem?.cidade }}, {{ reserva.origem?.estado }}, {{ reserva.origem?.pais }}
+                        </td>
+                        <td>
+                            {{ reserva.destino?.cidade }}, {{ reserva.destino?.estado }}, {{ reserva.destino?.pais }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-              <p><strong>Valor:</strong> {{ reserva.valor | currency:'BRL':'symbol' }}</p>
-              <p><strong>Milhas:</strong> {{ reserva.milhas }}</p>
-          </div>
-      </div>
-  </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <button class="btn btn-danger" (click)="cancelarReserva(reserva!)">Cancelar</button>
+            <p><strong>Valor:</strong> {{ reserva.valor | currency:'BRL':'symbol' }}</p>
+            <p><strong>Milhas:</strong> {{ reserva.milhas }}</p>
+        </div>
     </div>
-    <div class="col">
-      <button class="btn btn-secondary" (click)="voltar()">Voltar</button>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Confirmação</h5>
+        </div>
+        <div class="card-body">
+            <h2 class="text-center mb-4">Confirma o cancelamento do voo acima?</h2>
+            <div class="d-flex justify-content-evenly">
+                <button class="btn btn-danger col-4" (click)="cancelarReserva(reserva!)">Cancelar</button>
+                <button class="btn btn-secondary col-4" (click)="voltar()">Voltar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

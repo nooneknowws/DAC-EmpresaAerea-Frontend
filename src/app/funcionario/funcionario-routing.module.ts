@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardFuncionarioComponent } from './dashboard-funcionario/dashboard-funcionario.component';
 import { ConfirmarEmbarqueComponent } from './voo/confirmar-embarque/confirmar-embarque.component';
 import { CancelarVooComponent } from './voo/cancelar-voo/cancelar-voo.component';
 import { RealizarVooComponent } from './voo/realizar-voo/realizar-voo.component';
@@ -9,15 +8,17 @@ import { ListarFuncionarioComponent } from './_crud/listar-funcionario/listar-fu
 import { CadastrarFuncionarioComponent } from './_crud/cadastrar-funcionario/cadastrar-funcionario.component';
 import { AuthGuard } from '../shared/auth.guard';
 import { EditarFuncionarioComponent } from './_crud/editar-funcionario/editar-funcionario.component';
+import { FuncionarioLayoutComponent } from './funcionario-layout/funcionario-layout.component';
+import { InicioComponent } from '../autenticacao/inicio/inicio.component';
 
 const routes: Routes = [
   {
     path: 'funcionario',
-    component: DashboardFuncionarioComponent,
+    component: FuncionarioLayoutComponent,
     canActivate: [AuthGuard],
     data: { role: 'funcionario' },
     children: [
-      { path: '', component: DashboardFuncionarioComponent },
+      { path: '', component: InicioComponent },
       { path: 'confirmar-embarque/:id', component: ConfirmarEmbarqueComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },
       { path: 'cancelar-voo/:id', component: CancelarVooComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },
       { path: 'realizar-voo/:id', component: RealizarVooComponent, canActivate: [AuthGuard], data: { role: 'funcionario' } },

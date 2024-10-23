@@ -1,20 +1,20 @@
-<div class="container">
-  <div *ngIf="reservas.length > 0" class="card shadow-sm mt-4">
+  <div *ngIf="reservas.length > 0" class="card shadow-sm">
     <div class="card-header">
-        <h5 class="mb-0">Seus Vôos nas próximas 48h</h5>
+        <h5 class="mb-0">Check-in - Seus voos nas próximas 48h</h5>
     </div>
     <div class="card-body">
         <table class="table table-bordered table-hover">
             <thead class="thead-light">
             <tr>
-            <th>Data/Hora</th>
-            <th>Origem</th>
-            <th>Destino</th>
-            <th>&nbsp;</th>
+                <th>Código</th>
+                <th>Data/Hora</th>
+                <th>Origem</th>
+                <th colspan="2">Destino</th>
             </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let reserva of reservas">
+                    <td>{{ reserva.id }}</td>
                     <td>{{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</td>
                     <td>
                         <span class="badge bg-secondary">{{ reserva.origem?.codigo }}</span>
@@ -31,5 +31,4 @@
             </tbody>
         </table>
     </div>
-</div>
 </div>

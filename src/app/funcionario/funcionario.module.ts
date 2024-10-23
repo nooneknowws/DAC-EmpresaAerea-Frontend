@@ -9,18 +9,22 @@ import { EditarFuncionarioComponent } from './_crud/editar-funcionario/editar-fu
 import { ListarFuncionarioComponent } from './_crud/listar-funcionario/listar-funcionario.component';
 import { CadastrarFuncionarioComponent } from './_crud/cadastrar-funcionario/cadastrar-funcionario.component';
 import { FormsModule } from '@angular/forms';
+import { FuncionarioLayoutComponent } from './funcionario-layout/funcionario-layout.component';
+import { NavbarFuncionarioComponent } from './navbar-funcionario/navbar-funcionario.component';
 
 
 
 @NgModule({
   declarations: [
+    NavbarFuncionarioComponent,
     DashboardFuncionarioComponent,
     CancelarVooComponent,
     RealizarVooComponent,
     CadastrarVooComponent,
     EditarFuncionarioComponent,
     ListarFuncionarioComponent,
-    CadastrarFuncionarioComponent
+    CadastrarFuncionarioComponent,
+    FuncionarioLayoutComponent
   ],
   imports: [
     CommonModule,

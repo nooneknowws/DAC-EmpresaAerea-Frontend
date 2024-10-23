@@ -1,17 +1,14 @@
-.container {
-  max-width: 600px;
-  margin: 0 auto;
+.table thead th {
+  background-color: #e9ecef;
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+  color: #495057;
 }
 
-.card {
-  border-radius: 8px;
+.table tbody tr td {
+  padding: 10px;
+  font-size: 14px;
+  color: #495057;
 }
 
-.card-title {
-  font-weight: bold;
-}
-
-.btn {
-  background-color: #001aff88;
-  border: none;
-}

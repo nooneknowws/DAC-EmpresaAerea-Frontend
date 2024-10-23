@@ -1,9 +1,9 @@
 <div *ngIf="user != null; else non_authorized">
-    <div class="container mt-5" *ngIf="loading">
+    <div class="" *ngIf="loading">
       <p>Carregando detalhes da reserva...</p>
   </div>
 
-  <div class="container mt-5" *ngIf="!loading && reserva">
+  <div class="" *ngIf="!loading && reserva">
       <div class="card shadow-sm">
           <div class="card-header">
               <h5 class="mb-0">Reserva #{{ reserva.id }}</h5>
