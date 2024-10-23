@@ -22,7 +22,7 @@
               <td>{{ funcionario.email }}</td>
               <td>{{ funcionario.telefone }}</td>
               <td>
-                <span *ngIf="funcionario.ativo; else ativo" class="badge text-bg-danger">Inativo</span>
+                <span *ngIf="!funcionario.ativo; else ativo" class="badge text-bg-danger">Inativo</span>
                 <ng-template #ativo>
                   <span class="badge text-bg-success">Ativo</span>
                 </ng-template>
@@ -32,7 +32,7 @@
                   <button class="btn btn-sm btn-primary w-100 mb-1" (click)="editarFuncionario(funcionario)">
                     <i class="fa-solid fa-pen"></i> Editar
                   </button>
-                  <button *ngIf="funcionario.ativo; else btnInativo" class="btn btn-sm btn-success w-100" (click)="desativarFuncionario(funcionario)">
+                  <button *ngIf="!funcionario.ativo; else btnInativo" class="btn btn-sm btn-success w-100" (click)="desativarFuncionario(funcionario)">
                     Ativar
                   </button>
                   <ng-template #btnInativo>
