@@ -11,6 +11,7 @@ import { CadastrarFuncionarioComponent } from './_crud/cadastrar-funcionario/cad
 import { FormsModule } from '@angular/forms';
 import { FuncionarioLayoutComponent } from './funcionario-layout/funcionario-layout.component';
 import { NavbarFuncionarioComponent } from './navbar-funcionario/navbar-funcionario.component';
+import { ConfirmarEmbarqueComponent } from './voo/confirmar-embarque/confirmar-embarque.component';
 
 
 
@@ -24,7 +25,8 @@ import { NavbarFuncionarioComponent } from './navbar-funcionario/navbar-funciona
     EditarFuncionarioComponent,
     ListarFuncionarioComponent,
     CadastrarFuncionarioComponent,
-    FuncionarioLayoutComponent
+    FuncionarioLayoutComponent,
+    ConfirmarEmbarqueComponent
   ],
   imports: [
     CommonModule,

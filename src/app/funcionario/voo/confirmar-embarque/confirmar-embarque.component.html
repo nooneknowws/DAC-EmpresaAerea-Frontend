@@ -17,19 +17,19 @@
   
   <div *ngIf="reserva" class="card shadow-sm">
     <div class="card-header-cliente">
-      <h5 class="mb-0">Reserva #{{ reserva?.id }}</h5>
+      <h5 class="mb-0">Reserva #{{ reserva.id }}</h5>
       <span class="ms-1 badge"
       [ngClass]="{
-        'bg-secondary': reserva?.status === e.PENDENTE,
-        'bg-success': reserva?.status === e.FINALIZADO,
-        'bg-danger': reserva?.status === e.CANCELADO
+        'bg-secondary': reserva.status === e.PENDENTE,
+        'bg-success': reserva.status === e.FINALIZADO,
+        'bg-danger': reserva.status === e.CANCELADO
       }">
-      {{ reserva?.status }}
+      {{ reserva.status }}
       </span>
     </div>
   
     <div class="card-body">
-      <p><strong>Data/Hora:</strong> {{ reserva?.dataHora | date: 'short' }}</p>
+      <p><strong>Data/Hora:</strong> {{ reserva.dataHora | date: 'short' }}</p>
       
       <table class="table table-sm table-striped">
         <thead>
@@ -41,19 +41,19 @@
         <tbody>
           <tr>
             <td>
-              <span class="badge bg-secondary text-light">{{ reserva?.origem?.codigo }}</span>
-              {{ reserva?.origem?.nome }}
+              <span class="badge bg-secondary text-light">{{ reserva.origem?.codigo }}</span>
+              {{ reserva.origem?.nome }}
             </td>
             <td>
-              <span class="badge bg-primary text-light">{{ reserva?.destino?.codigo }}</span>
-              {{ reserva?.destino?.nome }}
+              <span class="badge bg-primary text-light">{{ reserva.destino?.codigo }}</span>
+              {{ reserva.destino?.nome }}
             </td>
           </tr>
         </tbody>
       </table>
   
-      <p><strong>Valor:</strong> R${{ reserva?.valor }}</p>
-      <p><strong>Milhas:</strong> {{ reserva?.milhas }}</p>
+      <p><strong>Valor:</strong> R${{ reserva.valor }}</p>
+      <p><strong>Milhas:</strong> {{ reserva.milhas }}</p>
   
       <button type="button" class="btn btn-success" (click)="confirmarEmbarque()">Confirmar Embarque</button>
     </div>
