@@ -1,0 +1,65 @@
+.navbar {
+  background-color: #f8f9fa;
+}
+
+.navbar-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav .nav-item .nav-link {
+  color: #007bff;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav .nav-item .nav-link .icon {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: #fff;
+  background-color: #007bff;
+  border-radius: 10px;
+}
+
+.btn {
+  border-radius: 30px;
+  padding: 8px 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.btn-danger, .btn-outline-secondary {
+  background-color: #da3324;
+  color: white;
+  border: none;
+}
+
+.btn-danger:hover, .btn-outline-secondary:hover {
+  background-color: #ff4c3b;
+}
+
+/* Estilo para o toggle da navbar em dispositivos móveis */
+.navbar-toggler {
+  border: none;
+  outline: none;
+}
+
+.navbar-toggler:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* Para garantir espaçamento entre ícones e texto */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+}
