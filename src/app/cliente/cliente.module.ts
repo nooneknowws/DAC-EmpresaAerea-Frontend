@@ -10,11 +10,14 @@ import { EfetuarReservaComponent } from './reserva/efetuar-reserva/efetuar-reser
 import { ConsultarReservaComponent } from './reserva/consultar-reserva/consultar-reserva.component';
 import { FormsModule } from '@angular/forms';
 import { FazerCheckinComponent } from './fazer-checkin/fazer-checkin.component';
+import { ClienteLayoutComponent } from './cliente-layout/cliente-layout.component';
+import { NavbarClienteComponent } from './navbar-cliente/navbar-cliente.component';
 
 
 
 @NgModule({
   declarations: [
+    NavbarClienteComponent,
     DashboardClienteComponent,
     ComprarMilhasComponent,
     ExtratoMilhasComponent,
@@ -22,7 +25,8 @@ import { FazerCheckinComponent } from './fazer-checkin/fazer-checkin.component';
     CancelarReservaComponent,
     EfetuarReservaComponent,
     ConsultarReservaComponent,
-    FazerCheckinComponent
+    FazerCheckinComponent,
+    ClienteLayoutComponent
   ],
   imports: [
     CommonModule,

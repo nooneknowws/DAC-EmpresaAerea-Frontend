@@ -27,12 +27,12 @@ export class DetalheReservaComponent {
   ngOnInit(): void {
     this.user = this.authService.getUser();
     this.route.params.subscribe(params => {
-      const id = +params['id'];
+      const id = params['id'];
       this.getReserva(id);
     });
   }
 
-  getReserva(id: number): void {
+  getReserva(id: string): void {
     this.reservaService.getReservaById(id).subscribe(reserva => {
       this.reserva = reserva;
       this.loading = false;

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeRedirectComponent } from './home-redirect.component';
+import { NavbarClienteComponent } from './navbar-cliente.component';
 
-describe('HomeRedirectComponent', () => {
-  let component: HomeRedirectComponent;
-  let fixture: ComponentFixture<HomeRedirectComponent>;
+describe('NavbarClienteComponent', () => {
+  let component: NavbarClienteComponent;
+  let fixture: ComponentFixture<NavbarClienteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HomeRedirectComponent]
+      declarations: [NavbarClienteComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HomeRedirectComponent);
+    fixture = TestBed.createComponent(NavbarClienteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

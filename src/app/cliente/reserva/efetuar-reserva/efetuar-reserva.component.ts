@@ -6,6 +6,8 @@ import { Voo } from '../../../shared/models/voo/voo';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Cliente } from '../../../shared/models/cliente/cliente';
 import { Router } from '@angular/router';
+import { StatusReservaEnum } from '../../../shared/models/reserva/status-reserva.enum';
+import { ClienteService } from '../../../shared/services/cliente.service';
 
 @Component({
   selector: 'app-efetuar-reserva',
@@ -20,7 +22,7 @@ export class EfetuarReservaComponent implements OnInit {
   saldoMilhas: number = 0;
   quantidadePassagens: number = 0;
   milhasUsadas: number = 0;
-  reserva: any = null;
+  reserva: Reserva | undefined;
   aeroportos: Aeroporto[] = [];
   tabelaVisivel: boolean = false;
   valorTotal: number = 0;
@@ -29,6 +31,7 @@ export class EfetuarReservaComponent implements OnInit {
 
   constructor(private reservaService: ReservaService,
               private authService: AuthService,
+              private clienteService: ClienteService,
               private router: Router
   ) { }
 
@@ -54,15 +57,7 @@ export class EfetuarReservaComponent implements OnInit {
     this.vooSelecionado = voo;
     this.tabelaVisivel = !this.tabelaVisivel;
     const cliente = this.authService.getUser() as Cliente;
-    this.saldoMilhas = cliente.milhas?.quantidade!;
-  }
-
-  efetuarReserva() {
-    const reserva = new Reserva();
-    reserva.voo = this.vooSelecionado;
-    this.reservaService.efetuar(reserva).subscribe(reserva => {
-      this.reserva = reserva;
-    });
+    this.saldoMilhas = cliente.saldoMilhas!;
   }
 
   calcularValorTotal() {
@@ -74,20 +69,36 @@ export class EfetuarReservaComponent implements OnInit {
   
   confirmarReserva() {
     const reserva = new Reserva();
+    reserva.id = this.gerarCodigoReserva();
     reserva.voo = this.vooSelecionado;
     reserva.origem = this.vooSelecionado?.origem;
     reserva.destino = this.vooSelecionado?.destino;  
-    reserva.dataHora = new Date().toDateString();  
+    reserva.dataHora = new Date().toISOString();
+    reserva.valor = this.valorTotal;
+    reserva.milhas = this.milhasUsadas; 
+    reserva.status = StatusReservaEnum.PENDENTE;
+
     this.saldoMilhas -= this.milhasUsadas;
-  
-    this.reservaService.efetuar(reserva).subscribe(reserva => {
-      this.reserva = reserva;
-      this.reserva.codigoReserva = this.gerarCodigoReserva();
-      alert(`Reserva confirmada! Código da reserva: ${this.reserva.codigoReserva}`);
+
+    const descricaoTransacao = `${this.vooSelecionado?.origem?.codigo}->${this.vooSelecionado?.destino?.codigo}`;
+    this.clienteService.registrarTransacao(this.authService.getUser()!.id!, this.milhasUsadas, 'saida', descricaoTransacao)
+      .subscribe(() => {
+          console.log("Milhas registradas no extrato.");
+      }, erro => {
+          console.error("Erro ao registrar milhas no extrato:", erro);
+      });
+
+    this.reservaService.efetuar(reserva).subscribe(reservaCriada => {
+      this.reserva = reservaCriada;
+      alert(`Reserva confirmada! Código da reserva: ${this.reserva.id}`);
       this.router.navigate(['/cliente']);
+    }, erro => {
+      console.error("Erro ao efetuar a reserva: ", erro);
+      alert("Ocorreu um erro ao tentar efetuar a reserva.");
     });
   }
-  
+
+
   gerarCodigoReserva(): string {
     const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const numeros = '0123456789';

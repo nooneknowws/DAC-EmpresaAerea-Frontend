@@ -15,7 +15,7 @@ export class VooService {
     return this.http.get<Voo[]>(`${this.apiUrl}/voos`);
   }
 
-  getVooById(id: number): Observable<Voo> {
+  getVooById(id: string): Observable<Voo> {
     return this.http.get<Voo>(`${this.apiUrl}/voos/` + id);
   }
 
@@ -29,6 +29,12 @@ export class VooService {
 
   realizarVoo(id: string): Observable<any> {
     return this.http.patch(`${this.apiUrl}/voos/${id}`, { status: 'Realizado' });
+  }
+
+  cadastrarVoo(voo: Voo): Observable<any> {
+    return this.http.post(`${this.apiUrl}/voos`, {
+      ...voo, status: 'Confirmado'  
+    });
   }
 }
 

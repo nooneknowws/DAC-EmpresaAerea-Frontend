@@ -25,9 +25,11 @@ export class ComprarMilhasComponent {
   comprarMilhas(): void {
     if (this.valorEmReais > 0) {
       this.calcularMilhas();
-      this.clienteService.registrarTransacao(this.cliente.id!, this.valorEmReais, 'entrada').subscribe(
-        clienteAtualizado => {
+      this.clienteService.registrarTransacao(this.cliente.id!, this.valorEmReais, 'entrada', 'COMPRA DE MILHAS').subscribe(
+        (clienteAtualizado) => {
           this.cliente = clienteAtualizado;
+          this.authService.setUser(clienteAtualizado);
+  
           alert(`Milhas compradas com sucesso! Quantidade de milhas: ${this.milhasCompradas}`);
           this.limparFormulario();
         },
@@ -39,7 +41,8 @@ export class ComprarMilhasComponent {
     } else {
       alert('Por favor, insira um valor válido para a compra.');
     }
-  }
+  }  
+  
 
   limparFormulario(): void {
     this.valorEmReais = 0;

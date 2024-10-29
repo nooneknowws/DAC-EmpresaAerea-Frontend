@@ -1,20 +1,25 @@
-<div class="container">
-  <div *ngIf="reservas.length > 0" class="card shadow-sm mt-4">
-    <div class="card-header">
-        <h5 class="mb-0">Seus Vôos nas próximas 48h</h5>
+  <div *ngIf="reservas.length > 0 else vazioTemplate" class="card shadow-sm">
+    <div class="card-header-cliente">
+        <h5 class="mb-0">Check-in - Seus voos nas próximas 48h</h5>
     </div>
     <div class="card-body">
+        <div class="mb-3">
+            <small class="text-muted">
+                Aqui você pode realizar o check-in para os voos programados para as próximas 48 horas. Essa etapa confirma sua intenção de viajar e permite que você tenha ciência da data e hora do voo. Selecione o voo desejado para prosseguir com o check-in.
+            </small>
+        </div>
         <table class="table table-bordered table-hover">
             <thead class="thead-light">
             <tr>
-            <th>Data/Hora</th>
-            <th>Origem</th>
-            <th>Destino</th>
-            <th>&nbsp;</th>
+                <th>Código</th>
+                <th>Data/Hora</th>
+                <th>Origem</th>
+                <th colspan="2">Destino</th>
             </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let reserva of reservas">
+                    <td>{{ reserva.id }}</td>
                     <td>{{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</td>
                     <td>
                         <span class="badge bg-secondary">{{ reserva.origem?.codigo }}</span>
@@ -32,4 +37,18 @@
         </table>
     </div>
 </div>
-</div>
+
+<ng-template #vazioTemplate>
+    <div class="card">
+        <div class="card-header-cliente">
+            <h5 class="mb-0">Check-in</h5>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <small class="text-muted">
+                    Não há voos dentro das próximas 48h para fazer check-in.
+                </small>
+            </div>
+        </div>
+    </div>
+</ng-template>

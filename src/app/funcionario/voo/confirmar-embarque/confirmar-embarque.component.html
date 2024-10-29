@@ -1,1 +1,67 @@
-<p>confirmar-embarque works!</p>
+<div class="card" *ngIf="!reserva">
+  <div class="card-header-funcionario">
+    <h5 class="mb-0">Confirmar Embarque</h5>
+  </div>
+  <div class="card-body">
+    <label for="codigoReserva" class="form-label">Digite o código da reserva:</label>
+    <div class="input-group">
+      <input type="text" class="form-control" id="codigoReserva" [(ngModel)]="codigoReservaInput" placeholder="Ex: 1">
+      <button type="button" class="btn btn-primary" (click)="getReserva(codigoReservaInput)">Consultar</button>  
+    </div>
+
+    <h5 class="my-2">Voo selecionado:</h5>
+    <p><strong>Código do Voo:</strong> {{ voo?.codigoVoo }}</p>
+    <p><strong>Data/Hora:</strong> {{ voo?.dataHoraPartida | date: 'short' }}</p>
+  </div>
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="reserva" class="card shadow-sm">
+  <div class="card-header-funcionario">
+    <h5 class="mb-0">Reserva #{{ reserva.id }}</h5>
+    <span class="ms-1 badge"
+    [ngClass]="{
+      'bg-secondary': reserva.status === e.PENDENTE,
+      'bg-success': reserva.status === e.FINALIZADO,
+      'bg-danger': reserva.status === e.CANCELADO,
+      'bg-info': reserva.status === e.EMBARCADO
+    }">
+    {{ reserva.status }}
+    </span>
+  </div>
+
+  <div class="card-body">
+    
+    <p><strong>Código do Voo:</strong> {{ reserva.voo?.codigoVoo }}</p>
+    <p><strong>Data/Hora:</strong> {{ reserva.dataHora | date: 'short' }}</p>
+    
+    <table class="table table-sm table-striped">
+      <thead>
+        <tr>
+          <th>Origem</th>
+          <th>Destino</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="badge bg-secondary text-light">{{ reserva.origem?.codigo }}</span>
+            {{ reserva.origem?.nome }}
+          </td>
+          <td>
+            <span class="badge bg-primary text-light">{{ reserva.destino?.codigo }}</span>
+            {{ reserva.destino?.nome }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <p><strong>Quantidade de Assentos:</strong> {{ reserva.voo?.quantidadeAssentos }}</p>
+    <p><strong>Quantidade de Passageiros:</strong> {{ reserva.voo?.quantidadePassageiros }}</p>
+
+    <button type="button" class="btn btn-success" (click)="confirmarEmbarque()">Confirmar Embarque</button>
+  </div>
+</div>

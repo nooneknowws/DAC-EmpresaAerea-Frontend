@@ -1,17 +1,18 @@
 <div *ngIf="user != null; else non_authorized">
-    <div class="container mt-5" *ngIf="loading">
+    <div class="" *ngIf="loading">
       <p>Carregando detalhes da reserva...</p>
   </div>
 
-  <div class="container mt-5" *ngIf="!loading && reserva">
+  <div class="" *ngIf="!loading && reserva">
       <div class="card shadow-sm">
-          <div class="card-header">
+          <div class="card-header-cliente">
               <h5 class="mb-0">Reserva #{{ reserva.id }}</h5>
               <span class="ms-1 badge"
               [ngClass]="{
                 'text-bg-secondary': reserva.status === e.PENDENTE,
                 'text-bg-success': reserva.status === e.FINALIZADO,
-                'text-bg-danger': reserva.status === e.CANCELADO
+                'text-bg-danger': reserva.status === e.CANCELADO,
+                'text-bg-info': reserva.status === e.EMBARCADO,
               }">
               {{ reserva.status }}
               </span>
@@ -47,7 +48,7 @@
               </table>
 
               <p><strong>Valor:</strong> {{ reserva.valor | currency:'BRL':'symbol' }}</p>
-              <p><strong>Milhas:</strong> {{ reserva.milhas }}</p>
+              <p><strong>Milhas gastas:</strong> {{ reserva.milhas }}</p>
           </div>
       </div>
   </div>

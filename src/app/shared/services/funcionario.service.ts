@@ -31,7 +31,7 @@ export class FuncionarioService {
   desativarFuncionario(id: number | undefined): Observable<Funcionario> {
     return this.buscarPorId(id!.toString()).pipe(
       switchMap((funcionario: Funcionario) => {
-        funcionario.matricula = "0";
+        funcionario.ativo = !funcionario.ativo;
         return this.alterar(funcionario);
       })
     );
