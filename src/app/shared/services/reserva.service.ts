@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppComponent } from '../../app.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Reserva } from '../models/reserva/reserva';
 import { Observable } from 'rxjs';
 import { StatusReservaEnum } from '../models/reserva/status-reserva.enum';
@@ -15,13 +15,22 @@ export class ReservaService {
 
   private apiUrl: string = AppComponent.PUBLIC_BACKEND_URL;
   constructor(private http: HttpClient) {}
+  private getHttpOptions(): { headers: HttpHeaders } {
+    const token = localStorage.getItem('auth_token') || '';
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'x-access-token': token
+      })
+    };
+  }
 
   getReservas(): Observable<Reserva[]> {
     return this.http.get<Reserva[]>(`${this.apiUrl}/reservas`);
   }
 
   getAeroportos(): Observable<Aeroporto[]>{
-    return this.http.get<Aeroporto[]>(`${this.apiUrl}/aeroportos`);
+    return this.http.get<Aeroporto[]>(`${this.apiUrl}/api/aeroportos`, this.getHttpOptions());
   }
 
   getVoosFiltrados(aeroportoOrigem: Aeroporto, aeroportoDestino: Aeroporto) {
