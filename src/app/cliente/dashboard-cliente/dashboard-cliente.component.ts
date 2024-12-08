@@ -19,6 +19,7 @@ export class DashboardClienteComponent implements OnInit, OnDestroy {
   e = StatusReservaEnum;
   user: Cliente | null = null;
   cliente: Cliente | void = {};
+  isLoading = false;
   
   private destroy$ = new Subject<void>();
 
@@ -29,7 +30,7 @@ export class DashboardClienteComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    
+    this.isLoading = true;
   this.user = this.authService.getUser();
     this.authService.currentUser
     .pipe(takeUntil(this.destroy$))
@@ -37,6 +38,7 @@ export class DashboardClienteComponent implements OnInit, OnDestroy {
       this.user = user as Cliente;
       if (this.user) {
         this.getReservas();
+        this.isLoading = false;
       }
     });
   this.cliente = this.getUser()
@@ -46,7 +48,7 @@ export class DashboardClienteComponent implements OnInit, OnDestroy {
   }
 
   getReservas(): void {
-    this.reservaService.getReservas()
+    this.reservaService.getReservas() //TODO: pegar por cliente
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (reservas: Reserva[]) => {
