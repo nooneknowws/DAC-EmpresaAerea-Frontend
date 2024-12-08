@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppComponent } from '../../app.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Reserva } from '../models/reserva/reserva';
 import { Observable } from 'rxjs';
 import { StatusReservaEnum } from '../models/reserva/status-reserva.enum';
@@ -34,9 +34,16 @@ export class ReservaService {
     return this.http.get<Aeroporto[]>(`${this.apiUrl}/api/aeroportos`, this.getHttpOptions());
   }
 
-  getVoosFiltrados(aeroportoOrigem: Aeroporto, aeroportoDestino: Aeroporto) {
-    return this.http.get<Voo[]>(`${this.apiUrl}/voos`, this.getHttpOptions());
-  }
+  getVoosFiltrados(aeroportoOrigem: Aeroporto, aeroportoDestino: Aeroporto): Observable<Voo[]> {
+    const params = new HttpParams()
+        .set('origem', aeroportoOrigem.codigo!)
+        .set('destino', aeroportoDestino.codigo!);
+
+    return this.http.get<Voo[]>(`${this.apiUrl}/voos/filter`, {
+        headers: this.getHttpOptions().headers,
+        params: params
+    });
+}
 
   getReservaById(id: string): Observable<Reserva> {
     return this.http.get<Reserva>(`${this.apiUrl}/reservas/` + id, this.getHttpOptions());
