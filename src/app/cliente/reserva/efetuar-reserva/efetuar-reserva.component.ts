@@ -8,6 +8,7 @@ import { Cliente } from '../../../shared/models/cliente/cliente';
 import { Router } from '@angular/router';
 import { StatusReservaEnum } from '../../../shared/models/reserva/status-reserva.enum';
 import { ClienteService } from '../../../shared/services/cliente.service';
+import { ReservaDTO } from '../../../shared/models/reserva/reservaDTO';
 
 @Component({
   selector: 'app-efetuar-reserva',
@@ -22,7 +23,7 @@ export class EfetuarReservaComponent implements OnInit {
   saldoMilhas: number = 0;
   quantidadePassagens: number = 0;
   milhasUsadas: number = 0;
-  reserva: Reserva | undefined;
+  reserva: Reserva | ReservaDTO | undefined;
   aeroportos: Aeroporto[] = [];
   tabelaVisivel: boolean = false;
   valorTotal: number = 0;
@@ -69,32 +70,39 @@ export class EfetuarReservaComponent implements OnInit {
   }
   
   confirmarReserva() {
-    const reserva = new Reserva();
-    reserva.codReserva = this.gerarCodigoReserva();
-    reserva.voo = this.vooSelecionado;
-    reserva.origem = this.vooSelecionado?.origem;
-    reserva.destino = this.vooSelecionado?.destino;  
-    reserva.dataHora = new Date().toISOString();
-    reserva.valor = this.valorTotal;
-    reserva.milhas = this.milhasUsadas; 
-    reserva.status = StatusReservaEnum.PENDENTE;
+    const clienteId = this.authService.getUser()!.id!;
+    const codigoReserva = this.gerarCodigoReserva();
 
+    const reservaDTO = new ReservaDTO(
+      0,
+      new Date(),
+      this.vooSelecionado!.origem!.id!,  // aeroportoOrigemId
+      this.vooSelecionado!.destino!.id!, // aeroportoDestinoId
+      this.valorTotal,
+      this.milhasUsadas,
+      StatusReservaEnum.PENDENTE,
+      parseInt(this.vooSelecionado!.id!), // vooId
+      parseInt(clienteId),
+      [] // historicoAlteracaoEstado
+    );
+
+    // Update the client's miles balance
     this.saldoMilhas -= this.milhasUsadas;
 
     const descricaoTransacao = `${this.vooSelecionado?.origem?.codigo}->${this.vooSelecionado?.destino?.codigo}`;
+    
     this.clienteService.processarTransacaoMilhas(
-      this.milhasUsadas,  // valor em reais
-      'SAIDA',           // tipo (uppercase to match backend)
-      this.authService.getUser()!.id!,  // client ID
-      descricaoTransacao,  // description
+      this.milhasUsadas,
+      'SAIDA',
+      clienteId,
+      descricaoTransacao,
     ).subscribe({
       next: () => {
         console.log("Milhas registradas no extrato.");
-        // After successful miles transaction, create the reservation
-        this.reservaService.efetuar(reserva).subscribe({
+        this.reservaService.efetuar(reservaDTO).subscribe({
           next: (reservaCriada) => {
             this.reserva = reservaCriada;
-            alert(`Reserva confirmada! Código da reserva: ${this.reserva.id}`);
+            alert(`Reserva confirmada! Código da reserva: ${codigoReserva}`);
             this.router.navigate(['/cliente']);
           },
           error: (erro) => {

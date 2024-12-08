@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { StatusReservaEnum } from '../models/reserva/status-reserva.enum';
 import { Aeroporto } from '../models/voo/aeroporto';
 import { Voo } from '../models/voo/voo';
+import { ReservaDTO } from '../models/reserva/reservaDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class ReservaService {
   }
 
   getReservas(): Observable<Reserva[]> {
-    return this.http.get<Reserva[]>(`${this.apiUrl}/reservas`);
+    return this.http.get<Reserva[]>(`${this.apiUrl}/reservas`, this.getHttpOptions());
   }
 
   getAeroportos(): Observable<Aeroporto[]>{
@@ -45,21 +46,21 @@ export class ReservaService {
 }
 
   getReservaById(id: string): Observable<Reserva> {
-    return this.http.get<Reserva>(`${this.apiUrl}/reservas/` + id);
+    return this.http.get<Reserva>(`${this.apiUrl}/reservas/` + id, this.getHttpOptions());
   }
 
-  efetuar(reserva: Reserva): Observable<Reserva> {
-    return this.http.post<Reserva>(`${this.apiUrl}/reservas`, reserva);
+  efetuar(reservaDTO: ReservaDTO): Observable<ReservaDTO> {
+    return this.http.post<ReservaDTO>(`${this.apiUrl}/reservas`, reservaDTO, this.getHttpOptions());
   }
 
   cancelar(reserva: Reserva): Observable<Reserva> {
     reserva.dataHora = new Date().toISOString();
     reserva.status = StatusReservaEnum.CANCELADO;
-    return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva);
+    return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva, this.getHttpOptions());
   }
 
   confirmarEmbarque(reserva: Reserva): Observable<Reserva> {
     reserva.status = StatusReservaEnum.EMBARCADO;
-    return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva);
+    return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva, this.getHttpOptions());
   }
 }

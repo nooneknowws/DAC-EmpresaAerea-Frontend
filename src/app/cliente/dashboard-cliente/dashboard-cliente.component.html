@@ -1,118 +1,143 @@
 <div *ngIf="user != null; else non_authorized">
-      <div class="d-flex justify-content-between mb-3">
-          <h2 class="">Bem-vindo, {{ cliente?.nome }}</h2>
-          <button class="btn btn-sm btn-danger" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+  <div class="d-flex justify-content-between mb-3">
+    <h2 class="">Bem-vindo, {{ cliente?.nome }}</h2>
+    <button class="btn btn-sm btn-danger" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>
+      Logout</button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header-cliente">
+          <h5 class="mb-0">Menu</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <h5 class="fw-bold"><i class="fa fa-plane fa-icon"></i> Reservas</h5>
+            <ul class="list-unstyled ml-3">
+              <li><a [routerLink]="['/cliente/efetuar-reserva']" class="nav-link-cliente"><i
+                    class="fa fa-calendar fa-icon"></i> Efetuar Reserva</a></li>
+              <li><a [routerLink]="['/cliente/consultar-reserva']" class="nav-link-cliente ml-3"><i
+                    class="fa fa-address-book" aria-hidden="true"></i> Consultar Reserva</a></li>
+            </ul>
+          </li>
+          <li class="list-group-item">
+            <h5 class="fw-bold"><i class="fa fa-money-bill fa-icon ml-3"></i> Milhas</h5>
+            <ul class="list-unstyled ml-3">
+              <li><a [routerLink]="['/cliente/comprar-milhas']" class="nav-link-cliente"><i
+                    class="fa fa-money-bill-transfer fa-icon"></i> Comprar Milhas</a></li>
+              <li><a [routerLink]="['/cliente/extrato-milhas']" class="nav-link-cliente"><i
+                    class="fa fa-file-invoice icon fa-icon"></i> Consultar Extrato</a></li>
+            </ul>
+          </li>
+          <li class="list-group-item ml-3">
+            <h5 class="fw-bold"><i class="fa fa-check fa-icon"></i> Check-in</h5>
+            <a [routerLink]="['/cliente/fazer-checkin']" class="nav-link-cliente"><i
+                class="fa fa-sign-in-alt fa-icon"></i> Fazer Check-in</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-9">
+      <div class="card">
+        <div class="card-header-cliente">
+          <h5 class="mb-0">Suas Milhas: {{ cliente?.saldoMilhas }}</h5>
+        </div>
+        <div class="card-body"></div>
       </div>
 
-      <div class="row">
-          <div class="col-md-3">
-              <div class="card">
-                  <div class="card-header-cliente">
-                      <h5 class="mb-0">Menu</h5>
-                  </div>
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                      <h5 class="fw-bold"><i class="fa fa-plane fa-icon"></i> Reservas</h5>
-                      <ul class="list-unstyled ml-3">
-                        <li><a [routerLink]="['/cliente/efetuar-reserva']" class="nav-link-cliente"><i class="fa fa-calendar fa-icon"></i> Efetuar Reserva</a></li>
-                        <li><a [routerLink]="['/cliente/consultar-reserva']" class="nav-link-cliente ml-3"><i class="fa fa-address-book" aria-hidden="true"></i> Consultar Reserva</a></li>
-                      </ul>
-                    </li>
-                    <li class="list-group-item">
-                      <h5 class="fw-bold"><i class="fa fa-money-bill fa-icon ml-3"></i> Milhas</h5>
-                      <ul class="list-unstyled ml-3">
-                        <li><a [routerLink]="['/cliente/comprar-milhas']" class="nav-link-cliente"><i class="fa fa-money-bill-transfer fa-icon"></i> Comprar Milhas</a></li>
-                        <li><a [routerLink]="['/cliente/extrato-milhas']" class="nav-link-cliente"><i class="fa fa-file-invoice icon fa-icon"></i> Consultar Extrato</a></li>
-                      </ul>
-                    </li>
-                    <li class="list-group-item ml-3">
-                      <h5 class="fw-bold"><i class="fa fa-check fa-icon"></i> Check-in</h5>
-                      <a [routerLink]="['/cliente/fazer-checkin']" class="nav-link-cliente"><i class="fa fa-sign-in-alt fa-icon"></i> Fazer Check-in</a>
-                    </li>
-                  </ul>
-              </div>
-          </div>
+      <div *ngIf="isLoading" class="card shadow-sm mt-4">
+        <div class="card-header-cliente">
+            <h5 class="mb-0">Carregando Reservas...</h5>
+        </div>
+        <div class="card-body">
+            <div class="d-flex align-items-center justify-content-center p-4">
+                <div class="spinner-border text-primary me-2" role="status">
+                    <span class="visually-hidden">Carregando...</span>
+                </div>
+                <span>Carregando suas reservas...</span>
+            </div>
+        </div>
+    </div>
 
-          <div class="col-9">
-              <div class="card">
-                  <div class="card-header-cliente">
-                      <h5 class="mb-0">Suas Milhas: {{ cliente?.saldoMilhas }}</h5>
-                  </div>
-                  <div class="card-body"></div>
-              </div>
-              <div *ngIf="reservas.length > 0 else vazioTemplate" class="card shadow-sm mt-4">
-                  <div class="card-header-cliente">
-                      <h5 class="mb-0">Reservas</h5>
-                  </div>
-                  <div class="card-body">
-                      <table class="table table-bordered table-hover">
-                          <thead class="thead-light">
-                          <tr>
-                            <th>Código da reserva</th>
-                            <th>Código do voo</th>
-                            <th>Data/Hora</th>
-                            <th>Origem</th>
-                            <th>Destino</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                              <tr *ngFor="let reserva of reservas">
-                                  <td>{{ reserva.id }}</td>
-                                  <td>{{ reserva.voo?.codigoVoo}} </td>
-                                  <td>{{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</td>
-                                  <td>
-                                      <span class="badge bg-secondary">{{ reserva.origem?.codigo }}</span>
-                                       {{ reserva.origem?.nome }}
-                                      </td>
-                                      <td>
-                                      <span class="badge bg-primary">{{ reserva.destino?.codigo }}</span>
-                                      {{ reserva.destino?.nome }}
-                                  </td>
-                                  <td>
-                                    <span class="badge"
-                                          [ngClass]="{
+      <div *ngIf="!isLoading">
+        <div *ngIf="reservas.length > 0; else vazioTemplate" class="card shadow-sm mt-4">
+          <div class="card-header-cliente">
+            <h5 class="mb-0">Reservas</h5>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th>Código da reserva</th>
+                  <th>Código do voo</th>
+                  <th>Data/Hora</th>
+                  <th>Origem</th>
+                  <th>Destino</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let reserva of reservas">
+                  <td>{{ reserva.id }}</td>
+                  <td>{{ reserva.voo?.codigoVoo}} </td>
+                  <td>{{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</td>
+                  <td>
+                    <span class="badge bg-secondary">{{ reserva.origem?.codigo }}</span>
+                    {{ reserva.origem?.nome }}
+                  </td>
+                  <td>
+                    <span class="badge bg-primary">{{ reserva.destino?.codigo }}</span>
+                    {{ reserva.destino?.nome }}
+                  </td>
+                  <td>
+                    <span class="badge" [ngClass]="{
                                             'bg-secondary': reserva.status === e.PENDENTE,
                                             'bg-success': reserva.status === e.FINALIZADO,
                                             'bg-danger': reserva.status === e.CANCELADO,
                                             'bg-info': reserva.status === e.EMBARCADO
                                           }">
-                                      {{ reserva.status }}
-                                    </span>
-                                  </td>
-                                  <td>
-                                      <a [routerLink]="['/cliente/detalhe-reserva', reserva.id]" class="btn btn-sm btn-outline-secondary mb-2"><i class="fas fa-info-circle fa-icon"></i> Detalhes</a>
-                                      <button *ngIf="reserva.status === e.PENDENTE" class="btn btn-sm btn-danger" (click)="cancelarReserva(reserva)"><i class="fas fa-times-circle fa-icon"></i> Cancelar</button>
-                                  </td>
-                              </tr>
-                          </tbody>
-                      </table>
-                  </div>
-              </div>
-              <ng-template #vazioTemplate>
-                <div class="card">
-                  <div class="card-header-cliente">
-                    <h5 class="mb-0">Reservas</h5>
-                  </div>
-                  <div class="card-body">
-                    <div class="mb-3">
-                      <small class="text-muted">
-                        Não há reservas!
-                      </small>
-                    </div>
-                  </div>
-                </div>
-              </ng-template>
+                      {{ reserva.status }}
+                    </span>
+                  </td>
+                  <td>
+                    <a [routerLink]="['/cliente/detalhe-reserva', reserva.id]"
+                      class="btn btn-sm btn-outline-secondary mb-2"><i class="fas fa-info-circle fa-icon"></i>
+                      Detalhes</a>
+                    <button *ngIf="reserva.status === e.PENDENTE" class="btn btn-sm btn-danger"
+                      (click)="cancelarReserva(reserva)"><i class="fas fa-times-circle fa-icon"></i> Cancelar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+        </div>
       </div>
-  </div>
-
-  <ng-template #non_authorized>
-    <div class="mt-5 mx-3 alert alert-danger" role="alert">
-        <h4 class="alert-heading">Acesso não cadastrado!</h4>
-        <p>Parece que você não realizou seu login.</p>
-        <hr>
-        <p class="mb-0">Por favor, realize o login ou cadastre-se no sistema.</p>
+      <ng-template #vazioTemplate>
+        <div class="card">
+          <div class="card-header-cliente">
+            <h5 class="mb-0">Reservas</h5>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <small class="text-muted">
+                Não há reservas!
+              </small>
+            </div>
+          </div>
+        </div>
+      </ng-template>
     </div>
-  </ng-template>
+  </div>
+</div>
+
+<ng-template #non_authorized>
+  <div class="mt-5 mx-3 alert alert-danger" role="alert">
+    <h4 class="alert-heading">Acesso não cadastrado!</h4>
+    <p>Parece que você não realizou seu login.</p>
+    <hr>
+    <p class="mb-0">Por favor, realize o login ou cadastre-se no sistema.</p>
+  </div>
+</ng-template>
