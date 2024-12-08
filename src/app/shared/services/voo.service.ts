@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppComponent } from '../../app.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Voo } from '../models/voo/voo';
 
@@ -27,13 +27,25 @@ export class VooService {
     return this.http.patch(`${this.apiUrl}/voos/${id}`, { status: 'Cancelado' });
   }
 
-  realizarVoo(id: string): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/voos/${id}`, { status: 'Realizado' });
+  realizarVoo(id: string): Observable<void> {
+    return this.http.patch<void>(
+      `${this.apiUrl}/voos/${id}/status`,
+      null,
+      { 
+        params: { status: 'Realizado' },
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      }
+    );
   }
 
   cadastrarVoo(voo: Voo): Observable<any> {
     return this.http.post(`${this.apiUrl}/voos`, {
-      ...voo, status: 'Confirmado'  
+      ...voo,
+      status: 'Confirmado',
+      codigoOrigem: voo.origem?.codigo,
+      codigoDestino: voo.destino?.codigo
     });
   }
 }

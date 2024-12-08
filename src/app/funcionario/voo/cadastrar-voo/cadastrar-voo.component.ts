@@ -42,7 +42,13 @@ export class CadastrarVooComponent implements OnInit {
   cadastrarVoo() {
     if (this.validarFormulario()) {
       this.novoVoo.quantidadePassageiros = 0;
-      this.vooService.cadastrarVoo(this.novoVoo).subscribe(
+      const vooRequest = {
+        ...this.novoVoo,
+        codigoOrigem: this.novoVoo.origem?.codigo,
+        codigoDestino: this.novoVoo.destino?.codigo
+      };
+      
+      this.vooService.cadastrarVoo(vooRequest).subscribe(
         () => {
           alert('Voo cadastrado com sucesso!');
           this.router.navigate(['/funcionario']);
