@@ -4,82 +4,66 @@ import { AppComponent } from '../../app.component';
 import { Observable, catchError, map, switchMap, tap } from 'rxjs';
 import { Cliente } from '../models/cliente/cliente';
 import { Milhas } from '../models/cliente/milhas';
-
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+import { MilhasDTO } from '../models/cliente/milhasDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
-  private apiUrl: string = `${AppComponent.PUBLIC_BACKEND_URL}/clientes`;
+  private apiUrl: string = AppComponent.PUBLIC_BACKEND_URL;
+  private readonly USER_KEY = 'user';
 
   constructor(private http: HttpClient) {}
 
-  getClienteById(id: string): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.apiUrl}/${id}`, httpOptions).pipe(
-      catchError(this.handleError<Cliente>('getClienteById'))
-    );
+  private getHttpOptions(): { headers: HttpHeaders } {
+    const token = localStorage.getItem('auth_token') || '';
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'x-access-token': token
+      })
+    };
   }
 
-  atualizarCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(`${this.apiUrl}/${cliente.id}`, cliente, httpOptions).pipe(
+  getClienteById(id: string): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.apiUrl}/clientes/busca/${id}`, this.getHttpOptions()).pipe(
       catchError(error => {
-        console.error('Erro ao atualizar cliente:', error);
+        console.error('Error fetching cliente:', error);
         throw error;
       })
     );
-  }  
-
-  atualizarMilhas(clienteId: string, quantidadeMilhas: number): Observable<Cliente> {
-    return this.getClienteById(clienteId).pipe(
-      map(cliente => {
-        cliente.saldoMilhas = (cliente.saldoMilhas || 0) + quantidadeMilhas;
-        return cliente;
-      }),
-      switchMap(clienteAtualizado => this.http.put<Cliente>(`${this.apiUrl}/${clienteId}`, clienteAtualizado, httpOptions)),
-      tap(clienteAtualizado => { window.sessionStorage.setItem('user', JSON.stringify(clienteAtualizado)); }),
-      catchError(this.handleError<Cliente>('atualizarMilhas'))
-    );
   }
 
-  registrarTransacao(clienteId: string, valorEmReais: number, tipo: 'entrada' | 'saida', descricao: string): Observable<Cliente> {
-    const quantidadeMilhas = tipo === 'entrada' ? valorEmReais / 5 : -(valorEmReais / 5);
-    const novaTransacao = new Milhas(
-      undefined,
-      new Date().toISOString(),
-      quantidadeMilhas,
-      tipo,
-      descricao
-    );
+  processarTransacaoMilhas(valorEmReais: number, tipo: 'ENTRADA' | 'SAIDA', clienteId: string, descricao: string): Observable<Milhas> {
+    const milhasDTO = {
+      clienteId: Number(clienteId), // Convert string ID to number
+      quantidade: valorEmReais / 5,
+      entradaSaida: tipo,
+      valorEmReais: valorEmReais,
+      descricao: descricao
+    };
   
-    return this.getClienteById(clienteId).pipe(
-      map(cliente => {
-        if (!cliente.milhas) {
-          cliente.milhas = [];
-        }
-        cliente.milhas.push(novaTransacao);  
-        cliente.saldoMilhas = (cliente.saldoMilhas || 0) + quantidadeMilhas;
-        return cliente;
-      }),
-      switchMap(clienteAtualizado => this.http.put<Cliente>(`${this.apiUrl}/${clienteId}`, clienteAtualizado, httpOptions)),
-      tap(clienteAtualizado => { window.sessionStorage.setItem('user', JSON.stringify(clienteAtualizado)); }),
-      catchError(this.handleError<Cliente>('registrarTransacao'))
+    return this.http.post<Milhas>(
+      `${this.apiUrl}/api/milhas`, 
+      milhasDTO,
+      this.getHttpOptions()
+    ).pipe(
+      catchError(error => {
+        console.error('Error processing miles transaction:', error);
+        throw error;
+      })
     );
-  }  
+  }
 
   listarTransacoes(clienteId: string): Observable<Milhas[]> {
-    return this.getClienteById(clienteId).pipe(
-      map(cliente => cliente.milhas || []),  
-      catchError(this.handleError<Milhas[]>('listarTransacoes', []))
+    return this.http.get<Milhas[]>(
+      `${this.apiUrl}/api/milhas/${clienteId}`,
+      this.getHttpOptions()
+    ).pipe(
+      catchError(error => {
+        console.error('Error fetching transactions:', error);
+        throw error;
+      })
     );
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      return new Observable<T>(subscriber => subscriber.next(result as T));
-    };
   }
 }

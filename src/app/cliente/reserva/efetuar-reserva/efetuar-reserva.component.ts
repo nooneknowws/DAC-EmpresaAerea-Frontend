@@ -81,23 +81,37 @@ export class EfetuarReservaComponent implements OnInit {
     this.saldoMilhas -= this.milhasUsadas;
 
     const descricaoTransacao = `${this.vooSelecionado?.origem?.codigo}->${this.vooSelecionado?.destino?.codigo}`;
-    this.clienteService.registrarTransacao(this.authService.getUser()!.id!, this.milhasUsadas, 'saida', descricaoTransacao)
-      .subscribe(() => {
-          console.log("Milhas registradas no extrato.");
-      }, erro => {
-          console.error("Erro ao registrar milhas no extrato:", erro);
-      });
-
-    this.reservaService.efetuar(reserva).subscribe(reservaCriada => {
-      this.reserva = reservaCriada;
-      alert(`Reserva confirmada! Código da reserva: ${this.reserva.id}`);
-      this.router.navigate(['/cliente']);
-    }, erro => {
-      console.error("Erro ao efetuar a reserva: ", erro);
-      alert("Ocorreu um erro ao tentar efetuar a reserva.");
+    this.clienteService.processarTransacaoMilhas(
+      this.milhasUsadas,  // valor em reais
+      'SAIDA',           // tipo (uppercase to match backend)
+      this.authService.getUser()!.id!,  // client ID
+      descricaoTransacao,  // description
+    ).subscribe({
+      next: () => {
+        console.log("Milhas registradas no extrato.");
+        // After successful miles transaction, create the reservation
+        this.reservaService.efetuar(reserva).subscribe({
+          next: (reservaCriada) => {
+            this.reserva = reservaCriada;
+            alert(`Reserva confirmada! Código da reserva: ${this.reserva.id}`);
+            this.router.navigate(['/cliente']);
+          },
+          error: (erro) => {
+            console.error("Erro ao efetuar a reserva: ", erro);
+            alert("Ocorreu um erro ao tentar efetuar a reserva.");
+          }
+        });
+      },
+      error: (erro) => {
+        console.error("Erro ao registrar milhas no extrato:", erro);
+        if (erro.error === "Saldo insuficiente") {
+          alert("Saldo de milhas insuficiente para realizar esta reserva.");
+        } else {
+          alert("Ocorreu um erro ao processar as milhas para a reserva.");
+        }
+      }
     });
   }
-
 
   gerarCodigoReserva(): string {
     const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
