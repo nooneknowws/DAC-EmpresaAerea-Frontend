@@ -3,7 +3,35 @@
 ## Clonar o respositório.
 `git clone + url`
 
-//colocar o numero e link das versões
+## Executar o Gateway
+`node gateway.js`
+
+## Executar os microsserviços em spring ou docker
+
+## Executar o PostgreSQL/RabbitMQ/MongoDB no docker
+
+## Postman para registrar funcionario 1
+`http://localhost:3000/funcionarios/cadastro`
+```json
+{
+  "cpf": "12345678901",
+  "nome": "João da Silva",
+  "email": "xd@mailteste.com",
+  "perfil": "Funcionario",
+  "telefone": "+5511999999999",
+  "senha": "3342",
+  "endereco": {
+    "cep": "12345678",
+    "logradouro": "Rua Exemplo",
+    "numero": 100,
+    "complemento": "Apt 101",
+    "bairro": "Centro",
+    "cidade": "Curitiba",
+    "estado": "PR"
+  },
+  "funcStatus": "ATIVO"
+}
+```
 + Versão ? do [Node](). 
 + Versão ? do [npm]().
 + Versão ? do [Java](). 

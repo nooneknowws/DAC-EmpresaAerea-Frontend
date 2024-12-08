@@ -63,7 +63,7 @@ export class CadastrarFuncionarioComponent {
       funcionario.email = email;
       funcionario.senha = password;
       funcionario.endereco = endereco;
-      funcionario.ativo = true;
+      funcionario.funcStatus = "ATIVO";
 
       this.authService.registerFuncionario(funcionario).subscribe({
         next: (data: Autenticacao) => {
