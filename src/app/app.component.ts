@@ -53,6 +53,7 @@ export class AppComponent implements OnInit {
         perfil: user.perfil, 
         id: user.id 
       });
+      this.authService.setUser(user);
       switch (user.perfil?.toLowerCase()) {
         case 'cliente':
           console.log('Navigating to cliente dashboard');

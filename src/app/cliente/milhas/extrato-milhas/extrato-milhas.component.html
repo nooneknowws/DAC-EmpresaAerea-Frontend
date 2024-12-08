@@ -12,6 +12,7 @@
       <thead>
         <tr>
           <th>Quantidade de Milhas</th>
+          <th>Valor em Reais</th>
           <th>Data/Hora da Transação</th>
           <th>Descrição</th>
           <th>Tipo de Transação</th>
@@ -20,12 +21,13 @@
       <tbody>
         <tr *ngFor="let milha of milhas">
           <td>{{ milha.quantidade }}</td>
+          <td>{{ milha.valorEmReais  | currency: 'BRL': 'symbol' }}</td>
           <td>{{ milha.dataHoraTransacao | date: 'short' }}</td>
           <td>{{ milha.descricao }}</td>
           <td>{{ milha.entradaSaida }}</td>
         </tr>
         <tr>
-          <td colspan="4">
+          <td colspan="5">
             <b>Saldo atual:</b>
             {{ cliente?.saldoMilhas }} milhas</td>
         </tr>

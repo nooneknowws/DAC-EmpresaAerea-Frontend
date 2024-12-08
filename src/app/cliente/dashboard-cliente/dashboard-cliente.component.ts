@@ -7,6 +7,7 @@ import { ReservaService } from '../../shared/services/reserva.service';
 import { Router } from '@angular/router';
 import { Cliente } from '../../shared/models/cliente/cliente';
 import { StatusReservaEnum } from '../../shared/models/reserva/status-reserva.enum';
+import { Usuario } from '../../shared/models/usuario/usuario';
 
 @Component({
   selector: 'app-dashboard-cliente',
@@ -14,9 +15,10 @@ import { StatusReservaEnum } from '../../shared/models/reserva/status-reserva.en
   styleUrls: ['./dashboard-cliente.component.css']
 })
 export class DashboardClienteComponent implements OnInit, OnDestroy {
-  user: Cliente | null = null;
   reservas: Reserva[] = [];
   e = StatusReservaEnum;
+  user: Cliente | null = null;
+  cliente: Cliente | void = {};
   
   private destroy$ = new Subject<void>();
 
@@ -27,14 +29,20 @@ export class DashboardClienteComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    
+  this.user = this.authService.getUser();
     this.authService.currentUser
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(user => {
-        this.user = user as Cliente;
-        if (this.user) {
-          this.getReservas();
-        }
-      });
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(user => {
+      this.user = user as Cliente;
+      if (this.user) {
+        this.getReservas();
+      }
+    });
+  this.cliente = this.getUser()
+  console.log(this.user);
+  console.log(this.cliente);
+  
   }
 
   getReservas(): void {
@@ -49,7 +57,20 @@ export class DashboardClienteComponent implements OnInit, OnDestroy {
         }
       });
   }
-
+  getUser(): void {
+    if (this.user) {
+      this.authService.getCliente(this.user.id).subscribe(
+        (cliente: Cliente) => {
+          console.log("Client data:", cliente);
+          this.cliente = cliente;
+        },
+        (error) => {
+          console.error("Error fetching client data:", error);
+        }
+      );
+    }
+  }
+  
   cancelarReserva(reserva: Reserva): void {
     this.router.navigate(['/cliente/cancelar-reserva/' + reserva.id]);
   }
