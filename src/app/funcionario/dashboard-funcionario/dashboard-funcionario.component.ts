@@ -5,7 +5,7 @@ import { Voo } from '../../shared/models/voo/voo';
 import { AuthService } from '../../shared/services/auth.service';
 import { VooService } from '../../shared/services/voo.service';
 import { OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { OnInit } from '@angular/core';
 
 @Component({
@@ -16,6 +16,7 @@ import { OnInit } from '@angular/core';
 export class DashboardFuncionarioComponent implements OnInit, OnDestroy {
   user: Funcionario | null = null;
   voos: Voo[] = [];
+  funcionario: Funcionario | void = {};
 
   private destroy$ = new Subject<void>();
 
@@ -26,14 +27,34 @@ export class DashboardFuncionarioComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['/login']);
-    } else {
-      this.user = this.authService.getUser() as Funcionario;
-      this.getVoos();
-    }
+
+    this.user = this.authService.getUser();
+      this.authService.currentUser
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(user => {
+        this.user = user as Funcionario;
+        if(this.user) {
+          this.getVoos();
+        }
+      });
+    this.funcionario = this.getUser()
+    console.log(this.user);
+    console.log(this.funcionario);
   }
 
+  getUser(): void {
+    if(this.user) {
+      this.authService.getFuncionario(this.user.id).subscribe(
+        (funcionario: Funcionario) => {
+          console.log("Funcionario Data: ", funcionario);
+          this.funcionario = funcionario;
+        },
+        (error) => {
+          console.error("Error fetching funcionario data: ", error);
+        }
+      );
+    }
+  }
 
   getVoos(): void {
     this.vooService.getVoos().subscribe((voos: Voo[]) => {

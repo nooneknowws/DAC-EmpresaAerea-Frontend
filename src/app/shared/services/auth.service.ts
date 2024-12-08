@@ -44,6 +44,7 @@ export class AuthService {
   getUser(): Usuario | null {
     return this.currentUserSubject.value;
   }
+  
   private initializeServiceState(): void {
     try {
       const storedToken = localStorage.getItem(this.TOKEN_KEY);
@@ -131,6 +132,15 @@ export class AuthService {
     }
 
     return this.http.get<Cliente>(`${this.apiUrl}/clientes/busca/${idNumber}`, this.getHttpOptions());
+  }
+
+  getFuncionario(id: string | undefined): Observable<Funcionario> {
+    const idNumber = id ? Number(id) : NaN;
+    if(isNaN(idNumber)) {
+      throw new Error('Invalid ID');
+    }
+
+    return this.http.get<Funcionario>(`${this.apiUrl}/funcionarios/${idNumber}`, this.getHttpOptions());
   }
 
 
