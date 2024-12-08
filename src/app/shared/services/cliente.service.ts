@@ -17,7 +17,7 @@ export class ClienteService {
 
   constructor(private http: HttpClient) {}
 
-  getClienteById(id: number): Observable<Cliente> {
+  getClienteById(id: string): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.apiUrl}/${id}`, httpOptions).pipe(
       catchError(this.handleError<Cliente>('getClienteById'))
     );
@@ -32,7 +32,7 @@ export class ClienteService {
     );
   }  
 
-  atualizarMilhas(clienteId: number, quantidadeMilhas: number): Observable<Cliente> {
+  atualizarMilhas(clienteId: string, quantidadeMilhas: number): Observable<Cliente> {
     return this.getClienteById(clienteId).pipe(
       map(cliente => {
         cliente.saldoMilhas = (cliente.saldoMilhas || 0) + quantidadeMilhas;
@@ -44,7 +44,7 @@ export class ClienteService {
     );
   }
 
-  registrarTransacao(clienteId: number, valorEmReais: number, tipo: 'entrada' | 'saida', descricao: string): Observable<Cliente> {
+  registrarTransacao(clienteId: string, valorEmReais: number, tipo: 'entrada' | 'saida', descricao: string): Observable<Cliente> {
     const quantidadeMilhas = tipo === 'entrada' ? valorEmReais / 5 : -(valorEmReais / 5);
     const novaTransacao = new Milhas(
       undefined,
@@ -69,7 +69,7 @@ export class ClienteService {
     );
   }  
 
-  listarTransacoes(clienteId: number): Observable<Milhas[]> {
+  listarTransacoes(clienteId: string): Observable<Milhas[]> {
     return this.getClienteById(clienteId).pipe(
       map(cliente => cliente.milhas || []),  
       catchError(this.handleError<Milhas[]>('listarTransacoes', []))

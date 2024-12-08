@@ -72,7 +72,6 @@ export class CadastroComponent {
       const { nome, cpf, email, telefone, endereco } = this.form;
       const password = this.authService.gerarSenha();
       const perfil = "Cliente";
-
       const cliente = new Cliente(telefone, 0);
       cliente.nome = nome;
       cliente.cpf = cpf.toString();

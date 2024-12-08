@@ -12,7 +12,7 @@ import { Cliente } from '../../shared/models/cliente/cliente';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  form: any = {
+  form = {
     email: '',
     senha: ''
   };
@@ -22,21 +22,19 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   user: Usuario = {};
 
-  constructor(private router: Router,
-              private authService: AuthService) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    const user = this.authService.getUser();
-    if (user) {
-      this.isLoggedIn = true;
-      this.user = user;
-
-      if ('milhas' in user) {
-        this.router.navigate(['/cliente']);
-      } else if ('ativo' in user) {
-        this.router.navigate(['/funcionario']);
-      } 
-    }
+    this.authService.currentUser.subscribe(user => {
+      if (user) {
+        this.isLoggedIn = true;
+        this.user = user;
+        this.redirectBasedOnUserType(user);
+      }
+    });
   }
 
   onSubmit(form: NgForm): void {
@@ -44,30 +42,38 @@ export class LoginComponent implements OnInit {
       const { email, senha } = this.form;
 
       this.authService.login(email, senha).subscribe({
-        next: (data: Cliente | Funcionario | null) => {
-          if (data) {
-            this.isLoginFailed = false;
+        next: (user: Cliente | Funcionario | null) => {
+          if (user) {
             this.isLoggedIn = true;
-            this.user = data;
-
-            if ('milhas' in data) 
-                this.router.navigate(['/cliente']);
-            else if ('ativo' in data) 
-                this.router.navigate(['/funcionario']);
+            this.isLoginFailed = false;
+            this.user = user;
+            this.redirectBasedOnUserType(user);
           } else {
-            this.errorMessage = 'Credenciais inválidas';
-            this.isLoginFailed = true;
+            this.handleLoginError('Credenciais inválidas');
           }
         },
-        error: err => {
-          this.errorMessage = err.error.message || 'Erro ao realizar o login';
-          this.isLoginFailed = true;
+        error: (err) => {
+          let errorMessage = 'Erro ao realizar o login';
+          if (err.error?.message) {
+            errorMessage = err.error.message;
+          }
+          this.handleLoginError(errorMessage);
         }
       });
     }
   }
 
-  reloadPage(): void {
-    window.location.reload();
+  private redirectBasedOnUserType(user: Usuario): void {
+    if (user.perfil == "Cliente") {
+      this.router.navigate(['/cliente']);
+    } else if (user.perfil == "Funcionario") {
+      this.router.navigate(['/funcionario']);
+    }
+  }
+
+  private handleLoginError(message: string): void {
+    this.errorMessage = message;
+    this.isLoginFailed = true;
+    this.isLoggedIn = false;
   }
 }

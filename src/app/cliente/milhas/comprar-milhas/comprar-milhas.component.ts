@@ -28,7 +28,6 @@ export class ComprarMilhasComponent {
       this.clienteService.registrarTransacao(this.cliente.id!, this.valorEmReais, 'entrada', 'COMPRA DE MILHAS').subscribe(
         (clienteAtualizado) => {
           this.cliente = clienteAtualizado;
-          this.authService.setUser(clienteAtualizado);
   
           alert(`Milhas compradas com sucesso! Quantidade de milhas: ${this.milhasCompradas}`);
           this.limparFormulario();

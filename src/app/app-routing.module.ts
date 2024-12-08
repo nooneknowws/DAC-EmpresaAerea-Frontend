@@ -5,31 +5,64 @@ import { CadastroComponent } from './autenticacao/cadastro/cadastro.component';
 import { InicioComponent } from './autenticacao/inicio/inicio.component';
 import { AuthGuard } from './shared/auth.guard';
 
-const routes: Routes = [
-  { path: '', component: InicioComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'cadastro', component: CadastroComponent },
+const publicRoutes: Routes = [
+  {
+    path: '',
+    component: InicioComponent,
+    data: { title: 'Início' }
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { title: 'Login' }
+  },
+  {
+    path: 'cadastro',
+    component: CadastroComponent,
+    data: { title: 'Cadastro' }
+  }
+];
+
+const protectedRoutes: Routes = [
   {
     path: 'cliente',
-    loadChildren: () =>
-      import('./cliente/cliente.module').then((m) => m.ClienteModule),
+    loadChildren: () => import('./cliente/cliente.module')
+      .then(m => m.ClienteModule),
     canActivate: [AuthGuard],
-    data: { role: 'cliente' },
+    data: { 
+      role: 'cliente',
+      title: 'Área do Cliente'
+    }
   },
   {
     path: 'funcionario',
-    loadChildren: () =>
-      import('./funcionario/funcionario.module').then(
-        (m) => m.FuncionarioModule
-      ),
+    loadChildren: () => import('./funcionario/funcionario.module')
+      .then(m => m.FuncionarioModule),
     canActivate: [AuthGuard],
-    data: { role: 'funcionario' },
-  },
-  { path: '**', redirectTo: '' },
+    data: { 
+      role: 'funcionario',
+      title: 'Área do Funcionário'
+    }
+  }
+];
+const routes: Routes = [
+  ...publicRoutes,
+  ...protectedRoutes,
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  imports: [
+    RouterModule.forRoot(routes, {
+      enableTracing: false,
+      scrollPositionRestoration: 'enabled',
+      useHash: false
+    })
+  ],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

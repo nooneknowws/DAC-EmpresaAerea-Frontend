@@ -34,7 +34,12 @@ export class ListarFuncionarioComponent implements OnInit {
     if (confirm('Deseja realmente desativar este funcionário?')) {
       this.funcionarioService.desativarFuncionario(funcionario.id).subscribe({
         next: () => {
+          if(funcionario.funcStatus === 'ATIVO'){
+            
           alert('Funcionário desativado com sucesso.');
+          }
+          else{
+          alert('Funcionário ativado com sucesso.');}
           this.listarFuncionarios();
         },
         error: () => {
