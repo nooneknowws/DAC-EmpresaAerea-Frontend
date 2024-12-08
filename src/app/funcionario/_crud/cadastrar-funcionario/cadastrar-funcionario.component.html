@@ -52,12 +52,6 @@
                                 <div *ngIf="cep.errors && f.submitted" class="invalid-feedback">
                                     O CEP é obrigatório!
                                 </div>
-                                <div *ngIf="cepInvalido && f.submitted" class="invalid-feedback">
-                                    CEP inválido ou não encontrado!
-                                </div>
-                                <div *ngIf="erroTimeout && f.submitted" class="invalid-feedback">
-                                    Tempo esgotado ao buscar o CEP. Tente novamente mais tarde!
-                                </div>
                             </div>
                             <button type="button" class="btn btn-primary w-25" (click)="buscarCep()">Buscar</button>
                         </div>
