@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { NgForm } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Cliente } from '../../shared/models/cliente/cliente';
 import { Endereco } from '../../shared/models/usuario/endereco';
 import { EstadosBrasil } from '../../shared/models/voo/estados-brasil';
 import { Autenticacao } from '../../shared/models/autenticacao';
 import { catchError, timeout } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { Milhas } from '../../shared/models/cliente/milhas';
 
 @Component({
   selector: 'app-cadastro',
@@ -27,7 +26,7 @@ export class CadastroComponent {
 
   isRegistered = false;
   isRegistrationFailed = false;
-  errorMessage = '';
+  errorMessages: string[] = [];
   estados = Object.values(EstadosBrasil);
   cepInvalido = false;
   erroTimeout = false;
@@ -68,6 +67,9 @@ export class CadastroComponent {
   }
 
   onSubmit(form: NgForm): void {
+    this.errorMessages = []; // Clear previous errors
+    this.isRegistrationFailed = false;
+
     if (form.valid) {
       const { nome, cpf, email, telefone, endereco } = this.form;
       const password = this.authService.gerarSenha();
@@ -85,11 +87,25 @@ export class CadastroComponent {
         next: (data: Autenticacao) => {
           this.isRegistered = true;
           this.isRegistrationFailed = false;
+          this.errorMessages = [];
           form.reset();
         },
-        error: err => {
-          this.errorMessage = err.error.message || 'Erro ao registrar';
+        error: (err: HttpErrorResponse) => {
           this.isRegistrationFailed = true;
+          
+          if (err.status === 409 && err.error?.messages) {
+            // Handle conflict errors (multiple messages)
+            this.errorMessages = err.error.messages;
+          } else if (err.status === 408) {
+            // Handle timeout
+            this.errorMessages = ['Tempo de requisição esgotado. Por favor, tente novamente.'];
+          } else if (err.error?.message) {
+            // Handle single error message
+            this.errorMessages = [err.error.message];
+          } else {
+            // Handle unknown errors
+            this.errorMessages = ['Erro ao realizar cadastro. Por favor, tente novamente.'];
+          }
         }
       });
     }

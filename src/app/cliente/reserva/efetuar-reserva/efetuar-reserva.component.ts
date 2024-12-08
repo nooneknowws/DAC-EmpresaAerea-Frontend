@@ -58,6 +58,7 @@ export class EfetuarReservaComponent implements OnInit {
     this.tabelaVisivel = !this.tabelaVisivel;
     const cliente = this.authService.getUser() as Cliente;
     this.saldoMilhas = cliente.saldoMilhas!;
+    console.log(voo)
   }
 
   calcularValorTotal() {
@@ -69,7 +70,7 @@ export class EfetuarReservaComponent implements OnInit {
   
   confirmarReserva() {
     const reserva = new Reserva();
-    reserva.id = this.gerarCodigoReserva();
+    reserva.codReserva = this.gerarCodigoReserva();
     reserva.voo = this.vooSelecionado;
     reserva.origem = this.vooSelecionado?.origem;
     reserva.destino = this.vooSelecionado?.destino;  
