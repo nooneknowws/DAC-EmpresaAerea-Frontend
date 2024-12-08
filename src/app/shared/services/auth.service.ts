@@ -16,7 +16,7 @@ export class AuthService {
   private apiUrl: string = AppComponent.PUBLIC_BACKEND_URL;
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_KEY = 'current_user';
-  
+
   private currentUserSubject = new BehaviorSubject<Usuario | null>(null);
   public currentUser = this.currentUserSubject.asObservable();
   private token: string | null = null;
@@ -94,12 +94,12 @@ export class AuthService {
 
   logout(): Observable<any> {
     console.log('Logging out');
-  
+
     if (!this.token) {
       this.clearSession();
       return of(null);
     }
-  
+
     return this.http.post(`${this.apiUrl}/logout`, {}, this.getHttpOptions()).pipe(
       tap(() => this.clearSession()),
       catchError(error => {
@@ -137,28 +137,28 @@ export class AuthService {
   
   private clearSession(): void {
     console.log('Clearing session');
-  
+
     this.token = null;
     this.currentUserSubject.next(null);
     localStorage.clear();
-  
+
     console.log('Session cleared successfully');
   }
 
   getToken(): string | null {
     return this.token;
   }
- 
+
   getCliente(id: string | undefined): Observable<Cliente> {
     const idNumber = id ? Number(id) : NaN;
     if (isNaN(idNumber)) {
       throw new Error('Invalid ID');
     }
-  
+
     return this.http.get<Cliente>(`${this.apiUrl}/clientes/busca/${idNumber}`, this.getHttpOptions());
   }
-  
-  
+
+
   getUserRole(): string {
     const currentUser = this.currentUserSubject.value;
     return currentUser && 'milhas' in currentUser ? 'cliente' : 'funcionario';

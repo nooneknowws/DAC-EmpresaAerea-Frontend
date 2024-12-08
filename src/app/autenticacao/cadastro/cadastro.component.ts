@@ -25,13 +25,14 @@ export class CadastroComponent {
   };
   isRegistered = false;
   isRegistrationFailed = false;
-  errorMessage = '';
+  errorMessages: string[] = [];
   estados = Object.values(EstadosBrasil);
   cepInvalido = false;
   erroTimeout = false;
   cpfInvalido = false;
   isLoadingCep = false;
   isLoadingSubmit = false;
+  errorMessage: string = '';
 
   constructor(private authService: AuthService, private http: HttpClient) { }
 
@@ -91,6 +92,9 @@ export class CadastroComponent {
   }
 
   onSubmit(form: NgForm): void {
+    this.errorMessages = []; // Clear previous errors
+    this.isRegistrationFailed = false;
+
     if (form.valid) {
       if (!this.authService.validarCPF(this.form.cpf)) {
         this.cpfInvalido = true;
@@ -118,13 +122,27 @@ export class CadastroComponent {
           this.isRegistered = true;
           this.isRegistrationFailed = false;
           this.cpfInvalido = false;
+          this.errorMessages = [];
           form.reset();
         },
         error: (err: HttpErrorResponse) => {
-          this.isLoadingSubmit = false;  
-          this.errorMessage = this.handleError(err);
+          this.isLoadingSubmit = false;
           this.isRegistrationFailed = true;
           this.isRegistered = false;
+          
+          if (err.status === 409 && err.error?.messages) {
+            // Handle conflict errors (multiple messages)
+            this.errorMessages = err.error.messages;
+          } else if (err.status === 408) {
+            // Handle timeout
+            this.errorMessages = ['Tempo de requisição esgotado. Por favor, tente novamente.'];
+          } else if (err.error?.message) {
+            // Handle single error message
+            this.errorMessages = [err.error.message];
+          } else {
+            // Handle unknown errors
+            this.errorMessages = ['Erro ao realizar cadastro. Por favor, tente novamente.'];
+          }
         }
       });
     } else {

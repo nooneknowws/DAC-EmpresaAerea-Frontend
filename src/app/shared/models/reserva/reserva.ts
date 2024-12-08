@@ -5,6 +5,7 @@ import { StatusReservaEnum } from "./status-reserva.enum";
 export class Reserva {
     constructor(
         public id?: string,
+        public codReserva?: string,
         public dataHora?: string,
         public origem?: Aeroporto,
         public destino?: Aeroporto,

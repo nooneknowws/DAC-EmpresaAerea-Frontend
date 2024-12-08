@@ -59,6 +59,7 @@ export class EfetuarReservaComponent implements OnInit {
     this.tabelaVisivel = !this.tabelaVisivel;
     const cliente = this.authService.getUser() as Cliente;
     this.saldoMilhas = cliente.saldoMilhas!;
+    console.log(voo)
   }
 
   calcularValorTotal() {
@@ -70,20 +71,24 @@ export class EfetuarReservaComponent implements OnInit {
   
   confirmarReserva() {
     const clienteId = this.authService.getUser()!.id!;
-  
+    const codigoReserva = this.gerarCodigoReserva();
+
     const reservaDTO = new ReservaDTO(
       0,
-      new Date(), 
+      new Date(),
       this.vooSelecionado!.origem!.id!,  // aeroportoOrigemId
       this.vooSelecionado!.destino!.id!, // aeroportoDestinoId
       this.valorTotal,
       this.milhasUsadas,
       StatusReservaEnum.PENDENTE,
-      parseInt(this.vooSelecionado!.id!),          // vooId
+      parseInt(this.vooSelecionado!.id!), // vooId
       parseInt(clienteId),
-      [] // historicoAlteracaoEstado 
+      [] // historicoAlteracaoEstado
     );
-  
+
+    // Update the client's miles balance
+    this.saldoMilhas -= this.milhasUsadas;
+
     const descricaoTransacao = `${this.vooSelecionado?.origem?.codigo}->${this.vooSelecionado?.destino?.codigo}`;
     
     this.clienteService.processarTransacaoMilhas(
@@ -94,11 +99,10 @@ export class EfetuarReservaComponent implements OnInit {
     ).subscribe({
       next: () => {
         console.log("Milhas registradas no extrato.");
-        // Use ReservaDTO in the service call
         this.reservaService.efetuar(reservaDTO).subscribe({
           next: (reservaCriada) => {
             this.reserva = reservaCriada;
-            alert(`Reserva confirmada! Código da reserva: ${this.reserva.id}`);
+            alert(`Reserva confirmada! Código da reserva: ${codigoReserva}`);
             this.router.navigate(['/cliente']);
           },
           error: (erro) => {
