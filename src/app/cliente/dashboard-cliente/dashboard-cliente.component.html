@@ -81,22 +81,22 @@
               </thead>
               <tbody>
                 <tr *ngFor="let reserva of reservas">
-                  <td>{{ reserva.id }}</td>
-                  <td>{{ reserva.voo?.codigoVoo}} </td>
+                  <td>{{ reserva.codigoReserva }}</td>
+                  <td>{{ reserva.codigoVoo}} </td>
                   <td>{{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</td>
                   <td>
-                    <span class="badge bg-secondary">{{ reserva.origem?.codigo }}</span>
-                    {{ reserva.origem?.nome }}
+                    <span class="badge bg-secondary">{{ reserva.aeroportoOrigemCod }}</span>
+                    {{ reserva.aeroportoOrigemCod }}
                   </td>
                   <td>
-                    <span class="badge bg-primary">{{ reserva.destino?.codigo }}</span>
-                    {{ reserva.destino?.nome }}
+                    <span class="badge bg-primary">{{ reserva.aeroportoDestinoCod}}</span>
+                    {{ reserva.aeroportoDestinoCod }}
                   </td>
                   <td>
                     <span class="badge" [ngClass]="{
                                             'bg-secondary': reserva.status === e.PENDENTE,
                                             'bg-success': reserva.status === e.FINALIZADO,
-                                            'bg-danger': reserva.status === e.CANCELADO,
+                                            'btn-danger': reserva.status === e.CANCELADO,
                                             'bg-info': reserva.status === e.EMBARCADO
                                           }">
                       {{ reserva.status }}

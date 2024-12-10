@@ -52,6 +52,7 @@ export class ComprarMilhasComponent implements OnInit {
     this.calcularMilhas();
     this.clienteService.processarTransacaoMilhas(
       this.valorEmReais,
+      this.milhasCompradas,
       'ENTRADA',
       this.cliente.id,
       this.DESCRICAO

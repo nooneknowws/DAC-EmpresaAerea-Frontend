@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AppComponent } from '../../app.component';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Reserva } from '../models/reserva/reserva';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { StatusReservaEnum } from '../models/reserva/status-reserva.enum';
 import { Aeroporto } from '../models/voo/aeroporto';
 import { Voo } from '../models/voo/voo';
@@ -44,13 +44,24 @@ export class ReservaService {
         params: params
     });
 }
-
+getReservasByClienteId(clienteId: string): Observable<ReservaDTO[]> {
+  console.log('Calling API for clientId:', clienteId);
+  const url = `${this.apiUrl}/reservas/cliente/${clienteId}`;
+  console.log('Request URL:', url);
+  
+  return this.http.get<ReservaDTO[]>(url, this.getHttpOptions()).pipe(
+    tap({
+      next: (response) => console.log('Raw API Response:', response),
+      error: (error) => console.error('API Error:', error)
+    })
+  );
+}
   getReservaById(id: string): Observable<Reserva> {
     return this.http.get<Reserva>(`${this.apiUrl}/reservas/` + id, this.getHttpOptions());
   }
 
-  efetuar(reservaDTO: ReservaDTO): Observable<ReservaDTO> {
-    return this.http.post<ReservaDTO>(`${this.apiUrl}/reservas`, reservaDTO, this.getHttpOptions());
+  efetuar(reservaDTO: ReservaDTO): Observable<Reserva> {
+    return this.http.post<Reserva>(`${this.apiUrl}/reservas`, reservaDTO, this.getHttpOptions());
   }
 
   cancelar(reserva: Reserva): Observable<Reserva> {

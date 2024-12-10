@@ -70,70 +70,92 @@ export class EfetuarReservaComponent implements OnInit {
   }
   
   confirmarReserva() {
-    const clienteId = this.authService.getUser()!.id!;
+    const clienteId = this.authService.getUser()?.id;
+    if (!clienteId || !this.vooSelecionado || !this.vooSelecionado.id || !this.vooSelecionado.codigoVoo ||
+        !this.vooSelecionado.origem?.codigo || !this.vooSelecionado.destino?.codigo) {
+        alert("Dados incompletos para efetuar a reserva");
+        return;
+    }
+
     const codigoReserva = this.gerarCodigoReserva();
-
+  
     const reservaDTO = new ReservaDTO(
-      0,
-      new Date(),
-      this.vooSelecionado!.origem!.id!,  // aeroportoOrigemId
-      this.vooSelecionado!.destino!.id!, // aeroportoDestinoId
-      this.valorTotal,
-      this.milhasUsadas,
-      StatusReservaEnum.PENDENTE,
-      parseInt(this.vooSelecionado!.id!), // vooId
-      parseInt(clienteId),
-      [] // historicoAlteracaoEstado
+        0,
+        new Date(),
+        this.vooSelecionado.origem.codigo,  
+        this.vooSelecionado.destino.codigo, 
+        this.valorTotal,
+        this.milhasUsadas,
+        StatusReservaEnum.PENDENTE,
+        this.vooSelecionado.codigoVoo,
+        codigoReserva,
+        parseInt(this.vooSelecionado.id),
+        parseInt(clienteId),
+        this.quantidadePassagens,              
+        []
     );
-
-    // Update the client's miles balance
-    this.saldoMilhas -= this.milhasUsadas;
-
-    const descricaoTransacao = `${this.vooSelecionado?.origem?.codigo}->${this.vooSelecionado?.destino?.codigo}`;
-    
-    this.clienteService.processarTransacaoMilhas(
-      this.milhasUsadas,
-      'SAIDA',
-      clienteId,
-      descricaoTransacao,
-    ).subscribe({
-      next: () => {
-        console.log("Milhas registradas no extrato.");
-        this.reservaService.efetuar(reservaDTO).subscribe({
-          next: (reservaCriada) => {
-            this.reserva = reservaCriada;
-            alert(`Reserva confirmada! Código da reserva: ${codigoReserva}`);
-            this.router.navigate(['/cliente']);
-          },
-          error: (erro) => {
-            console.error("Erro ao efetuar a reserva: ", erro);
-            alert("Ocorreu um erro ao tentar efetuar a reserva.");
-          }
+  
+    if (this.milhasUsadas > 0) {
+        const descricaoTransacao = `${this.vooSelecionado.origem?.codigo}->${this.vooSelecionado.destino?.codigo}`;
+        
+        this.clienteService.processarTransacaoMilhas(
+            this.milhasUsadas * 5,
+            this.milhasUsadas,
+            'SAIDA',
+            clienteId,
+            descricaoTransacao,
+        ).subscribe({
+            next: () => {
+                console.log("Milhas registradas no extrato.");
+                this.efetuarReserva(reservaDTO, codigoReserva);
+            },
+            error: (erro) => {
+                console.error("Erro ao registrar milhas no extrato:", erro);
+                if (erro.error === "Saldo insuficiente") {
+                    alert("Saldo de milhas insuficiente para realizar esta reserva.");
+                } else {
+                    alert("Ocorreu um erro ao processar as milhas para a reserva.");
+                }
+            }
         });
+    } else {
+        this.efetuarReserva(reservaDTO, codigoReserva);
+    }
+}
+private efetuarReserva(reservaDTO: ReservaDTO, codigoReserva: string): void {
+  this.reservaService.efetuar(reservaDTO).subscribe({
+      next: (reservaCriada) => {
+          this.reserva = reservaCriada;
+          if (this.milhasUsadas > 0) {
+              this.saldoMilhas -= this.milhasUsadas;
+          }
+          alert(`Reserva confirmada! Código da reserva: ${codigoReserva}`);
+          this.router.navigate(['/cliente']);
       },
       error: (erro) => {
-        console.error("Erro ao registrar milhas no extrato:", erro);
-        if (erro.error === "Saldo insuficiente") {
-          alert("Saldo de milhas insuficiente para realizar esta reserva.");
-        } else {
-          alert("Ocorreu um erro ao processar as milhas para a reserva.");
-        }
+          console.error("Erro ao efetuar a reserva: ", erro);
+          if (erro.status === 404) {
+              alert("Serviço de reservas não encontrado. Por favor, tente novamente mais tarde.");
+          } else {
+              alert("Ocorreu um erro ao tentar efetuar a reserva. Por favor, tente novamente.");
+          }
       }
-    });
+  });
+}
+
+gerarCodigoReserva(): string {
+  const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const numeros = '0123456789';
+  let codigo = '';
+
+  for (let i = 0; i < 3; i++) {
+      codigo += letras.charAt(Math.floor(Math.random() * letras.length));
+  }
+  for (let i = 0; i < 3; i++) {
+      codigo += numeros.charAt(Math.floor(Math.random() * numeros.length));
   }
 
-  gerarCodigoReserva(): string {
-    const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const numeros = '0123456789';
-    let codigo = '';
-  
-    for (let i = 0; i < 3; i++) {
-      codigo += letras.charAt(Math.floor(Math.random() * letras.length));
-    }
-    for (let i = 0; i < 3; i++) {
-      codigo += numeros.charAt(Math.floor(Math.random() * numeros.length));
-    }
-  
-    return codigo;
-  }
+  return codigo.toUpperCase();
+}
+
 }
