@@ -109,7 +109,9 @@
 
                         <div class="form-group mb-2">
                             <div *ngIf="f.submitted && isRegistrationFailed" class="alert alert-danger" role="alert">
-                                Falha ao registrar: {{ errorMessage }}
+                                <div *ngFor="let message of errorMessages">
+                                    {{ message }}
+                                </div>
                             </div>
                         </div>
                     </form>

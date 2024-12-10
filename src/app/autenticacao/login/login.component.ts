@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   isLoggedIn = false;
   isLoginFailed = false;
+  isLoading = false;
   errorMessage = '';
   user: Usuario = {};
 
@@ -39,10 +40,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
+      this.isLoading = true; 
       const { email, senha } = this.form;
-
+      
       this.authService.login(email, senha).subscribe({
         next: (user: Cliente | Funcionario | null) => {
+          this.isLoading = false;
           if (user) {
             this.isLoggedIn = true;
             this.isLoginFailed = false;
@@ -53,6 +56,7 @@ export class LoginComponent implements OnInit {
           }
         },
         error: (err) => {
+          this.isLoading = false; 
           let errorMessage = 'Erro ao realizar o login';
           if (err.error?.message) {
             errorMessage = err.error.message;

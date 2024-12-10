@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Endereco } from '../../../shared/models/usuario/endereco';
 import { EstadosBrasil } from '../../../shared/models/voo/estados-brasil';
 import { AuthService } from '../../../shared/services/auth.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { Funcionario } from '../../../shared/models/funcionario';
 import { Autenticacao } from '../../../shared/models/autenticacao';
@@ -18,13 +18,13 @@ export class CadastrarFuncionarioComponent {
     cpf: null,
     email: null,
     password: null,
-    telefone: null, 
+    telefone: null,
     endereco: new Endereco(0, '', '', '', '', '', '')
   };
 
   isRegistered = false;
   isRegistrationFailed = false;
-  errorMessage = '';
+  errorMessages: string[] = [];
   estados = Object.values(EstadosBrasil);
 
   constructor(private authService: AuthService, private http: HttpClient) { }
@@ -40,19 +40,22 @@ export class CadastrarFuncionarioComponent {
             this.form.endereco.cidade = data.localidade;
             this.form.endereco.estado = data.uf;
           } else {
-            this.errorMessage = 'CEP não encontrado';
+            this.errorMessages = ['CEP não encontrado'];
           }
         },
         error: () => {
-          this.errorMessage = 'Erro ao buscar o CEP';
+          this.errorMessages = ['Erro ao buscar o CEP'];
         }
       });
     } else {
-      this.errorMessage = 'CEP inválido';
+      this.errorMessages = ['CEP inválido'];
     }
   }
 
   onSubmit(form: NgForm): void {
+    this.errorMessages = []; // Clear previous errors
+    this.isRegistrationFailed = false;
+
     if (form.valid) {
       const { nome, cpf, email, telefone, endereco } = this.form;
       const password = this.authService.gerarSenha();
@@ -69,11 +72,25 @@ export class CadastrarFuncionarioComponent {
         next: (data: Autenticacao) => {
           this.isRegistered = true;
           this.isRegistrationFailed = false;
+          this.errorMessages = [];
           form.reset();
         },
-        error: err => {
-          this.errorMessage = err.error.message || 'Erro ao registrar';
+        error: (err: HttpErrorResponse) => {
           this.isRegistrationFailed = true;
+          
+          if (err.status === 409 && err.error?.messages) {
+            // Handle conflict errors (multiple messages)
+            this.errorMessages = err.error.messages;
+          } else if (err.status === 408) {
+            // Handle timeout
+            this.errorMessages = ['Tempo de requisição esgotado. Por favor, tente novamente.'];
+          } else if (err.error?.message) {
+            // Handle single error message
+            this.errorMessages = [err.error.message];
+          } else {
+            // Handle unknown errors
+            this.errorMessages = ['Erro ao realizar cadastro. Por favor, tente novamente.'];
+          }
         }
       });
     }

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ReservaDTO } from '../../shared/models/reserva/reservaDTO';
 import { Reserva } from '../../shared/models/reserva/reserva';
 import { AuthService } from '../../shared/services/auth.service';
 import { ReservaService } from '../../shared/services/reserva.service';
@@ -15,10 +16,11 @@ import { Usuario } from '../../shared/models/usuario/usuario';
   styleUrls: ['./dashboard-cliente.component.css']
 })
 export class DashboardClienteComponent implements OnInit, OnDestroy {
-  reservas: Reserva[] = [];
+  reservas: ReservaDTO[] = [];
   e = StatusReservaEnum;
   user: Cliente | null = null;
-  cliente: Cliente | void = {};
+  cliente: Cliente = {};
+  isLoading = false;
   
   private destroy$ = new Subject<void>();
 
@@ -29,27 +31,45 @@ export class DashboardClienteComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
+    this.user = this.authService.getUser();
     
-  this.user = this.authService.getUser();
+    if (this.user?.id) {
+      this.loadClientData(this.user.id);
+    }
+
     this.authService.currentUser
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(user => {
-      this.user = user as Cliente;
-      if (this.user) {
-        this.getReservas();
-      }
-    });
-  this.cliente = this.getUser()
-  console.log(this.user);
-  console.log(this.cliente);
-  
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(user => {
+        this.user = user as Cliente;
+        if (this.user?.id) {
+          this.loadClientData(this.user.id);
+        }
+        this.isLoading = false;
+      });
   }
 
-  getReservas(): void {
-    this.reservaService.getReservas()
+  private loadClientData(userId: string): void {
+    this.authService.getCliente(userId).subscribe({
+      next: (cliente: Cliente) => {
+        console.log("Client data:", cliente);
+        this.cliente = cliente;
+        if (cliente.id) {
+          this.getReservas(cliente.id);
+        }
+      },
+      error: (error) => {
+        console.error("Error fetching client data:", error);
+      }
+    });
+  }
+
+  getReservas(clienteId: string): void {
+    this.reservaService.getReservasByClienteId(clienteId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (reservas: Reserva[]) => {
+        next: (reservas: ReservaDTO[]) => {
+          console.log('Received reservas data:', JSON.stringify(reservas, null, 2));
           this.reservas = reservas;
         },
         error: (error) => {
@@ -57,21 +77,8 @@ export class DashboardClienteComponent implements OnInit, OnDestroy {
         }
       });
   }
-  getUser(): void {
-    if (this.user) {
-      this.authService.getCliente(this.user.id).subscribe(
-        (cliente: Cliente) => {
-          console.log("Client data:", cliente);
-          this.cliente = cliente;
-        },
-        (error) => {
-          console.error("Error fetching client data:", error);
-        }
-      );
-    }
-  }
   
-  cancelarReserva(reserva: Reserva): void {
+  cancelarReserva(reserva: ReservaDTO): void {
     this.router.navigate(['/cliente/cancelar-reserva/' + reserva.id]);
   }
 

@@ -34,10 +34,10 @@ export class ClienteService {
     );
   }
 
-  processarTransacaoMilhas(valorEmReais: number, tipo: 'ENTRADA' | 'SAIDA', clienteId: string, descricao: string): Observable<Milhas> {
+  processarTransacaoMilhas(valorEmReais: number, quantidade: number, tipo: 'ENTRADA' | 'SAIDA', clienteId: string, descricao: string): Observable<Milhas> {
     const milhasDTO = {
-      clienteId: Number(clienteId), // Convert string ID to number
-      quantidade: valorEmReais / 5,
+      clienteId: Number(clienteId), 
+      quantidade: quantidade,
       entradaSaida: tipo,
       valorEmReais: valorEmReais,
       descricao: descricao
