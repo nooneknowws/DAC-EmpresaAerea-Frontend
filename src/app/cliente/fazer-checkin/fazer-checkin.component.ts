@@ -93,6 +93,7 @@ export class FazerCheckinComponent implements OnInit {
           console.log('Check-in successful:', response);
           if (this.cliente.id) {
             this.getReservas(this.cliente.id);
+            alert('Check-in realizado com sucesso!');
           }
         },
         error: (error) => {

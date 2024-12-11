@@ -131,8 +131,23 @@
                 </tbody>
               </table>
 
+              <div *ngIf="isLoading" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" 
+                  style="background-color: rgba(0,0,0,0.5); z-index: 1050;">
+                <div class="spinner-border text-light" role="status" style="width: 3rem; height: 3rem;">
+                  <span class="visually-hidden">Carregando...</span>
+                </div>
+              </div>
+
               <div class="d-grid gap-2 mb-3">
-                <button (click)="confirmarReserva()" class="btn btn-success">Confirmar e Efetuar Pagamento</button>
+                <button (click)="confirmarReserva()" 
+                        class="btn btn-success" 
+                        [disabled]="isLoading">
+                  <span *ngIf="!isLoading">Confirmar e Efetuar Pagamento</span>
+                  <span *ngIf="isLoading">
+                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Processando...
+                  </span>
+                </button>
               </div>
             </div>
           </div>

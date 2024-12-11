@@ -30,6 +30,7 @@ export class EfetuarReservaComponent implements OnInit {
   valorTotal: number = 0;
   valorAPagar: number = 0;
   milhasNecessarias: number = 0;
+  isLoading: boolean = false;
 
   constructor(private reservaService: ReservaService,
               private authService: AuthService,
@@ -68,14 +69,19 @@ export class EfetuarReservaComponent implements OnInit {
   setAeroportos(aeroportoOrigem: Aeroporto | undefined, aeroportoDestino: Aeroporto | undefined) {
     this.aeroportoOrigem = aeroportoOrigem;
     this.aeroportoDestino = aeroportoDestino;
-    
+  
     if (this.aeroportoOrigem && this.aeroportoDestino) {
+      if (this.aeroportoOrigem.codigo === this.aeroportoDestino.codigo) {
+        alert("Não é possível buscar voos entre o mesmo aeroporto.");
+        return;
+      }
+  
       this.reservaService.getVoosFiltrados(aeroportoOrigem!, aeroportoDestino!).subscribe(voosFiltrados => {
         this.voosFiltrados = voosFiltrados;
         this.tabelaVisivel = true;
       });
     }
-  }  
+  } 
 
   selecionarVoo(voo: Voo) {
     this.vooSelecionado = voo;
@@ -116,6 +122,7 @@ export class EfetuarReservaComponent implements OnInit {
   }
   
   confirmarReserva() {
+    this.isLoading = true; 
     const user = this.authService.getUser();
     if (!user?.id || !this.cliente) {
         alert("Usuário não identificado ou dados do cliente não carregados");
@@ -184,22 +191,24 @@ export class EfetuarReservaComponent implements OnInit {
 }
 private efetuarReserva(reservaDTO: ReservaDTO, codigoReserva: string): void {
   this.reservaService.efetuar(reservaDTO).subscribe({
-      next: (reservaCriada) => {
-          this.reserva = reservaCriada;
-          if (this.milhasUsadas > 0) {
-              this.saldoMilhas -= this.milhasUsadas;
-          }
-          alert(`Reserva confirmada!`);
-          this.router.navigate(['/cliente']);
-      },
-      error: (erro) => {
-          console.error("Erro ao efetuar a reserva: ", erro);
-          if (erro.status === 404) {
-              alert("Serviço de reservas não encontrado. Por favor, tente novamente mais tarde.");
-          } else {
-              alert("Ocorreu um erro ao tentar efetuar a reserva. Por favor, tente novamente.");
-          }
+    next: (reservaCriada) => {
+      this.reserva = reservaCriada;
+      if (this.milhasUsadas > 0) {
+        this.saldoMilhas -= this.milhasUsadas;
       }
+      this.isLoading = false;  // Set loading to false on success
+      alert(`Reserva confirmada!`);
+      this.router.navigate(['/cliente']);
+    },
+    error: (erro) => {
+      this.isLoading = false;  // Set loading to false on error
+      console.error("Erro ao efetuar a reserva: ", erro);
+      if (erro.status === 404) {
+        alert("Serviço de reservas não encontrado. Por favor, tente novamente mais tarde.");
+      } else {
+        alert("Ocorreu um erro ao tentar efetuar a reserva. Por favor, tente novamente.");
+      }
+    }
   });
 }
 

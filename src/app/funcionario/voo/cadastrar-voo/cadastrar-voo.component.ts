@@ -16,6 +16,7 @@ export class CadastrarVooComponent implements OnInit {
   aeroportos: Aeroporto[] = [];
   errorMessage: string = '';
   successMessage: string = '';
+  aeroportosCodigos: string[] = [];
 
   constructor(
     private vooService: VooService,
@@ -31,6 +32,7 @@ export class CadastrarVooComponent implements OnInit {
     this.reservaService.getAeroportos().subscribe(
       (aeroportos: Aeroporto[]) => {
         this.aeroportos = aeroportos;
+        this.aeroportosCodigos = aeroportos.map(a => a.codigo!);
       },
       error => {
         this.errorMessage = 'Erro ao carregar os aeroportos!';
@@ -62,6 +64,23 @@ export class CadastrarVooComponent implements OnInit {
     } else {
       this.errorMessage = 'Por favor, preencha todos os campos obrigatórios!';
     }
+  }
+
+  gerarCodigoVoo() {
+    const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let codigoGerado: string;
+    
+    do {
+      let letrasGeradas = '';
+      for (let i = 0; i < 4; i++) {
+        letrasGeradas += letras.charAt(Math.floor(Math.random() * letras.length));
+      }
+      
+      const numerosGerados = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+      codigoGerado = letrasGeradas + numerosGerados;
+    } while (this.aeroportosCodigos.includes(codigoGerado.substring(0, 3)));
+
+    this.novoVoo.codigoVoo = codigoGerado;
   }
 
   validarFormulario(): boolean {

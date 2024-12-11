@@ -9,13 +9,19 @@
 
                     <div class="input-group mb-2">
                         <div class="form-floating w-50">
-                            <input type="text" class="form-control" id="floatingCodigoVoo" placeholder="Código do Voo" name="codigoVoo" [(ngModel)]="novoVoo.codigoVoo" required>
+                            <input type="text" class="form-control" id="floatingCodigoVoo" 
+                                   placeholder="Código do Voo" name="codigoVoo" 
+                                   [(ngModel)]="novoVoo.codigoVoo" required>
                             <label for="floatingCodigoVoo">Código do Voo</label>
                         </div>
-                        <div class="form-floating w-50">
-                            <input type="datetime-local" class="form-control" id="floatingDataHora" placeholder="Data/Hora de Partida" name="dataHora" [(ngModel)]="novoVoo.dataHoraPartida" required>
-                            <label for="floatingDataHora">Data/Hora de Partida</label>
-                        </div>
+                        <button class="btn btn-secondary" type="button" (click)="gerarCodigoVoo()">
+                            Gerar Código
+                        </button>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <input type="datetime-local" class="form-control" id="floatingDataHora" placeholder="Data/Hora de Partida" name="dataHora" [(ngModel)]="novoVoo.dataHoraPartida" required>
+                        <label for="floatingDataHora">Data/Hora de Partida</label>
                     </div>
 
                     <div class="form-floating mb-2">

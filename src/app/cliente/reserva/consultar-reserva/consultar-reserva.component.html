@@ -13,10 +13,7 @@
       </div>
     </div>
   </div>
-
-  <div *ngIf="errorMessage != ''" class="alert alert-danger" role="alert">
-    Reserva não encontrada!
-  </div>
+  
   <div *ngIf="reserva" class="card shadow-sm">
     <div class="card-header-cliente">
         <h5 class="mb-0">Reserva #{{ reserva.id }}</h5>

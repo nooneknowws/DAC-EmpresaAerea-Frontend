@@ -16,6 +16,10 @@ export class VooService {
     return this.http.get<Voo[]>(`${this.apiUrl}/voos`);
   }
 
+  getVoosProximas48Horas(): Observable<Voo[]> {
+    return this.http.get<Voo[]>(`${this.apiUrl}/voos/proximas-48h`);
+  }
+
   getVooById(id: string): Observable<Voo> {
     return this.http.get<Voo>(`${this.apiUrl}/voos/` + id);
   }
