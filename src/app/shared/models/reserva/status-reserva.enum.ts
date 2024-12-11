@@ -4,6 +4,6 @@ export enum StatusReservaEnum {
     CANCELADO = 'Cancelada',
     EMBARCADO = 'Embarcado',
     REALIZADO = 'Realizado',
-	NÃOREALIZADO = 'Não Realizado'
+	NAOREALIZADO = 'Não Realizado'
 }
   

@@ -50,14 +50,14 @@ export class EfetuarReservaComponent implements OnInit {
       console.error('Usuário não identificado');
       return;
     }
-
+  
     this.authService.getCliente(userId).subscribe({
       next: (cliente) => {
-
         this.cliente = cliente;
-        this.saldoMilhas = cliente.saldoMilhas ?? 0;
+        // Ensure saldoMilhas is properly set with a default of 0
+        this.saldoMilhas = cliente?.saldoMilhas || 0;
         console.log('Dados do cliente carregados:', this.cliente);
-        console.log(this.saldoMilhas)
+        console.log('Saldo de milhas:', this.saldoMilhas);
       },
       error: (erro) => {
         console.error('Erro ao carregar dados do cliente:', erro);
@@ -81,10 +81,20 @@ export class EfetuarReservaComponent implements OnInit {
   selecionarVoo(voo: Voo) {
     this.vooSelecionado = voo;
     this.tabelaVisivel = !this.tabelaVisivel;
-    const cliente = this.authService.getUser() as Cliente;
-    this.saldoMilhas = cliente.saldoMilhas!;
-    console.log(voo)
-    console.log(cliente)
+    
+    // Get current client data to ensure up-to-date milhas balance
+    const userId = this.authService.getUser()?.id;
+    if (userId) {
+      this.authService.getCliente(userId).subscribe({
+        next: (cliente) => {
+          this.saldoMilhas = cliente?.saldoMilhas || 0;
+          console.log('Saldo de milhas atualizado:', this.saldoMilhas);
+        },
+        error: (erro) => {
+          console.error('Erro ao atualizar saldo de milhas:', erro);
+        }
+      });
+    }
   }
 
   calcularValorTotal(): void {
@@ -95,9 +105,11 @@ export class EfetuarReservaComponent implements OnInit {
       return;
     }
     this.valorTotal = this.vooSelecionado.valorPassagem * this.quantidadePassagens;
-    this.milhasNecessarias = this.milhasUsadas * 5; 
+    
+    this.milhasNecessarias = this.valorTotal / 5;
+  
     if (this.milhasUsadas > this.saldoMilhas) {
-      alert('Saldo de milhas insuficiente!');
+      alert('Saldo de milhas insuficiente! Você possui ' + this.saldoMilhas + ' milhas.');
       this.milhasUsadas = 0;
       this.valorAPagar = this.valorTotal;
       return;
