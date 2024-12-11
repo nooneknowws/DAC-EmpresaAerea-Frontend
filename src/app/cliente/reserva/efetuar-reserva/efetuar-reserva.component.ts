@@ -54,7 +54,6 @@ export class EfetuarReservaComponent implements OnInit {
     this.authService.getCliente(userId).subscribe({
       next: (cliente) => {
         this.cliente = cliente;
-        // Ensure saldoMilhas is properly set with a default of 0
         this.saldoMilhas = cliente?.saldoMilhas || 0;
         console.log('Dados do cliente carregados:', this.cliente);
         console.log('Saldo de milhas:', this.saldoMilhas);
@@ -81,8 +80,6 @@ export class EfetuarReservaComponent implements OnInit {
   selecionarVoo(voo: Voo) {
     this.vooSelecionado = voo;
     this.tabelaVisivel = !this.tabelaVisivel;
-    
-    // Get current client data to ensure up-to-date milhas balance
     const userId = this.authService.getUser()?.id;
     if (userId) {
       this.authService.getCliente(userId).subscribe({

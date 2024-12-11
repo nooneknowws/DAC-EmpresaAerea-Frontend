@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Funcionario } from '../../shared/models/funcionario';
+import { Funcionario } from '../../shared/models/usuario/funcionario';
 import { Voo } from '../../shared/models/voo/voo';
 import { AuthService } from '../../shared/services/auth.service';
 import { VooService } from '../../shared/services/voo.service';
@@ -69,16 +69,10 @@ export class DashboardFuncionarioComponent implements OnInit, OnDestroy {
 
   cancelarVoo(voo: Voo): void {
     this.router.navigate(['/funcionario/cancelar-voo', voo.codigoVoo]);
-    /*this.vooService.cancelarVoo(voo.id!).subscribe(() => {
-      this.getVoos();
-    });*/
   }
 
   realizarVoo(voo: Voo): void {
     this.router.navigate(['/funcionario/realizar-voo', voo.codigoVoo]);
-    /*this.vooService.realizarVoo(voo.id!).subscribe(() => {
-      this.getVoos();
-    });*/
   }
 
   logout(): void {

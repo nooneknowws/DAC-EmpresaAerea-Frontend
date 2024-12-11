@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { Usuario } from '../../shared/models/usuario/usuario';
-import { Funcionario } from '../../shared/models/funcionario';
+import { Funcionario } from '../../shared/models/usuario/funcionario';
 import { Cliente } from '../../shared/models/cliente/cliente';
 
 @Component({

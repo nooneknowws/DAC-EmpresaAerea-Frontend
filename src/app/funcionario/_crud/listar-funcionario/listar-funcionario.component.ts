@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Funcionario } from '../../../shared/models/funcionario';
+import { Funcionario } from '../../../shared/models/usuario/funcionario';
 import { FuncionarioService } from '../../../shared/services/funcionario.service';
 
 @Component({

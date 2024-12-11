@@ -1,5 +1,4 @@
-import { Usuario } from "./usuario/usuario";
-
+import { Usuario } from "./usuario";
 export class Funcionario extends Usuario {
     constructor(
       public telefone?: string,

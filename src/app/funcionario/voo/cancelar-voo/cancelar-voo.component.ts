@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Funcionario } from '../../../shared/models/funcionario';
+import { Funcionario } from '../../../shared/models/usuario/funcionario';
 import { Voo } from '../../../shared/models/voo/voo';
 import { VooService } from '../../../shared/services/voo.service';
 import { ActivatedRoute } from '@angular/router';
