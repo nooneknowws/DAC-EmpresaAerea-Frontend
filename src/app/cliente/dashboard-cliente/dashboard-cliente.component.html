@@ -1,6 +1,6 @@
 <div *ngIf="user != null; else non_authorized">
   <div class="d-flex justify-content-between mb-3">
-    <h2 class="">Bem-vindo, {{ cliente?.nome }}</h2>
+    <h2 class="cliente">Bem-vindo, {{ cliente.nome }}</h2>
     <button class="btn btn-sm btn-danger" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>
       Logout</button>
   </div>
@@ -42,7 +42,7 @@
     <div class="col-9">
       <div class="card">
         <div class="card-header-cliente">
-          <h5 class="mb-0">Suas Milhas: {{ cliente?.saldoMilhas }}</h5>
+          <h5 class="mb-0">Suas Milhas: {{ cliente.saldoMilhas }}</h5>
         </div>
         <div class="card-body"></div>
       </div>
