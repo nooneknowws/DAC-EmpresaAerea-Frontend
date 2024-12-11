@@ -60,6 +60,7 @@ export class EfetuarReservaComponent implements OnInit {
     const cliente = this.authService.getUser() as Cliente;
     this.saldoMilhas = cliente.saldoMilhas!;
     console.log(voo)
+    console.log(cliente)
   }
 
   calcularValorTotal() {
@@ -82,8 +83,8 @@ export class EfetuarReservaComponent implements OnInit {
     const reservaDTO = new ReservaDTO(
         0,
         new Date(),
-        this.vooSelecionado.origem.codigo,  
-        this.vooSelecionado.destino.codigo, 
+        this.vooSelecionado.origem,  
+        this.vooSelecionado.destino, 
         this.valorTotal,
         this.milhasUsadas,
         StatusReservaEnum.PENDENTE,
@@ -94,6 +95,7 @@ export class EfetuarReservaComponent implements OnInit {
         this.quantidadePassagens,              
         []
     );
+    console.log(reservaDTO)
   
     if (this.milhasUsadas > 0) {
         const descricaoTransacao = `${this.vooSelecionado.origem?.codigo}->${this.vooSelecionado.destino?.codigo}`;

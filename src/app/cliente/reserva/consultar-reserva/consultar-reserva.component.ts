@@ -3,16 +3,18 @@ import { Reserva } from '../../../shared/models/reserva/reserva';
 import { StatusReservaEnum } from '../../../shared/models/reserva/status-reserva.enum';
 import { ReservaService } from '../../../shared/services/reserva.service';
 import { Router } from '@angular/router';
+import { ReservaDTO } from '../../../shared/models/reserva/reservaDTO';
 @Component({
   selector: 'app-consultar-reserva',
   templateUrl: './consultar-reserva.component.html',
   styleUrls: ['./consultar-reserva.component.css']
 })
 export class ConsultarReservaComponent {
-  reserva: Reserva | null = null;
+  reserva: ReservaDTO | null = null;
   codigoReservaInput: string = "";
   e = StatusReservaEnum;
-  errorMessage: string = '';
+  loading: boolean = true;
+  errorMessage: string | null = null;
 
   public constructor(
     private reservaService: ReservaService,
@@ -23,28 +25,27 @@ export class ConsultarReservaComponent {
   }
 
   getReserva(id: string): void {
-    this.reservaService.getReservaById(id).subscribe(
-      (reserva) => {
-        if (reserva) {
-          this.reserva = reserva;
-          this.errorMessage = '';
-        } else {
-          this.reserva = null;
-          this.errorMessage = 'Reserva não encontrada!';
-        }
+    this.loading = true;
+    this.errorMessage = null;
+    
+    this.reservaService.getReservaById(id).subscribe({
+      next: (reserva) => {
+        this.reserva = reserva;
+        this.loading = false;
       },
-      (error) => {
-        this.reserva = null;
-        this.errorMessage = 'Erro ao buscar reserva!';
+      error: (error) => {
+        console.error('Error fetching reserva:', error);
+        this.errorMessage = 'Erro ao carregar detalhes da reserva';
+        this.loading = false;
       }
-    );
+    });
   }
 
   fazerCheckin() {
     this.router.navigate(['/cliente/fazer-checkin'])
   }
 
-  cancelarReserva(reserva: Reserva) {
+  cancelarReserva(reserva: ReservaDTO) {
     this.router.navigate(['cliente/cancelar-reserva/', reserva.id])
   }
 }

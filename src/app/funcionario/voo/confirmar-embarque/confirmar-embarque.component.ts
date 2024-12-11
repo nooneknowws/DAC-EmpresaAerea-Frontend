@@ -5,6 +5,7 @@ import { StatusReservaEnum } from '../../../shared/models/reserva/status-reserva
 import { Voo } from '../../../shared/models/voo/voo';
 import { ReservaService } from '../../../shared/services/reserva.service';
 import { VooService } from '../../../shared/services/voo.service';
+import { ReservaDTO } from '../../../shared/models/reserva/reservaDTO';
 
 @Component({
   selector: 'app-confirmar-embarque',
@@ -14,6 +15,7 @@ import { VooService } from '../../../shared/services/voo.service';
 export class ConfirmarEmbarqueComponent implements OnInit {
   codigoReservaInput: string = '';
   reserva: Reserva | null = null;
+  reserva2: Reserva | null = null;
   voo: Voo | null = null; 
   errorMessage: string = '';
   e = StatusReservaEnum;
@@ -31,7 +33,7 @@ export class ConfirmarEmbarqueComponent implements OnInit {
 
   getReserva(codigoReserva: string) {
     const idReserva = codigoReserva;
-    this.reservaService.getReservaById(idReserva).subscribe(
+    this.reservaService.getReservaByCod(idReserva).subscribe(
       (reserva) => {
         if (reserva.status === 'Pendente') {
           this.reserva = reserva;
@@ -55,8 +57,8 @@ export class ConfirmarEmbarqueComponent implements OnInit {
   }
 
   confirmarEmbarque() {
-    if (this.reserva) {
-      this.reservaService.confirmarEmbarque(this.reserva).subscribe(
+    if (this.reserva2) {
+      this.reservaService.confirmarEmbarque(this.reserva2).subscribe(
         () => {
           alert('Embarque confirmado com sucesso!');
         },

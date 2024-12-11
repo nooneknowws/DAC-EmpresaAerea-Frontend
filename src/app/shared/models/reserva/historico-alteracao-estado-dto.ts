@@ -1,11 +1,13 @@
 export class HistoricoAlteracaoEstadoDTO {
-    id: number;
-    dataHora: Date;
-    status: string;
-  
-    constructor(id: number, dataHora: Date, status: string) {
+  id: number;
+  dataHoraAlteracao: Date;
+  estadoOrigem: string;
+  estadoDestino: string;
+
+  constructor(id: number, dataHoraAlteracao: Date, estadoOrigem: string, estadoDestino: string) {
       this.id = id;
-      this.dataHora = dataHora;
-      this.status = status;
-    }
+      this.dataHoraAlteracao = dataHoraAlteracao;
+      this.estadoOrigem = estadoOrigem;
+      this.estadoDestino = estadoDestino;
   }
+}

@@ -41,20 +41,20 @@
             <tbody>
                 <tr>
                     <td>
-                        <span class="badge bg-secondary text-light">{{ reserva.origem?.codigo }}</span>
-                        {{ reserva.origem?.nome }}
+                        <span class="badge bg-secondary text-light">{{ reserva.aeroportoOrigem.codigo }}</span>
+                        {{ reserva.aeroportoOrigem.nome }}
                     </td>
                     <td>
-                        <span class="badge bg-primary text-light">{{ reserva.destino?.codigo }}</span>
-                        {{ reserva.destino?.nome }}
+                        <span class="badge bg-primary text-light">{{ reserva.aeroportoDestino.codigo }}</span>
+                        {{ reserva.aeroportoDestino.nome }}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        {{ reserva.origem?.cidade }}, {{ reserva.origem?.estado }}, {{ reserva.origem?.pais }}
+                        {{ reserva.aeroportoOrigem.cidade }}, {{ reserva.aeroportoOrigem.estado }}, {{ reserva.aeroportoOrigem.pais }}
                     </td>
                     <td>
-                        {{ reserva.destino?.cidade }}, {{ reserva.destino?.estado }}, {{ reserva.destino?.pais }}
+                        {{ reserva.aeroportoDestino.cidade }}, {{ reserva.aeroportoDestino.estado }}, {{ reserva.aeroportoDestino.pais }}
                     </td>
                 </tr>
             </tbody>

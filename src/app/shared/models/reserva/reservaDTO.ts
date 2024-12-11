@@ -1,11 +1,12 @@
+import { Aeroporto } from "../voo/aeroporto";
 import { HistoricoAlteracaoEstadoDTO } from "./historico-alteracao-estado-dto";
 
 export class ReservaDTO {
 
     id: number;
     dataHora: Date;
-    aeroportoOrigemCod: string;
-    aeroportoDestinoCod: string;
+    aeroportoOrigem: Aeroporto;
+    aeroportoDestino: Aeroporto;
     valor: number;
     milhas: number;
     status: string;
@@ -19,8 +20,8 @@ export class ReservaDTO {
     constructor(
       id: number,
       dataHora: Date,
-      aeroportoOrigemCod: string,
-      aeroportoDestinoCod: string,
+      aeroportoOrigem: Aeroporto,
+      aeroportoDestino: Aeroporto,
       valor: number,
       milhas: number,
       status: string,
@@ -33,8 +34,8 @@ export class ReservaDTO {
     ) {
       this.id = id;
       this.dataHora = dataHora;
-      this.aeroportoOrigemCod = aeroportoOrigemCod;
-      this.aeroportoDestinoCod = aeroportoDestinoCod;
+      this.aeroportoOrigem = aeroportoOrigem;
+      this.aeroportoDestino = aeroportoDestino;
       this.valor = valor;
       this.milhas = milhas;
       this.status = status;

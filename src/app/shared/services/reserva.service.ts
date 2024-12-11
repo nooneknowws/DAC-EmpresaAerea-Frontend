@@ -56,18 +56,47 @@ getReservasByClienteId(clienteId: string): Observable<ReservaDTO[]> {
     })
   );
 }
-  getReservaById(id: string): Observable<Reserva> {
+  getReservaByCod(id: string): Observable<Reserva> {
     return this.http.get<Reserva>(`${this.apiUrl}/reservas/` + id, this.getHttpOptions());
+  }
+  getReservaById(id: string): Observable<ReservaDTO> {
+    const url = `${this.apiUrl}/reservas/${id}`;
+    console.log('Fetching reserva details for ID:', id);
+    
+    return this.http.get<ReservaDTO>(url, this.getHttpOptions()).pipe(
+      tap({
+        next: (response) => console.log('Reserva details received:', response),
+        error: (error) => console.error('Error fetching reserva details:', error)
+      })
+    );
   }
 
   efetuar(reservaDTO: ReservaDTO): Observable<Reserva> {
     return this.http.post<Reserva>(`${this.apiUrl}/reservas`, reservaDTO, this.getHttpOptions());
   }
 
-  cancelar(reserva: Reserva): Observable<Reserva> {
-    reserva.dataHora = new Date().toISOString();
-    reserva.status = StatusReservaEnum.CANCELADO;
-    return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva, this.getHttpOptions());
+  confirmarReserva(id: number): Observable<ReservaDTO> {
+    const url = `${this.apiUrl}/reservas/${id}/confirmar`;
+    console.log('Confirming reservation with ID:', id);
+    
+    return this.http.put<ReservaDTO>(url, {}, this.getHttpOptions()).pipe(
+      tap({
+        next: (response) => console.log('Reservation confirmation response:', response),
+        error: (error) => console.error('Error confirming reservation:', error)
+      })
+    );
+  }
+
+  cancelarReserva(id: number): Observable<ReservaDTO> {
+    const url = `${this.apiUrl}/reservas/${id}/cancelar`;
+    console.log('Canceling reservation with ID:', id);
+    
+    return this.http.put<ReservaDTO>(url, {}, this.getHttpOptions()).pipe(
+      tap({
+        next: (response) => console.log('Reservation cancellation response:', response),
+        error: (error) => console.error('Error canceling reservation:', error)
+      })
+    );
   }
 
   confirmarEmbarque(reserva: Reserva): Observable<Reserva> {
