@@ -12,16 +12,7 @@
     <form (ngSubmit)="comprarMilhas()" class="row">
       <div class="form-group mb-3 col-6">
         <label for="valorEmReais">Valor a comprar (R$):</label>
-        <input 
-          type="number" 
-          class="form-control" 
-          id="valorEmReais" 
-          [(ngModel)]="valorEmReais " 
-          name="valorEmReais" 
-          (input)="calcularMilhas()" 
-          min="0" 
-          required
-        >
+        <input type="number" class="form-control" id="valorEmReais" [(ngModel)]="valorEmReais" name="valorEmReais" (input)="calcularMilhas()" placeholder="R$ 00,00" min="0" [value]="''"  required>
       </div>
 
       <div class="form-group mb-3 col-6">
@@ -36,7 +27,7 @@
       </div>
 
       <div class="d-flex justify-content-center">
-        <button type="submit" class="col-6 mb-5 btn btn-primary">Comprar Milhas</button>
+        <button type="submit" class="col-6 mb-5 btn btn-primary btn-conf">Comprar Milhas</button>
       </div>
     </form>
   </div>

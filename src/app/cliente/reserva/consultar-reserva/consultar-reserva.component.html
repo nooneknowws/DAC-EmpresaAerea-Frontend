@@ -8,12 +8,12 @@
       </div>
       <label for="codigoReserva" class="form-label">Código da reserva:</label>
       <div class="input-group">
-        <input type="text" class="form-control" id="codigoReserva" [(ngModel)]="codigoReservaInput" placeholder="Ex: 1">
-        <button type="button" class="btn btn-primary" (click)="getReserva(codigoReservaInput)">Consultar</button>  
+        <input type="text" class="form-control selectStyle" id="codigoReserva" [(ngModel)]="codigoReservaInput" placeholder="Ex: 1">
+        <button type="button" class="btn btn-primary btn-conf" (click)="getReserva(codigoReservaInput)">Consultar</button>
       </div>
     </div>
   </div>
-  
+
   <div *ngIf="errorMessage != ''" class="alert alert-danger" role="alert">
     Reserva não encontrada!
   </div>
@@ -71,6 +71,6 @@
         <div class="d-flex justify-content-evenly">
             <button class="btn btn-danger col-4" (click)="cancelarReserva(reserva!)">Cancelar Reserva</button>
             <button class="btn btn-success col-4" (click)="fazerCheckin()">Fazer Check-in</button>
-        </div>      
+        </div>
     </div>
 </div>
