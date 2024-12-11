@@ -28,7 +28,7 @@ export class ConsultarReservaComponent {
     this.loading = true;
     this.errorMessage = null;
     
-    this.reservaService.getReservaById(id).subscribe({
+    this.reservaService.getReservaByCod(id).subscribe({
       next: (reserva) => {
         this.reserva = reserva;
         this.loading = false;

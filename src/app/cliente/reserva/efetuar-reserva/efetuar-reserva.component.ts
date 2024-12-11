@@ -189,7 +189,7 @@ private efetuarReserva(reservaDTO: ReservaDTO, codigoReserva: string): void {
           if (this.milhasUsadas > 0) {
               this.saldoMilhas -= this.milhasUsadas;
           }
-          alert(`Reserva confirmada! Código da reserva: ${codigoReserva}`);
+          alert(`Reserva confirmada!`);
           this.router.navigate(['/cliente']);
       },
       error: (erro) => {

@@ -58,29 +58,28 @@ export class FazerCheckinComponent implements OnInit {
   }
 
   getReservas(clienteId: string): void {
-    // First request
+   
     this.reservaService.getReservasByClienteId(clienteId)
       .subscribe({
         next: (reservas: ReservaDTO[]) => {
-          this.reservas = reservas || []; // Ensure it's never undefined
+          this.reservas = reservas || [];
           console.log('All reservas:', this.reservas);
         },
         error: (error) => {
           console.error('Error fetching reservas:', error);
-          this.reservas = []; // Set to empty array on error
+          this.reservas = []; 
         }
       });
 
-    // Second request
     this.reservaService.getProximasReservas(clienteId)
       .subscribe({
         next: (reservas: ReservaDTO[]) => {
-          this.proximasReservas = reservas || []; // Ensure it's never undefined
+          this.proximasReservas = reservas || []; 
           console.log('Próximas reservas:', this.proximasReservas);
         },
         error: (error) => {
           console.error('Error fetching próximas reservas:', error);
-          this.proximasReservas = []; // Set to empty array on error
+          this.proximasReservas = []; 
         }
       });
   }
