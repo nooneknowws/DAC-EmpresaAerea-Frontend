@@ -4,8 +4,8 @@ import { EstadosBrasil } from '../../../shared/models/voo/estados-brasil';
 import { AuthService } from '../../../shared/services/auth.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import { Funcionario } from '../../../shared/models/funcionario';
-import { Autenticacao } from '../../../shared/models/autenticacao';
+import { Funcionario } from '../../../shared/models/usuario/funcionario';
+import { Autenticacao } from '../../../shared/models/auth/autenticacao';
 
 @Component({
   selector: 'app-cadastrar-funcionario',
@@ -53,7 +53,7 @@ export class CadastrarFuncionarioComponent {
   }
 
   onSubmit(form: NgForm): void {
-    this.errorMessages = []; // Clear previous errors
+    this.errorMessages = [];
     this.isRegistrationFailed = false;
 
     if (form.valid) {
@@ -79,16 +79,12 @@ export class CadastrarFuncionarioComponent {
           this.isRegistrationFailed = true;
           
           if (err.status === 409 && err.error?.messages) {
-            // Handle conflict errors (multiple messages)
             this.errorMessages = err.error.messages;
           } else if (err.status === 408) {
-            // Handle timeout
             this.errorMessages = ['Tempo de requisição esgotado. Por favor, tente novamente.'];
           } else if (err.error?.message) {
-            // Handle single error message
             this.errorMessages = [err.error.message];
           } else {
-            // Handle unknown errors
             this.errorMessages = ['Erro ao realizar cadastro. Por favor, tente novamente.'];
           }
         }

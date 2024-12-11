@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { Usuario } from '../../shared/models/usuario/usuario';
-import { Funcionario } from '../../shared/models/funcionario';
+import { Funcionario } from '../../shared/models/usuario/funcionario';
 import { Cliente } from '../../shared/models/cliente/cliente';
 
 @Component({
@@ -56,11 +56,15 @@ export class LoginComponent implements OnInit {
           }
         },
         error: (err) => {
-          this.isLoading = false; 
+          this.isLoading = false;
           let errorMessage = 'Erro ao realizar o login';
-          if (err.error?.message) {
+          
+          if (err.status === 404 && err.error?.message === "Funcionario está INATIVO") {
+            errorMessage = "Funcionario está INATIVO";
+          } else if (err.error?.message) {
             errorMessage = err.error.message;
           }
+          
           this.handleLoginError(errorMessage);
         }
       });

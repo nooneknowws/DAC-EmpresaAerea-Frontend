@@ -3,10 +3,10 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, switchMap, throwError } from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import { AppComponent } from '../../app.component';
-import { Funcionario } from '../models/funcionario';
+import { Funcionario } from '../models/usuario/funcionario';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-import { Autenticacao } from '../models/autenticacao';
+import { Autenticacao } from '../models/auth/autenticacao';
 
 @Injectable({
   providedIn: 'root'

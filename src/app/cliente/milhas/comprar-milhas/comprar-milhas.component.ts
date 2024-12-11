@@ -35,21 +35,25 @@ export class ComprarMilhasComponent implements OnInit {
   }
 
   calcularMilhas(): void {
-    this.milhasCompradas = this.valorEmReais / 5;
+    const valor = parseFloat(this.valorEmReais.toString()) || 0; 
+    this.milhasCompradas = parseFloat((valor / 5).toFixed(2)); 
   }
 
   comprarMilhas(): void {
+    const valor = parseFloat(this.valorEmReais.toString()) || 0;
+    if (valor <= 0) {
+      alert('Por favor, insira um valor válido para a compra.');
+      return;
+    }
+  
+    this.valorEmReais = valor; 
+    this.calcularMilhas();
+  
     if (!this.cliente?.id) {
       alert('Erro: Cliente não identificado.');
       return;
     }
-
-    if (this.valorEmReais <= 0) {
-      alert('Por favor, insira um valor válido para a compra.');
-      return;
-    }
-
-    this.calcularMilhas();
+  
     this.clienteService.processarTransacaoMilhas(
       this.valorEmReais,
       this.milhasCompradas,
@@ -74,7 +78,8 @@ export class ComprarMilhasComponent implements OnInit {
   }
 
   limparFormulario(): void {
-    this.valorEmReais = 0;
-    this.milhasCompradas = 0;
+    this.valorEmReais = 0.0;
+    this.milhasCompradas = 0.0;
   }
+  
 }

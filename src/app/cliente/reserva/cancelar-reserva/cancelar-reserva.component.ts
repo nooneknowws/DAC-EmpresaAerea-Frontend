@@ -6,6 +6,7 @@ import { Cliente } from '../../../shared/models/cliente/cliente';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Reserva } from '../../../shared/models/reserva/reserva';
 import { StatusReservaEnum } from '../../../shared/models/reserva/status-reserva.enum';
+import { ReservaDTO } from '../../../shared/models/reserva/reservaDTO';
 
 @Component({
   selector: 'app-cancelar-reserva',
@@ -14,7 +15,7 @@ import { StatusReservaEnum } from '../../../shared/models/reserva/status-reserva
 })
 export class CancelarReservaComponent {
   user: Cliente | null = null;
-  reserva: Reserva | null = null;
+  reserva: ReservaDTO | null = null;
   loading: boolean = true;
   errorMessage: string | null = null;
   e = StatusReservaEnum;
@@ -35,16 +36,26 @@ export class CancelarReservaComponent {
   }
 
   getReserva(id: string): void {
-    this.reservaService.getReservaById(id).subscribe(reserva => {
-      this.reserva = reserva;
-      this.loading = false;
+    this.loading = true;
+    this.errorMessage = null;
+    
+    this.reservaService.getReservaById(id).subscribe({
+      next: (reserva) => {
+        this.reserva = reserva;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching reserva:', error);
+        this.errorMessage = 'Erro ao carregar detalhes da reserva';
+        this.loading = false;
+      }
     });
   }
 
-  cancelarReserva(reserva: Reserva): void {
+  cancelarReserva(reserva: ReservaDTO): void {
     if (reserva.id !== undefined && reserva.id !== null) {
       if (confirm('Deseja realmente cancelar essa reserva?')) {
-        this.reservaService.cancelar(reserva).subscribe(
+        this.reservaService.cancelarReserva(reserva.id).subscribe(
           () => {
             const reservaAtualizada = Array.isArray(this.reserva) ? this.reserva.find(r => r.id === reserva.id) : null;
             if (reservaAtualizada) reservaAtualizada.status = this.e.CANCELADO;

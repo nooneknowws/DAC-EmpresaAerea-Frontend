@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Funcionario } from '../../../shared/models/funcionario';
+import { Funcionario } from '../../../shared/models/usuario/funcionario';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FuncionarioService } from '../../../shared/services/funcionario.service';
 import { Endereco } from '../../../shared/models/usuario/endereco';

@@ -1,31 +1,36 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable, BehaviorSubject, of, throwError } from 'rxjs';
+import { catchError, map, tap, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../app.component';
 import { Cliente } from '../models/cliente/cliente';
 import { Usuario } from '../models/usuario/usuario';
-import { Funcionario } from '../models/funcionario';
-import { Autenticacao } from '../models/autenticacao';
+import { Funcionario } from '../models/usuario/funcionario';
+import { Autenticacao } from '../models/auth/autenticacao';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
   private apiUrl: string = AppComponent.PUBLIC_BACKEND_URL;
   private readonly TOKEN_KEY = 'auth_token';
+  private readonly REFRESH_TOKEN_KEY = 'refresh_token';
   private readonly USER_KEY = 'current_user';
+  private readonly SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
 
   private currentUserSubject = new BehaviorSubject<Usuario | null>(null);
   public currentUser = this.currentUserSubject.asObservable();
   private token: string | null = null;
+  private refreshToken: string | null = null;
+  private sessionTimer: any;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {
+  constructor(private http: HttpClient, private router: Router) {
     this.initializeServiceState();
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.sessionTimer);
   }
 
   private getHttpOptions(): { headers: HttpHeaders } {
@@ -33,34 +38,43 @@ export class AuthService {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'x-access-token': token
+        'Authorization': `Bearer ${token}`
       })
     };
   }
 
-  setUser(user: Usuario): void {
-    this.currentUserSubject.next(user);
-  }
-  getUser(): Usuario | null {
-    return this.currentUserSubject.value;
-  }
-  
   private initializeServiceState(): void {
     try {
       const storedToken = localStorage.getItem(this.TOKEN_KEY);
+      const storedRefreshToken = localStorage.getItem(this.REFRESH_TOKEN_KEY);
       const storedUser = localStorage.getItem(this.USER_KEY);
 
       if ((!storedToken && storedUser) || (storedToken && !storedUser)) {
         this.clearSession();
       } else if (storedToken && storedUser) {
         this.token = storedToken;
+        this.refreshToken = storedRefreshToken;
         const parsedUser = JSON.parse(storedUser);
         this.currentUserSubject.next(parsedUser);
+        this.startSessionTimer();
       }
     } catch (error) {
       this.clearSession();
     }
   }
+  getUser(): Usuario | null {
+    return this.currentUserSubject.value;
+  }
+  private startSessionTimer(): void {
+    this.sessionTimer = setTimeout(() => {
+      this.refreshAuthToken().subscribe();
+    }, this.SESSION_TIMEOUT);
+  }
+  setUser(user: Usuario): void {
+    this.currentUserSubject.next(user);
+    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+  }
+  
 
   login(email: string, senha: string): Observable<Cliente | Funcionario | null> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, senha }, this.getHttpOptions()).pipe(
@@ -70,23 +84,38 @@ export class AuthService {
           user.id = response.id;
           user.email = response.email;
           user.perfil = response.perfil;
-          this.setSessionData(response.token, user);
+          this.setSessionData(response.token, response.refreshToken, user);
           return user;
         }
         return null;
       }),
-      catchError(error => {
-        console.error('Login failed:', error);
-        return of(null);
-      })
+      catchError(this.handleError)
     );
   }
 
-  private setSessionData(token: string, user: Usuario): void {
+  private setSessionData(token: string, refreshToken: string, user: Usuario): void {
     this.token = token;
+    this.refreshToken = refreshToken;
     localStorage.setItem(this.TOKEN_KEY, token);
+    localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshToken);
     this.currentUserSubject.next(user);
     localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    this.startSessionTimer();
+  }
+
+  public refreshAuthToken(): Observable<any> {
+    if (!this.refreshToken) return throwError(() => new Error('No refresh token available'));
+
+    return this.http.post<any>(`${this.apiUrl}/refresh-token`, { refreshToken: this.refreshToken }, this.getHttpOptions()).pipe(
+      tap(response => {
+        if (response.token) {
+          this.token = response.token;
+          localStorage.setItem(this.TOKEN_KEY, response.token);
+          this.startSessionTimer();
+        }
+      }),
+      catchError(this.handleError)
+    );
   }
 
   isAuthenticated(): boolean {
@@ -94,56 +123,29 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    console.log('Logging out');
-
     if (!this.token) {
       this.clearSession();
       return of(null);
     }
-
-    return this.http.post(`${this.apiUrl}/logout`, {}, this.getHttpOptions()).pipe(
+  
+    return this.http.post(`${this.apiUrl}/logout`, { token: this.token }, this.getHttpOptions()).pipe(
       tap(() => this.clearSession()),
-      catchError(error => {
-        console.error('Logout error:', error);
-        this.clearSession();
-        return of(null);
-      })
+      catchError(this.handleError)
     );
   }
-
-  validarCPF(cpf: string): boolean {
-    cpf = cpf.replace(/[^\d]/g, '');
-
-    if (cpf.length !== 11) return false;
-    if (/^(\d)\1{10}$/.test(cpf)) return false;
-
-    let soma = 0;
-    let resto;
-    for (let i = 1; i <= 9; i++) {
-      soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-    }
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.substring(9, 10))) return false;
-    soma = 0;
-    for (let i = 1; i <= 10; i++) {
-      soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
-    }
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.substring(10, 11))) return false;
-
-    return true;
-  }
   
-  private clearSession(): void {
-    console.log('Clearing session');
 
+  private clearSession(): void {
     this.token = null;
+    this.refreshToken = null;
     this.currentUserSubject.next(null);
     localStorage.clear();
+    clearTimeout(this.sessionTimer);
+  }
 
-    console.log('Session cleared successfully');
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
   getToken(): string | null {
@@ -161,13 +163,12 @@ export class AuthService {
 
   getFuncionario(id: string | undefined): Observable<Funcionario> {
     const idNumber = id ? Number(id) : NaN;
-    if(isNaN(idNumber)) {
+    if (isNaN(idNumber)) {
       throw new Error('Invalid ID');
     }
 
     return this.http.get<Funcionario>(`${this.apiUrl}/funcionarios/${idNumber}`, this.getHttpOptions());
   }
-
 
   getUserRole(): string {
     const currentUser = this.currentUserSubject.value;
@@ -178,7 +179,7 @@ export class AuthService {
     return Math.floor(1000 + Math.random() * 9000).toString();
   }
 
-   registerCliente(cliente: Cliente): Observable<Autenticacao> {
+  registerCliente(cliente: Cliente): Observable<Autenticacao> {
     return this.http.post<Autenticacao>(`${this.apiUrl}/clientes/cadastro`, cliente, this.getHttpOptions());
   }
 

@@ -5,9 +5,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Cliente } from '../../shared/models/cliente/cliente';
 import { Endereco } from '../../shared/models/usuario/endereco';
 import { EstadosBrasil } from '../../shared/models/voo/estados-brasil';
-import { Autenticacao } from '../../shared/models/autenticacao';
+import { Autenticacao } from '../../shared/models/auth/autenticacao';
 import { catchError, timeout } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { ClienteService } from '../../shared/services/cliente.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -34,7 +35,7 @@ export class CadastroComponent {
   isLoadingSubmit = false;
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private http: HttpClient) { }
+  constructor(private authService: AuthService, private http: HttpClient, private clienteService: ClienteService) { }
 
   buscarCep(): void {
     const cep = this.form.endereco.cep.toString().replace(/\D/g, '');
@@ -92,11 +93,11 @@ export class CadastroComponent {
   }
 
   onSubmit(form: NgForm): void {
-    this.errorMessages = []; // Clear previous errors
+    this.errorMessages = []; 
     this.isRegistrationFailed = false;
 
     if (form.valid) {
-      if (!this.authService.validarCPF(this.form.cpf)) {
+      if (!this.clienteService.validarCPF(this.form.cpf)) {
         this.cpfInvalido = true;
         this.errorMessage = 'CPF inválido';
         this.isRegistrationFailed = true;
@@ -131,16 +132,12 @@ export class CadastroComponent {
           this.isRegistered = false;
           
           if (err.status === 409 && err.error?.messages) {
-            // Handle conflict errors (multiple messages)
             this.errorMessages = err.error.messages;
           } else if (err.status === 408) {
-            // Handle timeout
             this.errorMessages = ['Tempo de requisição esgotado. Por favor, tente novamente.'];
           } else if (err.error?.message) {
-            // Handle single error message
             this.errorMessages = [err.error.message];
           } else {
-            // Handle unknown errors
             this.errorMessages = ['Erro ao realizar cadastro. Por favor, tente novamente.'];
           }
         }

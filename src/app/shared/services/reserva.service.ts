@@ -26,8 +26,8 @@ export class ReservaService {
     };
   }
 
-  getReservas(): Observable<Reserva[]> {
-    return this.http.get<Reserva[]>(`${this.apiUrl}/reservas`, this.getHttpOptions());
+  getReservas(): Observable<ReservaDTO[]> {
+    return this.http.get<ReservaDTO[]>(`${this.apiUrl}/reservas`, this.getHttpOptions());
   }
 
   getAeroportos(): Observable<Aeroporto[]>{
@@ -56,22 +56,79 @@ getReservasByClienteId(clienteId: string): Observable<ReservaDTO[]> {
     })
   );
 }
-  getReservaById(id: string): Observable<Reserva> {
-    return this.http.get<Reserva>(`${this.apiUrl}/reservas/` + id, this.getHttpOptions());
+getReservasPorVoo(vooId: string): Observable<ReservaDTO[]> {
+  const url = `${this.apiUrl}/reservas/voo/${vooId}`;
+  console.log('Fetching reservas for flight:', vooId);
+  
+  return this.http.get<ReservaDTO[]>(url, this.getHttpOptions()).pipe(
+    tap({
+      next: (response) => console.log('Flight reservations received:', response),
+      error: (error) => console.error('Error fetching flight reservations:', error)
+    })
+  );
+}
+getReservaByCod(id: string): Observable<ReservaDTO> {
+  return this.http.get<ReservaDTO>(`${this.apiUrl}/reservas/codigo/${id}`, this.getHttpOptions());
+}
+  getReservaById(id: string): Observable<ReservaDTO> {
+    const url = `${this.apiUrl}/reservas/${id}`;
+    console.log('Fetching reserva details for ID:', id);
+    
+    return this.http.get<ReservaDTO>(url, this.getHttpOptions()).pipe(
+      tap({
+        next: (response) => console.log('Reserva details received:', response),
+        error: (error) => console.error('Error fetching reserva details:', error)
+      })
+    );
   }
-
+  getProximasReservas(clienteId: string): Observable<ReservaDTO[]> {
+    const url = `${this.apiUrl}/reservas/cliente/${clienteId}/filter-data`;
+    console.log('Fetching upcoming reservations for client:', clienteId);
+    
+    return this.http.get<ReservaDTO[]>(url, this.getHttpOptions()).pipe(
+      tap({
+        next: (response) => console.log('Upcoming reservations received:', response),
+        error: (error) => console.error('Error fetching upcoming reservations:', error)
+      })
+    );
+  }
   efetuar(reservaDTO: ReservaDTO): Observable<Reserva> {
     return this.http.post<Reserva>(`${this.apiUrl}/reservas`, reservaDTO, this.getHttpOptions());
   }
 
-  cancelar(reserva: Reserva): Observable<Reserva> {
-    reserva.dataHora = new Date().toISOString();
-    reserva.status = StatusReservaEnum.CANCELADO;
-    return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva, this.getHttpOptions());
+  confirmarReserva(id: number): Observable<ReservaDTO> {
+    const url = `${this.apiUrl}/reservas/${id}/checkin`;
+    console.log('Confirming reservation with ID:', id);
+    
+    return this.http.put<ReservaDTO>(url, {}, this.getHttpOptions()).pipe(
+      tap({
+        next: (response) => console.log('Reservation confirmation response:', response),
+        error: (error) => console.error('Error confirming reservation:', error)
+      })
+    );
   }
 
-  confirmarEmbarque(reserva: Reserva): Observable<Reserva> {
-    reserva.status = StatusReservaEnum.EMBARCADO;
-    return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva, this.getHttpOptions());
+  cancelarReserva(id: number): Observable<ReservaDTO> {
+    const url = `${this.apiUrl}/reservas/${id}/cancelar`;
+    console.log('Canceling reservation with ID:', id);
+    
+    return this.http.put<ReservaDTO>(url, {}, this.getHttpOptions()).pipe(
+      tap({
+        next: (response) => console.log('Reservation cancellation response:', response),
+        error: (error) => console.error('Error canceling reservation:', error)
+      })
+    );
+  }
+
+  confirmarEmbarque(id: number): Observable<ReservaDTO> {
+    const url = `${this.apiUrl}/reservas/${id}/embarque`;
+    console.log('Confirming boarding for reservation ID:', id);
+    
+    return this.http.put<ReservaDTO>(url, {}, this.getHttpOptions()).pipe(
+      tap({
+        next: (response) => console.log('Boarding confirmation response:', response),
+        error: (error) => console.error('Error confirming boarding:', error)
+      })
+    );
   }
 }

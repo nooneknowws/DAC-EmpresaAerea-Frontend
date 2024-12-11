@@ -16,6 +16,7 @@ import { ReservaDTO } from '../../../shared/models/reserva/reservaDTO';
   styleUrls: ['./efetuar-reserva.component.css']
 })
 export class EfetuarReservaComponent implements OnInit {
+  cliente: Cliente | null = null;
   aeroportoOrigem?: Aeroporto = undefined;
   aeroportoDestino?: Aeroporto = undefined;
   voosFiltrados: Voo[] = [];
@@ -40,6 +41,28 @@ export class EfetuarReservaComponent implements OnInit {
     this.reservaService.getAeroportos().subscribe(aeroportos => {
       this.aeroportos = aeroportos;
     });
+    this.carregarDadosCliente();
+  }
+  private carregarDadosCliente(): void {
+    const userId = this.authService.getUser()?.id;
+    
+    if (!userId) {
+      console.error('Usuário não identificado');
+      return;
+    }
+  
+    this.authService.getCliente(userId).subscribe({
+      next: (cliente) => {
+        this.cliente = cliente;
+        this.saldoMilhas = cliente?.saldoMilhas || 0;
+        console.log('Dados do cliente carregados:', this.cliente);
+        console.log('Saldo de milhas:', this.saldoMilhas);
+      },
+      error: (erro) => {
+        console.error('Erro ao carregar dados do cliente:', erro);
+        alert('Não foi possível carregar os dados do cliente. Por favor, tente novamente.');
+      }
+    });
   }
 
   setAeroportos(aeroportoOrigem: Aeroporto | undefined, aeroportoDestino: Aeroporto | undefined) {
@@ -57,53 +80,90 @@ export class EfetuarReservaComponent implements OnInit {
   selecionarVoo(voo: Voo) {
     this.vooSelecionado = voo;
     this.tabelaVisivel = !this.tabelaVisivel;
-    const cliente = this.authService.getUser() as Cliente;
-    this.saldoMilhas = cliente.saldoMilhas!;
-    console.log(voo)
+    const userId = this.authService.getUser()?.id;
+    if (userId) {
+      this.authService.getCliente(userId).subscribe({
+        next: (cliente) => {
+          this.saldoMilhas = cliente?.saldoMilhas || 0;
+          console.log('Saldo de milhas atualizado:', this.saldoMilhas);
+        },
+        error: (erro) => {
+          console.error('Erro ao atualizar saldo de milhas:', erro);
+        }
+      });
+    }
   }
 
-  calcularValorTotal() {
-    this.valorTotal = this.vooSelecionado?.valorPassagem! * this.quantidadePassagens;
-    this.milhasNecessarias = this.valorTotal / 10; 
-    const milhasUsadasValidas = Math.min(this.milhasUsadas, this.saldoMilhas, this.milhasNecessarias);
-    this.valorAPagar = this.valorTotal - milhasUsadasValidas * 10; 
+  calcularValorTotal(): void {
+    if (!this.vooSelecionado?.valorPassagem || !this.quantidadePassagens) {
+      this.valorTotal = 0;
+      this.valorAPagar = 0;
+      this.milhasNecessarias = 0;
+      return;
+    }
+    this.valorTotal = this.vooSelecionado.valorPassagem * this.quantidadePassagens;
+    
+    this.milhasNecessarias = this.valorTotal / 5;
+  
+    if (this.milhasUsadas > this.saldoMilhas) {
+      alert('Saldo de milhas insuficiente! Você possui ' + this.saldoMilhas + ' milhas.');
+      this.milhasUsadas = 0;
+      this.valorAPagar = this.valorTotal;
+      return;
+    }
+  
+    this.valorAPagar = this.valorTotal - this.milhasUsadas;
   }
   
   confirmarReserva() {
-    const clienteId = this.authService.getUser()?.id;
-    if (!clienteId || !this.vooSelecionado || !this.vooSelecionado.id || !this.vooSelecionado.codigoVoo ||
-        !this.vooSelecionado.origem?.codigo || !this.vooSelecionado.destino?.codigo) {
+    const user = this.authService.getUser();
+    if (!user?.id || !this.cliente) {
+        alert("Usuário não identificado ou dados do cliente não carregados");
+        return;
+    }
+
+    if (!this.vooSelecionado || !this.cliente.id || !this.cliente.nome || !this.vooSelecionado.id || !this.vooSelecionado.codigoVoo ||
+        !this.vooSelecionado.origem?.codigo || !this.vooSelecionado.destino?.codigo || 
+        !this.vooSelecionado.dataHoraPartida) {
         alert("Dados incompletos para efetuar a reserva");
         return;
     }
 
     const codigoReserva = this.gerarCodigoReserva();
-  
+    const clienteId = parseInt(this.cliente.id.toString());
     const reservaDTO = new ReservaDTO(
         0,
-        new Date(),
-        this.vooSelecionado.origem.codigo,  
-        this.vooSelecionado.destino.codigo, 
+        this.cliente.nome,
+        new Date(),                               
+        this.vooSelecionado.dataHoraPartida,     
+        this.vooSelecionado.origem,  
+        this.vooSelecionado.destino, 
         this.valorTotal,
         this.milhasUsadas,
         StatusReservaEnum.PENDENTE,
         this.vooSelecionado.codigoVoo,
         codigoReserva,
         parseInt(this.vooSelecionado.id),
-        parseInt(clienteId),
+        clienteId,
         this.quantidadePassagens,              
         []
     );
+    console.log(reservaDTO);
   
     if (this.milhasUsadas > 0) {
-        const descricaoTransacao = `${this.vooSelecionado.origem?.codigo}->${this.vooSelecionado.destino?.codigo}`;
+        if (this.milhasUsadas > this.saldoMilhas) {
+            alert("Saldo de milhas insuficiente para realizar esta reserva.");
+            return;
+        }
+
+        const descricaoTransacao = `${this.vooSelecionado.origem.codigo}->${this.vooSelecionado.destino.codigo}`;
         
         this.clienteService.processarTransacaoMilhas(
             this.milhasUsadas * 5,
             this.milhasUsadas,
             'SAIDA',
-            clienteId,
-            descricaoTransacao,
+            user.id,
+            descricaoTransacao
         ).subscribe({
             next: () => {
                 console.log("Milhas registradas no extrato.");
@@ -129,7 +189,7 @@ private efetuarReserva(reservaDTO: ReservaDTO, codigoReserva: string): void {
           if (this.milhasUsadas > 0) {
               this.saldoMilhas -= this.milhasUsadas;
           }
-          alert(`Reserva confirmada! Código da reserva: ${codigoReserva}`);
+          alert(`Reserva confirmada!`);
           this.router.navigate(['/cliente']);
       },
       error: (erro) => {
