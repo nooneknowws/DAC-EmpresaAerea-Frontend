@@ -1,36 +1,48 @@
-  <div *ngIf="reservas.length > 0 else vazioTemplate" class="card shadow-sm">
+<div *ngIf="reservas.length > 0; else vazioTemplate" class="card shadow-sm">
     <div class="card-header-cliente">
         <h5 class="mb-0">Check-in - Seus voos nas próximas 48h</h5>
     </div>
     <div class="card-body">
         <div class="mb-3">
             <small class="text-muted">
-                Aqui você pode realizar o check-in para os voos programados para as próximas 48 horas. Essa etapa confirma sua intenção de viajar e permite que você tenha ciência da data e hora do voo. Selecione o voo desejado para prosseguir com o check-in.
+                Aqui você pode realizar o check-in para os voos programados para as próximas 48 horas. 
+                Essa etapa confirma sua intenção de viajar e permite que você tenha ciência da data e hora do voo. 
+                Selecione o voo desejado para prosseguir com o check-in.
             </small>
         </div>
         <table class="table table-bordered table-hover">
             <thead class="thead-light">
-            <tr>
-                <th>Código</th>
-                <th>Data/Hora</th>
-                <th>Origem</th>
-                <th colspan="2">Destino</th>
-            </tr>
+                <tr>
+                    <th>Código</th>
+                    <th>Data/Hora da Partida</th>
+                    <th>Origem</th>
+                    <th>Destino</th>
+                    <th>Ação</th>
+                </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let reserva of reservas">
-                    <td>{{ reserva.id }}</td>
-                    <td>{{ reserva.dataHora | date:'dd/MM/yyyy HH:mm' }}</td>
+                    <td>{{ reserva.codigoReserva }}</td>
+                    <td>{{ reserva.dataHoraPartida | date:'dd/MM/yyyy HH:mm' }}</td>
                     <td>
-                        <span class="badge bg-secondary">{{ reserva.origem?.codigo }}</span>
-                        {{ reserva.origem?.nome }}
-                        </td>
-                        <td>
-                        <span class="badge bg-primary">{{ reserva.destino?.codigo }}</span>
-                        {{ reserva.destino?.nome }}
+                        <span class="badge bg-secondary">{{ reserva.aeroportoOrigem.codigo }}</span>
+                        {{ reserva.aeroportoOrigem.nome }}
                     </td>
                     <td>
-                        <button class="btn btn-success" onclick="alert('Checkin confirmado com sucesso!')">Realizar Check-in</button>
+                        <span class="badge bg-primary">{{ reserva.aeroportoDestino.codigo }}</span>
+                        {{ reserva.aeroportoDestino.nome }}
+                    </td>
+                    <td>
+                        <button 
+                            *ngIf="reserva.status === 'Pendente'"
+                            class="btn btn-success" 
+                            (click)="realizarCheckin(reserva)"
+                        >
+                            Realizar Check-in
+                        </button>
+                        <span *ngIf="reserva.status !== 'Pendente'" class="text-muted">
+                            Check-in não disponível
+                        </span>
                     </td>
                 </tr>
             </tbody>

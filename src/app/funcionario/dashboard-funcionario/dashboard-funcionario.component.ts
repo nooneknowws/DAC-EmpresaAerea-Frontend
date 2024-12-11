@@ -59,6 +59,7 @@ export class DashboardFuncionarioComponent implements OnInit, OnDestroy {
   getVoos(): void {
     this.vooService.getVoos().subscribe((voos: Voo[]) => {
       this.voos = voos;
+      console.log(voos)
     });
   }
 

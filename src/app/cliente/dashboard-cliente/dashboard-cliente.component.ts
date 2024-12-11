@@ -69,7 +69,6 @@ export class DashboardClienteComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (reservas: ReservaDTO[]) => {
-          console.log('Received reservas data:', JSON.stringify(reservas, null, 2));
           this.reservas = reservas;
         },
         error: (error) => {

@@ -9,6 +9,7 @@ import { Voo } from '../models/voo/voo';
 })
 export class VooService {
   private apiUrl: string = AppComponent.PUBLIC_BACKEND_URL;
+  
   constructor(private http: HttpClient) {}
 
   getVoos(): Observable<Voo[]> {
@@ -19,20 +20,12 @@ export class VooService {
     return this.http.get<Voo>(`${this.apiUrl}/voos/` + id);
   }
 
-  confirmarEmbarque(id: string): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/voos/${id}`, { status: 'Embarcado' });
-  }
-
-  cancelarVoo(id: string): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/voos/${id}`, { status: 'Cancelado' });
-  }
-
-  realizarVoo(id: string): Observable<void> {
+  atualizarStatus(id: string, status: string): Observable<void> {
     return this.http.patch<void>(
       `${this.apiUrl}/voos/${id}/status`,
       null,
-      { 
-        params: { status: 'Realizado' },
+      {
+        params: { status },
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
@@ -40,13 +33,32 @@ export class VooService {
     );
   }
 
+  confirmarEmbarque(id: string): Observable<void> {
+    return this.atualizarStatus(id, 'CONFIRMADO');
+  }
+
+  cancelarVoo(id: string): Observable<void> {
+    return this.http.patch<void>(
+      `${this.apiUrl}/voos/${id}/cancelar`,
+      null,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      }
+    );
+  }
+
+  realizarVoo(id: string): Observable<void> {
+    return this.atualizarStatus(id, 'REALIZADO');
+  }
+
   cadastrarVoo(voo: Voo): Observable<any> {
     return this.http.post(`${this.apiUrl}/voos`, {
       ...voo,
-      status: 'Confirmado',
+      status: 'CONFIRMADO',
       codigoOrigem: voo.origem?.codigo,
       codigoDestino: voo.destino?.codigo
     });
   }
 }
-

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Funcionario } from '../../../shared/models/funcionario';
 import { Voo } from '../../../shared/models/voo/voo';
 import { VooService } from '../../../shared/services/voo.service';
@@ -10,15 +10,18 @@ import { AuthService } from '../../../shared/services/auth.service';
   templateUrl: './realizar-voo.component.html',
   styleUrls: ['./realizar-voo.component.css']
 })
-export class RealizarVooComponent {
+export class RealizarVooComponent implements OnInit {
   user: Funcionario | null = null;
   voo: Voo | null = null;
   codigoVooInput: string = '';
   errorMessage: string = '';
+  loading: boolean = false;
 
-  constructor(private vooService: VooService, 
-              private authService: AuthService,
-              private route: ActivatedRoute) {}
+  constructor(
+    private vooService: VooService,
+    private authService: AuthService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
@@ -29,29 +32,45 @@ export class RealizarVooComponent {
   }
 
   getVoo(codigoVoo: string) {
-    this.vooService.getVoos().subscribe(voos => {
-      const vooEncontrado = voos.find(voo => voo.codigoVoo === codigoVoo);
-      if (vooEncontrado) {
-        this.voo = vooEncontrado;
-        this.errorMessage = '';
-      } else {
-        this.errorMessage = 'Voo não encontrado!';
+    this.loading = true;
+    this.vooService.getVoos().subscribe({
+      next: (voos) => {
+        const vooEncontrado = voos.find(voo => voo.codigoVoo === codigoVoo);
+        if (vooEncontrado) {
+          this.voo = vooEncontrado;
+          this.errorMessage = '';
+        } else {
+          this.errorMessage = 'Voo não encontrado!';
+          this.voo = null;
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao buscar voo:', error);
+        this.errorMessage = 'Erro ao buscar voo. Tente novamente.';
         this.voo = null;
+      },
+      complete: () => {
+        this.loading = false;
       }
     });
   }
 
   realizarVoo() {
-    if (this.voo) {
-      this.vooService.realizarVoo(this.voo.id!).subscribe(
-        () => {
-          alert('Voo realizado com sucesso!');
-          this.voo = null; 
-        },
-        () => {
-          alert('Erro ao realizar o voo!');
-        }
-      );
-    }
+    if (!this.voo || this.loading) return;
+    
+    this.loading = true;
+    this.vooService.realizarVoo(this.voo.id!).subscribe({
+      next: () => {
+        alert('Voo realizado com sucesso!');
+        this.voo = null;
+      },
+      error: (error) => {
+        console.error('Erro ao realizar voo:', error);
+        alert('Erro ao realizar o voo!');
+      },
+      complete: () => {
+        this.loading = false;
+      }
+    });
   }
 }

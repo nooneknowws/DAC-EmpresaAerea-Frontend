@@ -1,8 +1,9 @@
 export enum StatusReservaEnum {
     PENDENTE = 'Pendente',
-    FINALIZADO = 'Finalizada',
+    CONFIRMADO = 'Confirmado',
     CANCELADO = 'Cancelada',
     EMBARCADO = 'Embarcado',
-    CONFIRMADO = 'Confirmado'
+    REALIZADO = 'Realizado',
+	NÃOREALIZADO = 'Não Realizado'
 }
   

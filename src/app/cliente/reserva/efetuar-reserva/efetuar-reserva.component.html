@@ -109,7 +109,7 @@
                 <input id="quantidadePassagens" type="number" class="form-control" [(ngModel)]="quantidadePassagens" (input)="calcularValorTotal()" />
               </div>
               <div class="col-md-6">
-                <label for="milhasUsadas" class="form-label fw-bold">Milhas a serem usadas (Saldo: {{ saldoMilhas }}):</label>
+                <label for="milhasUsadas" class="form-label fw-bold">Milhas a serem usadas (Saldo: {{ saldoMilhas | currency: 'BRL'}}):</label>
                 <input id="milhasUsadas" type="number" class="form-control" [(ngModel)]="milhasUsadas" (input)="calcularValorTotal()" />
               </div>
             </div>

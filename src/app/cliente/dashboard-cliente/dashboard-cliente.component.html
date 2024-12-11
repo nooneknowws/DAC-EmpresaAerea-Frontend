@@ -93,8 +93,8 @@
                   <td>
                     <span class="badge" [ngClass]="{
                                             'bg-secondary': reserva.status === e.PENDENTE,
-                                            'bg-success': reserva.status === e.FINALIZADO,
-                                            'btn-danger': reserva.status === e.CANCELADO,
+                                            'bg-success': reserva.status === e.CONFIRMADO,
+                                            'bg-danger': reserva.status === e.CANCELADO,
                                             'bg-info': reserva.status === e.EMBARCADO
                                           }">
                       {{ reserva.status }}

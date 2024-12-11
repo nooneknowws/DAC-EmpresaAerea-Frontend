@@ -36,6 +36,8 @@ export class DetalheReservaComponent {
         this.loading = false;
       }
     });
+    console.log('Status:', this.reserva?.status);
+    console.log('Enum:', this.e.CANCELADO);
   }
 
   getReserva(id: string): void {
@@ -60,7 +62,7 @@ export class DetalheReservaComponent {
     
     switch (status) {
       case this.e.PENDENTE: return 'text-bg-secondary';
-      case this.e.FINALIZADO: return 'text-bg-success';
+      case this.e.CONFIRMADO: return 'text-bg-success';
       case this.e.CANCELADO: return 'text-bg-danger';
       case this.e.EMBARCADO: return 'text-bg-info';
       default: return 'text-bg-secondary';

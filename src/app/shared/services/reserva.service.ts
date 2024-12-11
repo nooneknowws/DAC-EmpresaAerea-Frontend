@@ -26,8 +26,8 @@ export class ReservaService {
     };
   }
 
-  getReservas(): Observable<Reserva[]> {
-    return this.http.get<Reserva[]>(`${this.apiUrl}/reservas`, this.getHttpOptions());
+  getReservas(): Observable<ReservaDTO[]> {
+    return this.http.get<ReservaDTO[]>(`${this.apiUrl}/reservas`, this.getHttpOptions());
   }
 
   getAeroportos(): Observable<Aeroporto[]>{
@@ -56,9 +56,20 @@ getReservasByClienteId(clienteId: string): Observable<ReservaDTO[]> {
     })
   );
 }
-  getReservaByCod(id: string): Observable<Reserva> {
-    return this.http.get<Reserva>(`${this.apiUrl}/reservas/` + id, this.getHttpOptions());
-  }
+getReservasPorVoo(vooId: string): Observable<ReservaDTO[]> {
+  const url = `${this.apiUrl}/reservas/voo/${vooId}`;
+  console.log('Fetching reservas for flight:', vooId);
+  
+  return this.http.get<ReservaDTO[]>(url, this.getHttpOptions()).pipe(
+    tap({
+      next: (response) => console.log('Flight reservations received:', response),
+      error: (error) => console.error('Error fetching flight reservations:', error)
+    })
+  );
+}
+getReservaByCod(id: string): Observable<ReservaDTO> {
+  return this.http.get<ReservaDTO>(`${this.apiUrl}/reservas/codigo/${id}`, this.getHttpOptions());
+}
   getReservaById(id: string): Observable<ReservaDTO> {
     const url = `${this.apiUrl}/reservas/${id}`;
     console.log('Fetching reserva details for ID:', id);
@@ -76,7 +87,7 @@ getReservasByClienteId(clienteId: string): Observable<ReservaDTO[]> {
   }
 
   confirmarReserva(id: number): Observable<ReservaDTO> {
-    const url = `${this.apiUrl}/reservas/${id}/confirmar`;
+    const url = `${this.apiUrl}/reservas/${id}/checkin`;
     console.log('Confirming reservation with ID:', id);
     
     return this.http.put<ReservaDTO>(url, {}, this.getHttpOptions()).pipe(
@@ -99,8 +110,15 @@ getReservasByClienteId(clienteId: string): Observable<ReservaDTO[]> {
     );
   }
 
-  confirmarEmbarque(reserva: Reserva): Observable<Reserva> {
-    reserva.status = StatusReservaEnum.EMBARCADO;
-    return this.http.put<Reserva>(`${this.apiUrl}/reservas/${reserva.id}`, reserva, this.getHttpOptions());
+  confirmarEmbarque(id: number): Observable<ReservaDTO> {
+    const url = `${this.apiUrl}/reservas/${id}/embarque`;
+    console.log('Confirming boarding for reservation ID:', id);
+    
+    return this.http.put<ReservaDTO>(url, {}, this.getHttpOptions()).pipe(
+      tap({
+        next: (response) => console.log('Boarding confirmation response:', response),
+        error: (error) => console.error('Error confirming boarding:', error)
+      })
+    );
   }
 }

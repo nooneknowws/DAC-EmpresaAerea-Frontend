@@ -4,7 +4,9 @@ import { HistoricoAlteracaoEstadoDTO } from "./historico-alteracao-estado-dto";
 export class ReservaDTO {
 
     id: number;
+    nomeCliente: string;
     dataHora: Date;
+    dataHoraPartida: Date;
     aeroportoOrigem: Aeroporto;
     aeroportoDestino: Aeroporto;
     valor: number;
@@ -19,7 +21,9 @@ export class ReservaDTO {
   
     constructor(
       id: number,
+      nomeCliente: string,
       dataHora: Date,
+      dataHoraPartida: Date,
       aeroportoOrigem: Aeroporto,
       aeroportoDestino: Aeroporto,
       valor: number,
@@ -33,7 +37,9 @@ export class ReservaDTO {
       historicoAlteracaoEstado: HistoricoAlteracaoEstadoDTO[]
     ) {
       this.id = id;
+      this.nomeCliente = nomeCliente;
       this.dataHora = dataHora;
+      this.dataHoraPartida = dataHoraPartida;
       this.aeroportoOrigem = aeroportoOrigem;
       this.aeroportoDestino = aeroportoDestino;
       this.valor = valor;
