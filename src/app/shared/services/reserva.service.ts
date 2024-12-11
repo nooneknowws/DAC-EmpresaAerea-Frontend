@@ -81,7 +81,17 @@ getReservaByCod(id: string): Observable<ReservaDTO> {
       })
     );
   }
-
+  getProximasReservas(clienteId: string): Observable<ReservaDTO[]> {
+    const url = `${this.apiUrl}/reservas/cliente/${clienteId}/filter-data`;
+    console.log('Fetching upcoming reservations for client:', clienteId);
+    
+    return this.http.get<ReservaDTO[]>(url, this.getHttpOptions()).pipe(
+      tap({
+        next: (response) => console.log('Upcoming reservations received:', response),
+        error: (error) => console.error('Error fetching upcoming reservations:', error)
+      })
+    );
+  }
   efetuar(reservaDTO: ReservaDTO): Observable<Reserva> {
     return this.http.post<Reserva>(`${this.apiUrl}/reservas`, reservaDTO, this.getHttpOptions());
   }

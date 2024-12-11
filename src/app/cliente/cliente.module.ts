@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { FazerCheckinComponent } from './fazer-checkin/fazer-checkin.component';
 import { ClienteLayoutComponent } from './cliente-layout/cliente-layout.component';
 import { NavbarClienteComponent } from './navbar-cliente/navbar-cliente.component';
+import { TimeUntilPipe } from '../shared/pipes/TimeUntilPipe';
 
 
 
@@ -26,7 +27,8 @@ import { NavbarClienteComponent } from './navbar-cliente/navbar-cliente.componen
     EfetuarReservaComponent,
     ConsultarReservaComponent,
     FazerCheckinComponent,
-    ClienteLayoutComponent
+    ClienteLayoutComponent,
+    TimeUntilPipe
   ],
   imports: [
     CommonModule,

@@ -56,11 +56,15 @@ export class LoginComponent implements OnInit {
           }
         },
         error: (err) => {
-          this.isLoading = false; 
+          this.isLoading = false;
           let errorMessage = 'Erro ao realizar o login';
-          if (err.error?.message) {
+          
+          if (err.status === 404 && err.error?.message === "Funcionario está INATIVO") {
+            errorMessage = "Funcionario está INATIVO";
+          } else if (err.error?.message) {
             errorMessage = err.error.message;
           }
+          
           this.handleLoginError(errorMessage);
         }
       });

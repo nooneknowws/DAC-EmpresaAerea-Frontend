@@ -23,7 +23,7 @@
         <span class="ms-1 badge"
         [ngClass]="{
           'text-bg-secondary': reserva.status === e.PENDENTE,
-          'text-bg-success': reserva.status === e.FINALIZADO,
+          'text-bg-success': reserva.status === e.CONFIRMADO,
           'text-bg-danger': reserva.status === e.CANCELADO,
           'text-bg-info': reserva.status === e.EMBARCADO
         }">

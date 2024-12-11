@@ -1,5 +1,4 @@
 import { Component, OnInit  } from '@angular/core';
-import { Reserva } from '../../shared/models/reserva/reserva';
 import { AuthService } from '../../shared/services/auth.service';
 import { ReservaService } from '../../shared/services/reserva.service';
 import { Cliente } from '../../shared/models/cliente/cliente';
@@ -14,10 +13,10 @@ import { ReservaDTO } from '../../shared/models/reserva/reservaDTO';
 export class FazerCheckinComponent implements OnInit {
   user: Cliente | null = null;
   reservas: ReservaDTO[] = [];
+  proximasReservas: ReservaDTO[] = []; 
   e = StatusReservaEnum;
   cliente: Cliente = {};
   isLoading = false;
-
 
   constructor(
     private authService: AuthService,
@@ -53,23 +52,42 @@ export class FazerCheckinComponent implements OnInit {
       },
       error: (error) => {
         console.error("Error fetching client data:", error);
+        this.isLoading = false;
       }
     });
   }
 
   getReservas(clienteId: string): void {
+    // First request
     this.reservaService.getReservasByClienteId(clienteId)
       .subscribe({
         next: (reservas: ReservaDTO[]) => {
-          this.reservas = reservas;
+          this.reservas = reservas || []; // Ensure it's never undefined
+          console.log('All reservas:', this.reservas);
         },
         error: (error) => {
           console.error('Error fetching reservas:', error);
+          this.reservas = []; // Set to empty array on error
+        }
+      });
+
+    // Second request
+    this.reservaService.getProximasReservas(clienteId)
+      .subscribe({
+        next: (reservas: ReservaDTO[]) => {
+          this.proximasReservas = reservas || []; // Ensure it's never undefined
+          console.log('Próximas reservas:', this.proximasReservas);
+        },
+        error: (error) => {
+          console.error('Error fetching próximas reservas:', error);
+          this.proximasReservas = []; // Set to empty array on error
         }
       });
   }
 
   realizarCheckin(reserva: ReservaDTO): void {
+    if (!reserva || !reserva.id) return; 
+
     this.reservaService.confirmarReserva(reserva.id)
       .subscribe({
         next: (response) => {
@@ -83,5 +101,31 @@ export class FazerCheckinComponent implements OnInit {
         }
       });
   }
+  private isReservaPendente(reserva: ReservaDTO): boolean {
+    return reserva.status === 'Pendente';
+  }
 
+  private isProximasHoras(dataHora: Date | string): boolean {
+    const dataVoo = typeof dataHora === 'string' ? new Date(dataHora) : dataHora;
+    const agora = new Date();
+    const diferencaHoras = (dataVoo.getTime() - agora.getTime()) / (1000 * 60 * 60);
+    return diferencaHoras >= 0 && diferencaHoras <= 48;
+  }
+
+  get reservasFiltradas(): ReservaDTO[] {
+    return this.reservas
+      .filter(reserva => this.isReservaPendente(reserva))
+      .sort((a, b) => {
+        const dataA = new Date(a.dataHoraPartida).getTime();
+        const dataB = new Date(b.dataHoraPartida).getTime();
+        return dataA - dataB;
+      });
+  }
+
+  get podeRealizarCheckin(): (reserva: ReservaDTO) => boolean {
+    return (reserva: ReservaDTO) => {
+        const dataHoraPartida = new Date(reserva.dataHoraPartida);
+        return this.isProximasHoras(dataHoraPartida);
+    };
+  }
 }

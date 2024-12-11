@@ -77,7 +77,7 @@ export class AuthService {
       }),
       catchError(error => {
         console.error('Login failed:', error);
-        return of(null);
+        throw error;
       })
     );
   }
