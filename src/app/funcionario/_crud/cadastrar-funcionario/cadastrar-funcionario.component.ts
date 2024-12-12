@@ -28,30 +28,6 @@ export class CadastrarFuncionarioComponent {
   estados = Object.values(EstadosBrasil);
 
   constructor(private authService: AuthService, private http: HttpClient) { }
-
-  buscarCep(): void {
-    const cep = this.form.endereco.cep.toString().replace(/\D/g, '');
-    if (cep.length === 8) {
-      this.http.get(`https://viacep.com.br/ws/${cep}/json/`).subscribe({
-        next: (data: any) => {
-          if (!data.erro) {
-            this.form.endereco.logradouro = data.logradouro;
-            this.form.endereco.bairro = data.bairro;
-            this.form.endereco.cidade = data.localidade;
-            this.form.endereco.estado = data.uf;
-          } else {
-            this.errorMessages = ['CEP não encontrado'];
-          }
-        },
-        error: () => {
-          this.errorMessages = ['Erro ao buscar o CEP'];
-        }
-      });
-    } else {
-      this.errorMessages = ['CEP inválido'];
-    }
-  }
-
   onSubmit(form: NgForm): void {
     this.errorMessages = [];
     this.isRegistrationFailed = false;
